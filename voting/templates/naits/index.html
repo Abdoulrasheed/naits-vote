@@ -1,0 +1,76 @@
+{% extends 'naits/base.html' %}
+
+{% block title %} Select office to start voting {% endblock %}
+
+{% block vote_content %}
+
+<div class="container">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-line-chart"></span> OFFICES</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                	{% if latest_poll_list %}
+                	{% for office in latest_poll_list %}
+                    <li class="list-group-item">
+                        <div class="checkbox">
+                            <label>
+                               <a href="{% url 'detail' office.id %}">{{ office.office }}</a>
+                            </label>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <li class="list-group-item">
+                        <div class="checkbox">
+                            <label>
+                                <p>No offices are available.</p>
+                            </label>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        margin-top: 20px;
+    }
+
+    .panel-body:not(.two-col) {
+        padding: 0px;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .glyphicon-new-window {
+        margin-left: 5px;
+    }
+
+    .panel-body .radio, .panel-body .checkbox {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .panel-body .list-group {
+        margin-bottom: 0;
+    }
+
+    .margin-bottom-none {
+        margin-bottom: 0;
+    }
+
+    .panel-body .radio label, .panel-body .checkbox label {
+        display: block;
+    }
+</style>
+{% endblock %}
