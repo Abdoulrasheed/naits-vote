@@ -8,6 +8,4 @@
     <li>{{ aspirants.first_name }} -- {{ aspirants.votes }} vote{{ aspirants.votes|pluralize }}</li>
 {% endfor %}
 </ul>
-
-<a href="{% url 'detail' office.id %}">Vote again?</a>
 {% endblock %}
