@@ -20,5 +20,10 @@ class OfficeAdmin(admin.ModelAdmin):
     list_display = ('office',)
     search_fields = ['office']
 
+
+admin.site.site_header = "NATIONAL ASSOCIATION OF INFORMATION TECHNOLOGY - Online Voting"
+admin.site.site_title = "IT Innovators Group - Mautech"
+admin.site.index_title = "NAIT Election Commitee - Administration"
+
 admin.site.register(Office, OfficeAdmin)
 admin.site.register(Aspirant)
