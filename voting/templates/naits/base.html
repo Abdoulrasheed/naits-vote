@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{% block title %}Naits Online Voting | IT-Innovators{% endblock %}</title>
+    <title> {% block title %} Naits Online Voting | IT-Innovators {% endblock %} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
@@ -20,16 +20,29 @@
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
-              <a class="navbar-brand" href="/polls/">NAITS online Voting | IT-Innovators Group</a>
+              <a class="navbar-brand" href="/"> NAITS online Voting | IT-Innovators </a>
             </div>
-            <div class="collapse navbar-collapse" id="menu">
+            <div class="navbar-collapse" id="menu">
               <ul class="nav navbar-nav navbar-right">
+              	{% if user.is_authenticated %}
                 <li>
-                  <a>{{ request.user }} <small>({{ request.user.first_name }} {{ request.user.last_name }})</small></a>
+                  
                 </li>
+                <li>
+                  <a> Looged in as <b>{{ request.user }}<small> ({{ request.user.first_name }} {{ request.user.last_name }}) </small></b></a>
+              </li>
+                {% else %} 
+                <li>
+                  <a>You must login in order to cast your vote &raquo &raquo</a>
+              </li>
+              </li>
+                  <li>
+                  <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> Login</a>
+                </li>
+                {% endif %}
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
-                  <ul title="@abdulrasheeed1" class="dropdown-menu">
+                  <a href="#" style="float: right;" class="dropdown-toggle fa fa-home" data-toggle="dropdown"><b class="caret"></b></a>
+                  <ul style="float: right;" title="Follow Me and or contribute to the source code" class="dropdown-menu">
                     <li>
                   		<a href="https://twitter.com/abdulrasheeed1">
                   		<small class="fa-stack fa-lg small">
@@ -58,8 +71,36 @@
                 		</a>
               		</li>
                     <li class="divider"></li>
-                    <li><a href="">Log out</a></li>
-
+                    {% if user.is_authenticated %}
+                        <li>
+                  		<a href="https://github.com/abdoulrasheed/">
+                  		<small class="fa-stack fa-lg small">
+                    	<i class="fa fa-circle fa-stack-2x"></i>
+                    	<i class="fa fa fa-lock fa-stack-1x fa-inverse"></i>
+                  		</small>
+                  		Logged in as {{ user.username }}
+                		</a>
+              		</li>
+              		<li>
+                  		<a href="{% url 'logout' %}">
+                  		<small class="fa-stack fa-lg small">
+                    	<i class="fa fa-circle fa-stack-2x"></i>
+                    	<i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
+                  		</small>
+                  		Log out
+                		</a>
+              		</li>
+                    {% else %}
+                    <li>
+                  		<a href="{% url 'login' %}">
+                  		<small class="fa-stack fa-lg small">
+                    	<i class="fa fa-circle fa-stack-2x"></i>
+                    	<i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                  		</small>
+                  		Login
+                		</a>
+              		</li>
+                    {% endif %}
                   </ul>
                 </li>
               </ul>
@@ -67,14 +108,16 @@
           </div>
         </nav>
       </header>
-      <main>
 <div class="page-header">
     <h1>Nait <small>Online Voting</small></h1>
 </div>
+<br>
+<br>
+<br>
+<br>
+
 {% block vote_content %}
 
 {% endblock %}
-</div>
-
 </body>
 </html>

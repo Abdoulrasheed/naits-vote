@@ -1,11 +1,63 @@
 {% extends 'naits/base.html' %}
-
+{% block title %} {{ office.office }}'s results {% endblock %}
 {% block vote_content %}
-<h1>{{ office.office }}</h1>
 
-<ul>
-{% for aspirants in office.aspirant_set.all %}
-    <li>{{ aspirants.first_name }} -- {{ aspirants.votes }} vote{{ aspirants.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+<div class="container">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class=""></span>{{ office.office }}'s Results</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                	{% for aspirants in office.aspirant_set.all %}
+					<div class="panel-footer text-center">
+						<b style="float: left;">{{ aspirants.first_name }} {{ aspirants.last_name }}</b> 
+						<i style="text-align: center;">&raquo</i> 
+						<b style="float: right;">{{ aspirants.votes }} vote{{ aspirants.votes|pluralize }}</b>
+					</div>
+					{% endfor %}
+					</form>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        margin-top: 20px;
+    }
+
+    .panel-body:not(.two-col) {
+        padding: 0px;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .glyphicon-new-window {
+        margin-left: 5px;
+    }
+
+    .panel-body .radio, .panel-body .checkbox {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .panel-body .list-group {
+        margin-bottom: 0;
+    }
+
+    .margin-bottom-none {
+        margin-bottom: 0;
+    }
+
+    .panel-body .radio label, .panel-body .checkbox label {
+        display: block;
+    }
+</style>
 {% endblock %}

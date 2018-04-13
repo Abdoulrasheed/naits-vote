@@ -8,11 +8,18 @@
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-line-chart"></span>{{ office.office }}</h3>
+                <h3 class="panel-title"><span class="fa fa-line-chart"></span> {{ office.office }}</h3>
+                <br>
+                <p>Choose Your {{ office.office }}</p>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
-                	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                	{% if error_message %}
+            <p style="color: red; text-align: center;">
+                <strong>
+                    {{ error_message }} for {{ office }}
+                </strong>
+            </p>{% endif %}
                 	<form action="{% url 'vote' office.id %}" method="post">
 					{% csrf_token %}
 						{% for aspirants in office.aspirant_set.all %}
@@ -22,7 +29,7 @@
     					<input type="radio" name="aspirants" id="aspirants{{ forloop.counter }}" value="{{ aspirants.id }}" />
     					{{ aspirants.first_name }} {{ aspirants.last_name }}
     					{% if aspirants.nick_name %} 
-    					<b style="color: red">A-K-A</b> 
+    					<b style="color: lightblue">A-K-A</b> 
     					{{ aspirants.nick_name}} 
     				{% endif %}</label>
     				</div>

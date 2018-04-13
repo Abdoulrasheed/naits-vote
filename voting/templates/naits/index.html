@@ -10,9 +10,15 @@
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-line-chart"></span> OFFICES</h3>
+                <h3 class="panel-title"><span class="fa fa-line-chart"></span> OFFICES</h3><br>
+                {% if user.is_authenticated %}
+                <p>Click on office below and vote</p>
+                {% else %}
+                <p>You must be logged in to vote!</p>
+                {% endif %}
             </div>
             <div class="panel-body">
+                {% if user.is_authenticated %}
                 <ul class="list-group">
                 	{% if latest_poll_list %}
                 	{% for office in latest_poll_list %}
@@ -33,7 +39,17 @@
                         </div>
                     </li>
                     {% endif %}
+                    {% else %}
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="checkbox">
+                            <label>
+                <a href="{% url 'login' %}" title="You must be logged in to view offices">Login to view offices</a>
+                 </label>
+                        </div>
+                    </li>
                 </ul>
+                {% endif %}
             </div>
         </div>
     </div>

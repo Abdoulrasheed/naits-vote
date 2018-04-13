@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
-
-from .models import Aspirant, Office
+from django.contrib.auth.decorators import login_required
+from .models import Aspirant, Office, Voter
 
 
 class IndexView(generic.ListView):
@@ -24,9 +24,14 @@ class ResultsView(generic.DetailView):
     model = Office
     template_name = 'naits/results.html'
 
-
+@login_required
 def vote(request, poll_id):
     p = get_object_or_404(Office, pk=poll_id)
+    if Voter.objects.filter(office_id=poll_id, student_id=request.user.id).exists():
+        return render(request, 'naits/detail.html', {
+            'office': p, 
+            'error_message': 'sorry! you already voted'
+            })
     try:
         selected_choice = p.aspirant_set.get(pk=request.POST['aspirants'])
     except (KeyError, Aspirant.DoesNotExist):
@@ -38,6 +43,8 @@ def vote(request, poll_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
+        setuser = Voter(student=request.user, office=p)
+        setuser.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
