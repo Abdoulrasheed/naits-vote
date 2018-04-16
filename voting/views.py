@@ -22,7 +22,7 @@ class IndexView(generic.ListView):
         return Office.objects.all()[:5]
 
 
-class DetailView(generic.ListView):
+class DetailView(generic.DetailView):
     model = Office
     template_name = 'naits/detail.html'
 
