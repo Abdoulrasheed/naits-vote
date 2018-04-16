@@ -4,13 +4,18 @@
 {% block title %} {{ request.user }} {% endblock %}
 
 {% block vote_content %}
-  <div class="users">
+  <div style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em" class="users">
 
     <div class="row" style="margin-top: 2em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
       <div class="col-md-3">
       {% include 'account/partial_settings_menu.html' with active='profile' %}
     </div>
-    <h3 style="margin-top: 0; margin-left: 1em "> Profile </h3>
+    <h3 style="margin-top: 0; margin-left: 1em ">
+      {% if student_data == request.user %} 
+      <a>My profile</a>
+      {% else %} 
+      <a>{{ student_data.first_name }}'s Profile</a>
+      {% endif %}</h3>
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">

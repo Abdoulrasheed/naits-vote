@@ -71,7 +71,7 @@ def vote(request, poll_id):
     if Voter.objects.filter(office_id=poll_id, student_id=request.user.id).exists():
         return render(request, 'naits/detail.html', {
             'office': p, 
-            'error_message': 'sorry! you already voted'
+            'error_message': 'You already vote'
             })
     try:
         selected_choice = p.aspirant_set.get(pk=request.POST['aspirants'])
