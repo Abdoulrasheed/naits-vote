@@ -30,15 +30,18 @@
               <ul class="nav navbar-nav navbar-right">
               	{% if user.is_authenticated %}
                 <li>
-                  
-                </li>
-                <li>
-                  <a>{{ request.user }}<small> ({{ request.user.first_name }} {{ request.user.last_name }}) </small></a>
+                  <a>{{ request.user }}<small>
+                    {% if request.user.first_name %}
+                   ({{ request.user.first_name }}
+                   {% endif %}
+                   {% if request.user.last_name %}
+                    {{ request.user.last_name }}) </small>
+                    {% endif %}
+                  </a>
               </li>
                 {% else %} 
                 <li>
-                  <a>You must login in order to cast your vote &raquo &raquo</a>
-              </li>
+                  <a>You must login in order to cast your vote &raquo</a>
               </li>
                   <li>
                   <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> Login</a>
@@ -46,9 +49,8 @@
               </ul>
                 {% endif %}
                 <li class="dropdown">
-                  <a href="#" style="float: right;" class="dropdown-toggle fa fa-home" data-toggle="dropdown"><b class="caret"></b></a>
+                  <a href="#" style="float: right;" class="dropdown-toggle fa fa-bars" data-toggle="dropdown"><b></b></a>
                   <ul style="float: right;" class="dropdown-menu">
-                    <li class="divider"></li>
                     {% if user.is_authenticated %}
                         <li title="{{ user.ID_Number }}">
                   		<a href="{% url 'profile' user.id%}">
@@ -69,6 +71,7 @@
                   		Profile
                 		</a>
               		</li>
+                  {% endif %}
                   <li class="divider"></li>
                    <li title="Follow me on twitter">
                       <a href="https://twitter.com/abdulrasheeed1">
@@ -97,6 +100,7 @@
                       Fork me on Github
                     </a>
                   </li>
+                  {% if user.is_authenticated %}
                   <li class="divider"></li>
                   <li title="logout from naits voting">
                       <a href="{% url 'logout' %}">
@@ -120,13 +124,13 @@
                     {% endif %}
                   </ul>
                 </li>
-              </ul>
             </div>
           </div>
         </nav>
       </header>
 <div style="margin-bottom: 10em" class="page-header">
     <h1>Nait <small>Online Voting</small></h1>
+</div>
 </div>
 {% block vote_content %}
   
