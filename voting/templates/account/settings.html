@@ -1,0 +1,14 @@
+{% extends 'naits/base.html' %}
+{% block title %} Profile | {{ request.user }} {% endblock %}
+
+{% block vote_content %}
+<div class="row" style="margin-top: 2em; margin-left: 2em; margin-right: 2em">
+	<div class="page-header">
+		<h2> Student Area </h2>
+	</div>
+	<div class="col-md-9 list-group">
+  		<a href="{% url 'profile' %}" class="list-group-item{% if active == 'profile' %} active{% endif %}">Profile</a>
+  		<a href="{% url 'change_password' %}" class="list-group-item{% if active == 'assword' %} active{% endif %}">Change Password</a>
+	</div>
+</div>
+{% endblock vote_content %}

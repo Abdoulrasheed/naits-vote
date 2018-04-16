@@ -1,10 +1,17 @@
 #-*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Aspirant, Office, Voter
+from .models import Aspirant, Office, Voter, User
+
+# change password imports
+
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 
 class IndexView(generic.ListView):
@@ -15,7 +22,7 @@ class IndexView(generic.ListView):
         return Office.objects.all()[:5]
 
 
-class DetailView(generic.DetailView):
+class DetailView(generic.ListView):
     model = Office
     template_name = 'naits/detail.html'
 
@@ -23,6 +30,40 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Office
     template_name = 'naits/results.html'
+
+
+@login_required
+def settings(request):
+    return render(request, 'account/settings.html')
+
+@login_required
+def profile(request, pk):
+    student_page = get_object_or_404(User, id=pk)
+    return render(request, 'account/profile.html', {
+    'student_data': student_page
+    })
+
+@login_required
+def students(request):
+    students_list = User.objects.filter(is_active=True).order_by('-level')
+    return render(request, 'naits/students_list.html', {'students': students_list})
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            messages.error(request, 'Please correct the errors below. ')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'account/change_password.html', {
+        'form': form
+        })
 
 @login_required
 def vote(request, poll_id):

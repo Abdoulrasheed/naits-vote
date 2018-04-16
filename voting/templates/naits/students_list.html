@@ -1,0 +1,39 @@
+{% extends 'naits/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Students {% endblock %}
+
+  <link href="{% static 'css/network.css' %}" rel="stylesheet">
+
+{% block vote_content %}
+  <div class="page-header">
+    <h2>Students</h2>
+  </div>
+  <div class="users">
+
+    <div class="row">
+      {% for student in students %}
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <img src="{% static 'img/user.png' %}" style="width:20px">
+              <a href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
+            </div>
+            <div class="panel-body">
+              <p><strong>ID number</strong> {{ student.ID_Number }}</p>
+                <p><strong>Level:</strong> {{ student.level }}</p>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        {% include 'naits/paginator.html' with paginator=users %}
+      </div>
+    </div>
+
+  </div>
+{% endblock vote_content %}

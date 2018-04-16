@@ -16,20 +16,24 @@
 <body>
 
 <div class="container">
-      <header>
+      <header style="margin-bottom: 5em">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <a class="navbar-brand" href="/"> NAITS online Voting | IT-Innovators </a>
             </div>
             <div class="navbar-collapse" id="menu">
+              <ul class="nav navbar-nav">
+                <li><a href="">Discussion</a></li>
+                <li><a href="{% url 'all_students_page' %}">Students</a></li>
+              </ul>
               <ul class="nav navbar-nav navbar-right">
               	{% if user.is_authenticated %}
                 <li>
                   
                 </li>
                 <li>
-                  <a> Looged in as <b>{{ request.user }}<small> ({{ request.user.first_name }} {{ request.user.last_name }}) </small></b></a>
+                  <a>{{ request.user }}<small> ({{ request.user.first_name }} {{ request.user.last_name }}) </small></a>
               </li>
                 {% else %} 
                 <li>
@@ -39,59 +43,72 @@
                   <li>
                   <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> Login</a>
                 </li>
+              </ul>
                 {% endif %}
                 <li class="dropdown">
                   <a href="#" style="float: right;" class="dropdown-toggle fa fa-home" data-toggle="dropdown"><b class="caret"></b></a>
-                  <ul style="float: right;" title="Follow Me and or contribute to the source code" class="dropdown-menu">
-                    <li>
-                  		<a href="https://twitter.com/abdulrasheeed1">
-                  		<small class="fa-stack fa-lg small">
-                   		<i class="fa fa-circle fa-stack-2x"></i>
-                    	<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  		</small>
-                  		Follow me on twiiter
-                		</a>
-             		</li>
-              		<li>
-                  		<a href="https://facebook.com/abdulrasheed.ibrahim.457">
-                  		<small class="fa-stack fa-lg small">
-                    	<i class="fa fa-circle fa-stack-2x"></i>
-                    	<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  		</small>
-                  		Follow me on facebook 
-                		</a>
-              		</li>
-              		<li>
-                  		<a href="https://github.com/abdoulrasheed/">
-                  		<small class="fa-stack fa-lg small">
-                    	<i class="fa fa-circle fa-stack-2x"></i>
-                    	<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                  		</small>
-                  		Fork me on Github
-                		</a>
-              		</li>
+                  <ul style="float: right;" class="dropdown-menu">
                     <li class="divider"></li>
                     {% if user.is_authenticated %}
-                        <li>
-                  		<a href="https://github.com/abdoulrasheed/">
+                        <li title="{{ user.ID_Number }}">
+                  		<a href="{% url 'profile' user.id%}">
                   		<small class="fa-stack fa-lg small">
                     	<i class="fa fa-circle fa-stack-2x"></i>
                     	<i class="fa fa fa-lock fa-stack-1x fa-inverse"></i>
                   		</small>
-                  		Logged in as {{ user.username }}
+                  		{{ user }}
                 		</a>
               		</li>
-              		<li>
-                  		<a href="{% url 'logout' %}">
+              		<li class="divider"></li>
+              		<li title="{{ user }}">
+                  		<a href="{% url 'profile' user.id%}">
                   		<small class="fa-stack fa-lg small">
                     	<i class="fa fa-circle fa-stack-2x"></i>
-                    	<i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
+                    	<i class="fa fa-user fa-stack-1x fa-inverse"></i>
                   		</small>
-                  		Log out
+                  		Profile
                 		</a>
               		</li>
+                  <li class="divider"></li>
+                   <li title="Follow me on twitter">
+                      <a href="https://twitter.com/abdulrasheeed1">
+                      <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </small>
+                      Follow me on twiiter
+                    </a>
+                </li>
+                  <li title="Follow me on facebook">
+                      <a href="https://facebook.com/abdulrasheed.ibrahim.457">
+                      <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                      </small>
+                      Follow me on facebook 
+                    </a>
+                  </li>
+                  <li title="Follow me on github">
+                      <a href="https://github.com/abdoulrasheed/">
+                      <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </small>
+                      Fork me on Github
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li title="logout from naits voting">
+                      <a href="{% url 'logout' %}">
+                      <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
+                      </small>
+                      Log out
+                    </a>
+                  </li>
                     {% else %}
-                    <li>
+                    <li title="login to naits voting">
                   		<a href="{% url 'login' %}">
                   		<small class="fa-stack fa-lg small">
                     	<i class="fa fa-circle fa-stack-2x"></i>
@@ -108,16 +125,11 @@
           </div>
         </nav>
       </header>
-<div class="page-header">
+<div style="margin-bottom: 10em" class="page-header">
     <h1>Nait <small>Online Voting</small></h1>
 </div>
-<br>
-<br>
-<br>
-<br>
-
 {% block vote_content %}
-
+  
 {% endblock %}
 </body>
 </html>

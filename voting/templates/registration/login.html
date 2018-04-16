@@ -1,6 +1,9 @@
 {% extends 'naits/base.html' %}
-{% block title %} office of {{ office.office }} {% endblock %}
+{% block title %} Nait | login {% endblock %}
 {% block vote_content %}
+{% if user.is_authenticated %}
+<a href="{% url 'index' %}">Home</a>
+{% else %}
 
 <div class="container">
     <div class="col-md-4"></div>
@@ -12,12 +15,14 @@
             </div>
             <div class="panel-body">
                 <ul class="list-group">
-                   {% if form.errors %}
-            <p style="color: red; text-align: center;">
-                <strong>
-                   Your username and password didn't match. Please try again.
-                </strong>
-            </p>{% endif %}
+                  {% if form.non_field_errors %}
+      				{% for error in form.non_field_errors %}
+        				<div class="alert alert-danger alert-dismissable">
+         				 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          			{{ error }}
+        		</div>
+      				{% endfor %}
+    			  {% endif %}
                   <form action="{% url 'login' %}" method="post">
           {% csrf_token %}
             <li class="list-group-item">
@@ -79,4 +84,5 @@
         display: block;
     }
 </style>
+{% endif %}
 {% endblock %}

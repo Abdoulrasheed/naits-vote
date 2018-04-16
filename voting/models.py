@@ -38,6 +38,11 @@ class MyUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     ID_Number = models.CharField(max_length=12, unique=True, null=True)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    level = models.PositiveIntegerField(default=0)
+    hall_of_residence = models.CharField(max_length=50, blank=True, null=True)
+
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -51,7 +56,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
+
     USERNAME_FIELD = 'ID_Number'
+
+    REQUIRED_FIELDS = ['level']
+    
     objects = MyUserManager()
 
     def __str__(self):

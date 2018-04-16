@@ -1,7 +1,8 @@
 #-*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import Aspirant, Office, Voter
+from .models import Aspirant, Office, Voter, User as Student
+from django.contrib.auth.models import Group
 
 
 class AspirantInline(admin.TabularInline):
@@ -38,10 +39,15 @@ class AspirantAdmin(admin.ModelAdmin):
     def names(self, obj):
         return obj.first_name + " " + obj.last_name
 
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ('ID_Number','first_name', 'last_name', 'level')
+    readonly_fields = ['password','groups']
+
 admin.site.site_header = "NAITS - Online Voting"
 admin.site.site_title = "IT Innovators Group - Mautech"
-admin.site.index_title = "NAIT Election Commitee - Administration"
+admin.site.index_title = "NAIT Election Commitee | Administration"
 
 admin.site.register(Office, OfficeAdmin)
 admin.site.register(Aspirant, AspirantAdmin)
 admin.site.register(Voter, VoterAdmin)
+admin.site.register(Student, StudentAdmin)
