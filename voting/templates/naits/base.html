@@ -33,9 +33,15 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <li>
-                  <a href="{% url 'profile' user.id %}">{{ request.user }}</a>
-                </li>
+                <li title="{{ user }}">
+                      <a href="{% url 'profile' user.id %}">
+                      <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-1x"></i>
+                      <i class="fa fa-fire fa-stack-1x fa-inverse"></i>
+                      </small>
+                      {{ user }}
+                    </a>
+                  </li>
                  {% else %}
                 <li>
                   <a>You must login in order to cast your vote &raquo</a>

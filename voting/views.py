@@ -6,6 +6,10 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import Aspirant, Office, Voter, User
 
+# students paginator imports
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # change password imports
 
 from django.contrib import messages
@@ -17,10 +21,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 class IndexView(generic.ListView):
     template_name = 'naits/index.html'
     context_object_name = 'latest_poll_list'
+    paginate_by = 2
 
     def get_queryset(self):
         return Office.objects.all()[:5]
-
 
 class DetailView(generic.DetailView):
     model = Office
@@ -33,10 +37,6 @@ class ResultsView(generic.DetailView):
 
 
 @login_required
-def settings(request):
-    return render(request, 'account/settings.html')
-
-@login_required
 def profile(request, pk):
     student_page = get_object_or_404(User, id=pk)
     return render(request, 'account/profile.html', {
@@ -46,7 +46,15 @@ def profile(request, pk):
 @login_required
 def students(request):
     students_list = User.objects.filter(is_active=True).order_by('-level')
-    return render(request, 'naits/students_list.html', {'students': students_list})
+    page = request.GET.get('page', 1)
+    paginator = Paginator(students_list, 10)
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'naits/students_list.html', {'students': students})
 
 
 @login_required
