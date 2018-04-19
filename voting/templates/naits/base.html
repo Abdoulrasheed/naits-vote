@@ -13,8 +13,33 @@
     <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
-<body>
+<body style="background-color: #ECF2F6">
       <header>
+      	<style type="text/css">
+      	.navbar span{
+      		color: #9DA8B6 !important;
+      		}
+      		.navbar{
+      			background-color: #354052;
+      				}
+      		.dropdown-menu{
+      			background-color: #354052;
+      				}
+      		.panel-heading{
+      			 background-color: #354052 !important;
+      			 color: #9DA8B6 !important;
+      			    }
+      		.panel-footer input{
+      			 background-color: #354052 !important;
+      			 color: #9DA8B6 !important;
+      			    }
+      		.active{
+      			background-color: #354052 !important;
+      		}
+      		.panel-heading a{
+      			color: #ffffff;
+      		}
+      		</style>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -24,12 +49,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/"> NAITS online Voting </a>
+              <a class="navbar-brand" href="/"> <span>NAITS online Voting</span> </a>
             </div>
             <div class="collapse navbar-collapse" id="menu">
               <ul class="nav navbar-nav">
-                <li><a href="">Discussion</a></li>
-                <li><a href="{% url 'all_students_page' %}">Students</a></li>
+                <li><a href=""><span>Discussion</span></a></li>
+                <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -39,15 +64,15 @@
                       <i class="fa fa-circle fa-stack-1x"></i>
                       <i class="fa fa-fire fa-stack-1x fa-inverse"></i>
                       </small>
-                      {{ user }}
+                      <span>{{ user }}</span>
                     </a>
                   </li>
                  {% else %}
                 <li>
-                  <a>You must login in order to cast your vote &raquo</a>
+                  <a><span>You must login in order to cast your vote &raquo</span></a>
                 </li>
                 <li>
-                <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> Login</a>
+                <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> <span>Login</span></a>
               </li>
                 {% endif %}
                 <li class="dropdown">
@@ -60,7 +85,7 @@
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
                       </small>
-                      Profile
+                      <span>Profile</span>
                     </a>
                   </li>
                     <li>
@@ -69,7 +94,7 @@
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
                       </small>
-                      Log out
+                      <span>Log out</span>
                     </a>
                     </li>
                     {% if user.is_staff %}
@@ -79,7 +104,7 @@
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
                       </small>
-                      Elcom member
+                      <span>Elcom member</span>
                     </a>
                     </li>
                     {% endif %}
@@ -91,7 +116,7 @@
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                       </small>
-                      Follow me on twitter
+                      <span>Follow me on twitter</span>
                     </a>
                   </li>
                   <li title="follow me on facebook">
@@ -100,7 +125,7 @@
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                       </small>
-                      Follow me on facebook
+                      <span>Follow me on facebook</span>
                     </a>
                   </li>
                   <li title="fork Naits Online voting on github">
@@ -109,7 +134,7 @@
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                       </small>
-                      Follow me on github
+                      <span>Follow me on github</span>
                     </a>
                   </li>
                   <li title="fork Naits Online voting on github">
@@ -118,7 +143,7 @@
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-bullseye fa-stack-1x fa-inverse"></i>
                       </small>
-                      About me
+                      <span>About me</span>
                     </a>
                   </li>
                   </ul>

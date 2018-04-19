@@ -3,16 +3,6 @@
 {% load widget_tweaks %}
 {% block title %} Nait | login {% endblock %}
 {% block vote_content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->  
-    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->  
-    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/main.css' %}">
 {% if user.is_authenticated %}
@@ -20,7 +10,7 @@
 {% else %}
 
 <div class="limiter">
-        <div class="container-login100" style="background-color: white;">
+        <div class="container-login100">
             <div class="wrap-login100 p-t-30 p-b-50">
                 <span class="login100-form-title p-b-41">
                     Login to vote
