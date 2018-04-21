@@ -53,7 +53,7 @@
             </div>
             <div class="collapse navbar-collapse" id="menu">
               <ul class="nav navbar-nav">
-                <li><a href=""><span>Discussion</span></a></li>
+                <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
                 <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -152,8 +152,33 @@
             </div>
           </div>
         </nav>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Nait Online Voting</h4>
+      </div>
+      <div class="modal-body">
+        <p>Sorry! This feature is yet to be released.</p>
+        <p>Wants to contribute and help me get done quikcly ?</p>
+        <p>Source code is <a href="https://github.com/Abdoulrasheed/naits-vote">Here</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a class="btn btn-default" href="mailto:abdulrasheedibrahim47@gmail.com">mail me</a>
+      </div>
+    </div>
+
+  </div>
+</div>
       </header>
       <main>
+
         <div class="container">
           {% block vote_content %}
           {% endblock vote_content %}
