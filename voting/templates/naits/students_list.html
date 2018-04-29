@@ -16,8 +16,12 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">
+              {% if student.profile_picture %}
+              <img src="{{ student.profile_picture.url }}" style="width:25px">
+              {% else %}
               <img src="{% static 'img/user.png' %}" style="width:20px">
-              <a href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
+              {% endif %}
+              <a title="click to view {{ student.ID_Number }} profile" href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
             </div>
             <div class="panel-body">
               <p><strong>ID number</strong> {{ student.ID_Number }}</p>
@@ -36,4 +40,5 @@
     </div>
 
   </div>
+  
 {% endblock vote_content %}

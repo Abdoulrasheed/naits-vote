@@ -1,7 +1,7 @@
 {% if is_paginated %}
   <ul class="pagination">
     {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      <li><a href="?page={{ page_obj.previous_page_number }}">Previous offices</a></li>
     {% else %}
       <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -13,7 +13,7 @@
       {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li><a href="?page={{ page_obj.next_page_number }}">Next offices</a></li>
     {% else %}
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}

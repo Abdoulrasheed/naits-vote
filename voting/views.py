@@ -16,7 +16,8 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-
+#from braces.views import LoginRequiredMixin
+# install braces and decorate IndexView using LoginRequiredMixin as the parameter
 
 class IndexView(generic.ListView):
     template_name = 'naits/index.html'
@@ -29,12 +30,6 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Office
     template_name = 'naits/detail.html'
-
-
-class ResultsView(generic.DetailView):
-    model = Office
-    template_name = 'naits/results.html'
-
 
 @login_required
 def profile(request, pk):
@@ -97,4 +92,4 @@ def vote(request, poll_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('results', args=(p.id,)))
+        return HttpResponseRedirect('/')

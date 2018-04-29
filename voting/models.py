@@ -42,6 +42,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     level = models.PositiveIntegerField(default=0)
     hall_of_residence = models.CharField(max_length=50, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures',
+     blank=True,
+     null=True,
+     help_text="upload your profile picture"
+     )
 
     is_staff = models.BooleanField(
         _('staff status'),
@@ -92,8 +97,10 @@ class Aspirant(models.Model):
 
 
 class Voter(models.Model):
-	student = models.ForeignKey(User)
-	office = models.ForeignKey(Office)
-
-	def __str__(self):
-		return self.student.first_name + " " + self.student.last_name
+    student = models.ForeignKey(User)
+    office = models.ForeignKey(Office)
+    def __str__(self):
+        if self.student.first_name and self.student.last_name:
+            return str(self.student) + " (" + self.student.first_name + " " + self.student.last_name + ")"
+        else:
+            return str(self.student)

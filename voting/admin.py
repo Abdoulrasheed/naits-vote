@@ -45,7 +45,7 @@ class UserAdmin(DjangoUserAdmin):
     """Define admin model for custom User model with ID Number field."""
     fieldsets = (
         (None, {'fields': ('ID_Number', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'level', 'hall_of_residence')}),
+        (_('Profile Details'), {'fields': ('first_name', 'last_name', 'level', 'hall_of_residence', 'profile_picture')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
             'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login',)}),

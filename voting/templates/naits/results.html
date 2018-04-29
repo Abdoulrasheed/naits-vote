@@ -10,6 +10,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><span class=""></span>{{ office.office }}'s Results</h3>
             </div>
+            {% if request.user.is_staff %}
             <div class="panel-body">
                 <ul class="list-group">
                 	{% for aspirants in office.aspirant_set.all %}
@@ -19,9 +20,17 @@
 						<b style="float: right;">{{ aspirants.votes }} vote{{ aspirants.votes|pluralize }}</b>
 					</div>
 					{% endfor %}
-					</form>
                 </ul>
             </div>
+            {% else %}
+            <div class="panel-body">
+                <ul class="list-group">
+                    <div class="panel-footer text-center">
+                        <p>You are not authorized to view results</p>
+                    </div>
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
