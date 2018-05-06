@@ -6,6 +6,9 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import Aspirant, Office, Voter, User
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 # students paginator imports
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,6 +22,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 #from braces.views import LoginRequiredMixin
 # install braces and decorate IndexView using LoginRequiredMixin as the parameter
 
+@method_decorator([login_required], name='dispatch')
 class IndexView(generic.ListView):
     template_name = 'naits/index.html'
     context_object_name = 'latest_poll_list'
@@ -27,6 +31,7 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Office.objects.all()[:5]
 
+@method_decorator([login_required], name='dispatch')
 class DetailView(generic.DetailView):
     model = Office
     template_name = 'naits/detail.html'
