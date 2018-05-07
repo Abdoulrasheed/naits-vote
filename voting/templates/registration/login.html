@@ -1,8 +1,6 @@
-{% extends 'naits/base.html' %}
 {% load staticfiles %}
 {% load widget_tweaks %}
-{% block title %} Nait | login {% endblock %}
-{% block vote_content %}
+<title> Nait | login </title>
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/main.css' %}">
 {% if user.is_authenticated %}
@@ -65,4 +63,3 @@
 <!--===============================================================================================-->
     <script src="{% static 'login_temp/js/main.js' %}"></script>
     {% endif %}
-{% endblock %}
