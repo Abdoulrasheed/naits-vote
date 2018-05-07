@@ -3,6 +3,8 @@
 <title> Nait | login </title>
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
 {% if user.is_authenticated %}
 <a href="{% url 'index' %}">Home</a>
 {% else %}
@@ -19,8 +21,8 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                      {{ error }}
                 </div>
-    {% endfor %}
-                  {% endif %}
+    			{% endfor %}
+                {% endif %}
                 <form action="{% url 'login' %}" method="post" class="login100-form validate-form p-b-33 p-t-5">
                     {% csrf_token %}
 

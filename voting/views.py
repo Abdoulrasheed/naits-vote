@@ -19,8 +19,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-#from braces.views import LoginRequiredMixin
-# install braces and decorate IndexView using LoginRequiredMixin as the parameter
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 @method_decorator([login_required], name='dispatch')
 class IndexView(generic.ListView):
@@ -72,6 +71,13 @@ def change_password(request):
     return render(request, 'account/change_password.html', {
         'form': form
         })
+
+@method_decorator([login_required], name='dispatch')
+class ProfileUpdate(UpdateView):
+    model = User
+    template_name = 'account/User_form.html'
+    fields = ['first_name','last_name','hall_of_residence','profile_picture']
+
 
 @login_required
 def vote(request, poll_id):

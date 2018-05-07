@@ -45,7 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_picture = models.ImageField(upload_to='profile_pictures',
      blank=True,
      null=True,
-     help_text="upload your profile picture"
+     help_text="300 x 200 pixels recommnded",
+     default="no_image/default_user_image.png"
      )
 
     is_staff = models.BooleanField(
@@ -76,6 +77,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.ID_Number
+
+    class Meta:
+        verbose_name = 'photo'
+        verbose_name_plural = 'photos'
 
 class Office(models.Model):
     office = models.CharField(max_length=200)
