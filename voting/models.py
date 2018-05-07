@@ -6,6 +6,8 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 
+from django.core.urlresolvers import reverse
+
 
 class MyUserManager(BaseUserManager):
     """
@@ -78,9 +80,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.ID_Number
 
-    class Meta:
-        verbose_name = 'photo'
-        verbose_name_plural = 'photos'
+    def get_absolute_url(self):
+      return reverse('profile', args=[str(self.id)])
+
 
 class Office(models.Model):
     office = models.CharField(max_length=200)

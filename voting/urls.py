@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^password/$', views.change_password, name='change_password'),
     url(r'^profile/(?P<pk>\d+)/$', views.profile, name='profile'),
     url(r'^students/$', views.students, name='all_students_page'),
-    url(r'^edit/(?P<pk>\d+)/$', views.ProfileUpdate.as_view(success_url='edit_profile'), name="edit_profile"),
+    url(r'^edit/(?P<pk>\d+)/$', views.ProfileUpdate.as_view(), name="edit_profile"),
 ]

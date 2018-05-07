@@ -29,7 +29,11 @@
               <a href="">{{ student_data.ID_Number }}</a>
               {% endif %}
             </div>
+            {% if student_data.profile_picture %}
             <img class="img-responsive"  src="{{ student_data.profile_picture.url }}">
+            {% else %}
+            <img class="img-responsive"  src="{% static 'img/img_avatar.png' %}">
+            {% endif %}
             <div class="panel-body">
               <p class="fa fa-user"><strong> ID number : </strong> {{ student_data }}</p>
               {% if student_data.hall_of_residence %}
