@@ -1,39 +1,54 @@
 {% extends 'naits/base.html' %}
 {% load widget_tweaks %}
-{% block title %} Update Profile  {% endblock %}
+{% block title %} Update Profile  {% endblock %} 
 {% block vote_content %}
-  <div class="row" style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
-  	<div class="col-md-3">
+{% if request.user.id %}
+  
+<div class="row" style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
+	<div class="col-md-3">
       {% include 'account/partial_settings_menu.html' with active='updateprofile' %}
-    </div>	
-    <div class="col-md-9">
-      <p class="bg-info" style="height: 30px"> Edit {{ request.user }}'s details' </p>
-      <form action="" method="post" role="form">
+    </div>
+	<div class="col-md-9">
+		<div class="col-auto">
+			<p class="box fa fa-user"> 
+    			Edit {{ form.first_name.value }}'s information
+			</p>
+			<form action="" method="post" role="form">
     	{% csrf_token %}
-    	<div class="form-group">
-    		<label class="col-sm-2 control-label" for="first_name">Fisrt Name</label>
+    	
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="first_name">Fisrt Name</label>
     {{ form.first_name|append_attr:"class:form-control"|append_attr:"placeholder:First Name"|append_attr:"name:msg"|append_attr:"id:msg" }}
-  		</div>
-  		<div class="form-group">
-    		<label class="col-sm-2 control-label" for="last_name">Last Name</label>
+  		
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="last_name">Last Name</label>
     {{ form.last_name|append_attr:"class:form-control"|append_attr:"placeholder:Last Name"|append_attr:"name:msg"|append_attr:"id:msg" }}
-  		</div>
-  		<div class="form-group">
-    		<label class="col-sm-2 control-label" for="hall_of_residence">Hall Of Residence</label>
+  		
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="hall_of_residence">Hall Of Residence</label>
     {{ form.hall_of_residence|append_attr:"class:form-control"|append_attr:"placeholder:eg Off Camp"|append_attr:"name:msg"|append_attr:"id:msg" }}
-  		</div>
-  		<hr />
-  		<div class="form-group">
+  		
+				</div>
+				<hr />
+				<div class="form-group">
   			{% if request.user.profile_picture %}
-  			<label for="Change">Change photo</label>
+  			
+					<label for="Change">Change photo</label>
   			{% else %}
-  			<label for="Upload">Upload photo</label>
+  			
+					<label for="Upload">Upload photo</label>
   			{% endif %}
     	{{ form.profile_picture|append_attr:"class:form-control"|append_attr:"placeholder:Your name"|append_attr:"name:msg"|append_attr:"id:msg" }}
-  		</div>
-    	<input class="btn btn-primary pull-right" type="submit" value="Save Changes" />
-    	{{ form.profile_picture.help_text }}
-	</form>
-    </div>
-  </div>
+  		
+				</div>
+				<small class="box fa fa-info" style="background-color: transparent !important; margin-bottom: 20px"> {{ form.profile_picture.help_text }}</small>
+				<input class="btn btn-primary pull-right" type="submit" value="Save Changes" />
+			</form>
+		</div>
+	</div>
+  {% else %}
+  No way
+  {% endif %}
 {% endblock vote_content %}

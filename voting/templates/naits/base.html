@@ -1,6 +1,8 @@
 {% load staticfiles %}
 <!DOCTYPE html>
+<html lang="en">
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title> {% block title %} Naits Online Voting | IT-Innovators {% endblock %} </title>
@@ -8,182 +10,158 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
-    <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" />
+    <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}" />
 
     <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
+
 <body style="background-color: #ECF2F6">
-      <header>
-      	<style type="text/css">
-      	.navbar span{
-      		color: #9DA8B6 !important;
-      		}
-      		.navbar{
-      			background-color: #354052;
-      				}
-      		.dropdown-menu{
-      			background-color: #354052;
-      				}
-      		.panel-heading{
-      			 background-color: #354052 !important;
-      			 color: #9DA8B6 !important;
-      			    }
-      		.panel-footer input{
-      			 background-color: #354052 !important;
-      			 color: #9DA8B6 !important;
-      			    }
-      		.active{
-      			background-color: #354052 !important;
-      		}
-      		.panel-heading a{
-      			color: #ffffff;
-      		}
-      		</style>
+    <header>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="/"> <span>NAITS online Voting</span> </a>
-            </div>
-            <div class="collapse navbar-collapse" id="menu">
-              <ul class="nav navbar-nav">
-                <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
-                <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
-                <li title="{{ user }}">
-                      <a href="{% url 'profile' user.id %}">
-                      <small class="fa-stack fa-lg small">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/"> <span>NAITS online Voting</span> </a>
+                </div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
+                        <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li title="{{ user }}">
+                            <a href="{% url 'profile' user.id %}">
+                                <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-1x"></i>
-                      <i class="fa fa-fire fa-stack-1x fa-inverse"></i>
-                      </small>
-                      <span>{{ user }}</span>
-                    </a>
-                  </li>
-                 {% else %}
-                <li>
-                  <a><span>You must login in order to cast your vote &raquo</span></a>
-                </li>
-                <li>
-                <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> <span>Login</span></a>
-              </li>
-                {% endif %}
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    {% if user.is_authenticated %}
-                      <li title="{{ user }}">
-                      <a href="{% url 'profile' user.id %}">
-                      <small class="fa-stack fa-lg small">
-                      <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Profile</span>
-                    </a>
-                  </li>
-                    <li>
-                      <a href="{% url 'logout' %}">
-                      <small class="fa-stack fa-lg small">
+                                <span>{{ user }}</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a><span>You must login in order to cast your vote &raquo</span></a>
+                        </li>
+                        <li>
+                            <a class="fa fa-unlock" href="{% url 'login' %}" title="you must login to vote"> <span>Login</span></a>
+                        </li>
+                        {% endif %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% if user.is_authenticated %}
+                                <li title="{{ user }}">
+                                    <a href="{% url 'profile' user.id %}">
+                                        <small class="fa-stack fa-lg small">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                      </small>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}">
+                                        <small class="fa-stack fa-lg small">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Log out</span>
-                    </a>
-                    </li>
-                    {% if user.is_staff %}
-                     <li>
-                      <a href="/admin/voting">
-                      <small class="fa-stack fa-lg small">
+                                        <span>Log out</span>
+                                    </a>
+                                </li>
+                                {% if user.is_staff %}
+                                <li>
+                                    <a href="/admin/voting">
+                                        <small class="fa-stack fa-lg small">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Elcom member</span>
-                    </a>
-                    </li>
-                    <li class="divider"></li>
-                    {% endif %}
-                    {% endif %}
-                    <li title="follow me on twitter">
-                      <a href="https://www.twitter.com/abdulrasheeed1">
-                      <small class="fa-stack fa-lg small">
+                                        <span>Elcom member</span>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                {% endif %} {% endif %}
+                                <li title="follow me on twitter">
+                                    <a href="https://www.twitter.com/abdulrasheeed1">
+                                        <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Follow me on twitter</span>
-                    </a>
-                  </li>
-                  <li title="follow me on facebook">
-                      <a href="https://www.facebook.com/abdulrasheed.ibrahim.756">
-                      <small class="fa-stack fa-lg small">
+                                        <span>Follow me on twitter</span>
+                                    </a>
+                                </li>
+                                <li title="follow me on facebook">
+                                    <a href="https://www.facebook.com/abdulrasheed.ibrahim.756">
+                                        <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Follow me on facebook</span>
-                    </a>
-                  </li>
-                  <li title="fork Naits Online voting on github">
-                      <a href="https://github.com/Abdoulrasheed/naits-vote">
-                      <small class="fa-stack fa-lg small">
+                                        <span>Follow me on facebook</span>
+                                    </a>
+                                </li>
+                                <li title="fork Naits Online voting on github">
+                                    <a href="https://github.com/Abdoulrasheed/naits-vote">
+                                        <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-github fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>Follow me on github</span>
-                    </a>
-                  </li>
-                  <li title="fork Naits Online voting on github">
-                      <a href="https://about.me/abdoul">
-                      <small class="fa-stack fa-lg small">
+                                        <span>Follow me on github</span>
+                                    </a>
+                                </li>
+                                <li title="fork Naits Online voting on github">
+                                    <a href="https://about.me/abdoul">
+                                        <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-bullseye fa-stack-1x fa-inverse"></i>
                       </small>
-                      <span>About me</span>
-                    </a>
-                  </li>
-                  </ul>
-                </li>
-              </ul>
+                                        <span>About me</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </nav>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Nait Online Voting</h4>
-      </div>
-      <div class="modal-body">
-        <ul>
-        <p class="fa fa-info"> Sorry! This feature is yet to be released.</p>
-        <p class="fa">Wants to contribute and help me get it done quikcly ?</p><br>
-        <p class="fa fa-github"> Fork the project on gihub <a href="https://github.com/Abdoulrasheed/naits-vote">Here</a></p>
-      </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default fa" data-dismiss="modal">Close</button>
-        <a class="btn btn-default fa fa-briefcase" href="mailto:abdulrasheedibrahim47@gmail.com"> mail me</a>
-        <li class="btn btn-default fa fa-phone"><a href="tel: 07033389645"> 07033389645</b></a></li>
-      </div>
-    </div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nait Online Voting</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <p class="fa fa-info"> Sorry! This feature is yet to be released.</p>
+                            <p class="fa">Wants to contribute and help me get it done quikcly ?</p>
+                            <br>
+                            <p class="fa fa-github"> Fork the project on gihub <a href="https://github.com/Abdoulrasheed/naits-vote">Here</a></p>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default fa" data-dismiss="modal">Close</button>
+                        <a class="btn btn-default fa fa-briefcase" href="mailto:abdulrasheedibrahim47@gmail.com"> mail me</a>
+                        <li class="btn btn-default fa fa-phone"><a href="tel: 07033389645"> 07033389645</a></li>
+                    </div>
+                </div>
 
-  </div>
-</div>
-      </header>
-      <main>
+            </div>
+        </div>
+    </header>
+    <main>
 
         <div class="container">
-          {% block vote_content %}
-          {% endblock vote_content %}
+            {% block vote_content %} {% endblock vote_content %}
         </div>
-      </main>
+    </main>

@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_picture = models.ImageField(upload_to='profile_pictures',
      blank=True,
      null=True,
-     help_text="300 x 200 pixels recommnded",
+     help_text="499 x 499 pixels recommnded",
      default="no_image/default_user_image.png"
      )
 

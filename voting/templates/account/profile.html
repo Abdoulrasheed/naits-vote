@@ -1,63 +1,44 @@
-{% extends 'naits/base.html' %}
-{% load staticfiles %}
-
-{% block title %} {{ request.user }} {% endblock %}
-
-{% block vote_content %}
-  <div style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em" class="users">
+{% extends 'naits/base.html' %} {% load staticfiles %} {% block title %} {{ request.user }} {% endblock %} {% block vote_content %}
+<div style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em" class="users">
 
     <div class="row" style="margin-top: 2em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
-      <div class="col-md-3">
-      {% include 'account/partial_settings_menu.html' with active='profile' %}
-    </div>
-    <h3 style="margin-top: 0; margin-left: 1em ">
-      {% if student_data == request.user %} 
-      <small> My profile </small>
-      {% else %} 
-      {% if students_data.first_name %}
-      <small> {{ student_data.first_name }}'s Profile </small>
-      {% else %}
-       <small>{{ student_data.ID_Number }} Profile</small>
-      {% endif %}
-      {% endif %}</h3>
+        <div class="col-md-3">
+            {% include 'account/partial_settings_menu.html' with active='profile' %}
+        </div>
+        <h3 style="margin-top: 0; margin-left: 1em ">
+            {% if student_data == request.user %}
+            <small class="box fa fa-user"> My profile </small> {% else %} {% if students_data.first_name %}
+            <small> {{ student_data.first_name }}'s Profile </small> {% else %}
+            <small>{{ student_data.ID_Number }} Profile</small> {% endif %} {% endif %}</h3>
         <div class="col-md-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">              
-              {% if student_data.first_name %}
-              <a href="">{{ student_data.ID_Number }} ( {{ student_data.first_name }} )</a>
-              {% else %}
-              <a href="">{{ student_data.ID_Number }}</a>
-              {% endif %}
-            </div>
-            {% if student_data.profile_picture %}
-            <img class="img-responsive"  src="{{ student_data.profile_picture.url }}">
-            {% else %}
-            <img class="img-responsive"  src="{% static 'img/img_avatar.png' %}">
-            {% endif %}
-            <div class="panel-body">
-              <p class="fa fa-user"><strong> ID number : </strong> {{ student_data }}</p>
-              {% if student_data.hall_of_residence %}
-                <p class="fa fa-map-marker"><strong> Hall of residence :</strong> {{ student_data.hall_of_residence }}</p>
-              {% endif %}
-              {% if student_data.first_name %}
-                <p class="fa fa-address-book form-control-static"><strong> first name :</strong> {{ student_data.first_name }}</p><br>
-              {% endif %}
-              {% if student_data.last_name %}
-                <p class="fa fa-address-book"><strong> last name :</strong> {{ student_data.last_name }}</p><br>
-              {% endif %}
-                <p class="fa fa-graduation-cap"><strong> level :</strong> {{ student_data.level }}</p><br> 
-              {% if student_data.is_active %}
-                <p class="fa fa-sort"><strong> Authorized to vote: </strong> <span class="fa fa-check"></span> </p>
-              {% endif %}
+            <div class="panel panel-default simple-box">
+                <div class="panel-heading">
+                    {% if student_data.first_name %}
+                    <a href="">{{ student_data.ID_Number }} ( {{ student_data.first_name }} )</a> {% else %}
+                    <a href="">{{ student_data.ID_Number }}</a> {% endif %}
+                </div>
+                {% if student_data.profile_picture %}
+                <img class="img-responsive" src="{{ student_data.profile_picture.url }}"> {% else %}
+                <img class="img-responsive" src="{% static 'img/img_avatar.png' %}"> {% endif %}
+                <div class="panel-body">
+                    <p class="fa fa-user"><strong> ID number : </strong> {{ student_data }}</p>
+                    {% if student_data.hall_of_residence %}
+                    <p class="fa fa-map-marker"><strong> Hall of residence :</strong> {{ student_data.hall_of_residence }}</p>
+                    {% endif %} {% if student_data.first_name %}
+                    <p class="fa fa-address-book form-control-static"><strong> first name :</strong> {{ student_data.first_name }}</p><br> {% endif %} {% if student_data.last_name %}
+                    <p class="fa fa-address-book"><strong> last name :</strong> {{ student_data.last_name }}</p><br> {% endif %}
+                    <p class="fa fa-graduation-cap"><strong> level :</strong> {{ student_data.level }}</p><br> {% if student_data.is_active %}
+                    <p class="fa fa-sort"><strong> Authorized to vote: </strong> <span class="fa fa-check"></span> </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-          </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-      </div>
+        <div class="col-md-12">
+        </div>
     </div>
 
-  </div>
+</div>
 {% endblock vote_content %}
