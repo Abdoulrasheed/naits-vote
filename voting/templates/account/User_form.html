@@ -43,7 +43,8 @@
     	{{ form.profile_picture|append_attr:"class:form-control"|append_attr:"placeholder:Your name"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
 				</div>
-				<small class="box fa fa-info" style="background-color: transparent !important; margin-bottom: 20px"> {{ form.profile_picture.help_text }}</small>
+				<p class="box fa fa-info"> {{ form.profile_picture.help_text }}</p>
+				<br>
 				<input class="btn btn-primary pull-right" type="submit" value="Save Changes" />
 			</form>
 		</div>

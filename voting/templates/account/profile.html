@@ -5,12 +5,13 @@
         <div class="col-md-3">
             {% include 'account/partial_settings_menu.html' with active='profile' %}
         </div>
-        <h3 style="margin-top: 0; margin-left: 1em ">
-            {% if student_data == request.user %}
-            <small class="box fa fa-user"> My profile </small> {% else %} {% if students_data.first_name %}
-            <small> {{ student_data.first_name }}'s Profile </small> {% else %}
-            <small>{{ student_data.ID_Number }} Profile</small> {% endif %} {% endif %}</h3>
         <div class="col-md-4">
+          <h4>
+            {% if student_data == request.user %}
+            <p class="box fa fa-user"> My profile {{ user }}</p> {% else %} {% if students_data.first_name %}
+            <p class="box fa fa-user"> {{ student_data.ID_Number }} ({{ student_data.first_name }}) Profile </p> {% else %}
+            <p class="box fa fa-user"> {{ student_data.ID_Number }} Profile</p> {% endif %} {% endif %}
+          </h4>
             <div class="panel panel-default simple-box">
                 <div class="panel-heading">
                     {% if student_data.first_name %}

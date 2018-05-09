@@ -6,15 +6,16 @@
   <link href="{% static 'css/network.css' %}" rel="stylesheet">
 
 {% block vote_content %}
-  <div style="margin-top: 5em" class="page-header">
-    <h2>Students</h2>
+  <div style="margin-top: 5em;" class="page-header">
+    <br>
+    <h2 class="box"><p class="fa fa-users"></p> Students</h2>
   </div>
   <div class="users">
 
     <div class="row">
       {% for student in students %}
         <div class="col-md-4">
-          <div class="panel panel-default">
+          <div class="panel panel-default simple-box">
             <div class="panel-heading">
               {% if student.profile_picture %}
               <img src="{{ student.profile_picture.url }}" style="width:25px">

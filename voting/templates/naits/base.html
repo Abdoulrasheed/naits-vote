@@ -7,6 +7,8 @@
     <meta charset="utf-8" />
     <title> {% block title %} Naits Online Voting | IT-Innovators {% endblock %} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
@@ -32,6 +34,11 @@
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="nav navbar-nav">
+                        <li>
+                          <a href="#" id="notifications" data-container="body" data-toggle="popover" data-placement="bottom" title="Notifications">
+                          <span class="glyphicon glyphicon-bell"></span>
+                          </a>
+                        </li>
                         <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
                         <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
                     </ul>
@@ -163,5 +170,8 @@
 
         <div class="container">
             {% block vote_content %} {% endblock vote_content %}
+            {% block script %}
+            <script src="{% static 'js/disable_save_image_as.js' %}"></script>
+            {% endblock %}
         </div>
     </main>
