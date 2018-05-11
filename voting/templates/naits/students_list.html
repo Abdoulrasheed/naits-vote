@@ -20,7 +20,7 @@
               {% if student.profile_picture %}
               <img src="{{ student.profile_picture.url }}" style="width:25px">
               {% else %}
-              <img src="{% static 'img/user.png' %}" style="width:20px">
+              <img src="{% static 'img/img_avatar.png' %}" style="width:20px">
               {% endif %}
               <a title="click to view {{ student.ID_Number }} profile" href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
             </div>
