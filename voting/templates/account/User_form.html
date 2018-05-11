@@ -13,7 +13,7 @@
 			<p class="box fa fa-user"> 
     			Edit {{ form.first_name.value }}'s information
 			</p>
-			<form action="" method="post" role="form">
+			<form action="" method="post" role="form" enctype="multipart/form-data">
     	{% csrf_token %}
     	
 				<div class="form-group">
@@ -28,7 +28,7 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="hall_of_residence">Hall Of Residence</label>
-    {{ form.hall_of_residence|append_attr:"class:form-control"|append_attr:"placeholder:eg Off Camp"|append_attr:"name:msg"|append_attr:"id:msg" }}
+    {{ form.hall_of_residence|append_attr:"class:form-control"|append_attr:"placeholder:eg Off Campus"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
 				</div>
 				<hr />
