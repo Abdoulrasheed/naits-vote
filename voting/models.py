@@ -8,6 +8,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.core.urlresolvers import reverse
 
+# rename image while upload
+import os
+from uuid import uuid4
 
 class MyUserManager(BaseUserManager):
     """
@@ -37,6 +40,20 @@ class MyUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self._create_user(ID_Number, password, **extra_fields)
 
+# rename uploaded images
+def path_and_rename(instance, filename):
+    upload_to = 'profile_pictures'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.pk, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+        filename.lower()
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     ID_Number = models.CharField(max_length=12, unique=True, null=True)
@@ -44,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     level = models.PositiveIntegerField(default=0)
     hall_of_residence = models.CharField(max_length=50, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures',
+    profile_picture = models.ImageField(upload_to=path_and_rename,
      blank=True,
      null=True,
      help_text="499 x 499 pixels recommnded",
