@@ -9,7 +9,11 @@
 {% if user.is_authenticated %}
 <a href="{% url 'index' %}">Home</a>
 {% else %}
-
+<style type="text/css">
+    body {
+  overflow-y:hidden;
+}
+</style>
 <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100 p-t-30 p-b-50">
