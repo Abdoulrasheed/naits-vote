@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
      blank=True,
      null=True,
      help_text="499 x 499 pixels recommnded",
-     default="no_image/default_user_image.png"
+     default = "no_image/default_user_image.png",
      )
 
     is_staff = models.BooleanField(
