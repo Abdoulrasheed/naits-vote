@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 # rename image while upload
-import os, binascii
+import os, codecs
 from uuid import uuid4
 
 class MyUserManager(BaseUserManager):
@@ -46,9 +46,9 @@ def path_and_rename(instance, filename):
     ext = filename.split('.')[-1]
     # get filename
     if instance.pk:
-        ranNumber = binascii.b2a_hex(os.urandom(5))
+        num_digits = 10
         # generate random number and append it to student ID_Number
-        ins = instance.ID_Number + "-"+ ranNumber
+        ins = instance.ID_Number + "-"+ codecs.encode(os.urandom(num_digits / 2), 'hex').decode()
         filename = '{}.{}'.format(ins, ext)
     else:
         # set profile_picture name as random string
