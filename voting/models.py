@@ -49,7 +49,7 @@ def path_and_rename(instance, filename):
         num_digits = 10
         # generate random number and append it to student ID_Number
         ins = instance.ID_Number + "-"+ codecs.encode(os.urandom(num_digits / 2), 'hex').decode()
-        filename = '{}.{}'.format(ins, ext)
+        filename = '{}.{}'.format(str(ins), ext)
     else:
         # set profile_picture name as random string
         filename = '{}.{}'.format(uuid4().hex, ext)
