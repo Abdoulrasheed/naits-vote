@@ -70,6 +70,8 @@ class User(AbstractBaseUser, PermissionsMixin):
      help_text="499 x 499 pixels recommnded",
      default = "no_image/default_user_image.png",
      )
+    updated_at = models.DateTimeField(auto_now_add=True)
+    is_updated = models.BooleanField(default=False)
 
     is_staff = models.BooleanField(
         _('staff status'),

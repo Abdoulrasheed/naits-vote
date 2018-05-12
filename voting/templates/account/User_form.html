@@ -2,7 +2,6 @@
 {% load widget_tweaks %}
 {% block title %} Update Profile  {% endblock %} 
 {% block vote_content %}
-{% if request.user.id %}
   
 <div class="row" style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
 	<div class="col-md-3">
@@ -42,6 +41,8 @@
   			{% endif %}
     	{{ form.profile_picture|append_attr:"class:form-control"|append_attr:"placeholder:Your name"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
+
+  		{{ form.is_updated|append_attr:"hidden"|append_attr:"checked" }}
 				</div>
 				<p class="box fa fa-info"> {{ form.profile_picture.help_text }}</p>
 				<br>
@@ -49,7 +50,4 @@
 			</form>
 		</div>
 	</div>
-  {% else %}
-  No way
-  {% endif %}
 {% endblock vote_content %}

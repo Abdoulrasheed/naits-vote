@@ -46,3 +46,10 @@
                 -moz-box-shadow: 0px 2px 119px -13px rgba(122, 120, 120, 1);
                 box-shadow: 0px 2px 119px -13px rgba(122, 120, 120, 1);
             }
+            .badge-notify{
+                background:red !important;
+                position:relative !important;
+                -moz-transform: translate(-100%, -100%) !important; /* For Firefox */
+                -ms-transform: translate(-100%, -100%) !important; /* for IE */
+                -webkit-transform: translate(-100%, -100%) !important; /* For Safari, Chrome, iOS */
+                -o-transform: translate(-100%, -100%) !important; /* For Opera */

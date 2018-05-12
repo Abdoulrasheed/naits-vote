@@ -13,9 +13,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/notifications.css' %}" />
     <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}" />
 
     <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/notifications.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
 
@@ -36,7 +38,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                           <a href="#" id="notifications" data-container="body" data-toggle="popover" data-placement="bottom" title="Notifications">
-                          <span class="glyphicon glyphicon-bell"></span>
+                          <span style="color: red !important" class="glyphicon glyphicon-bell"></span>
                           </a>
                         </li>
                         <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>

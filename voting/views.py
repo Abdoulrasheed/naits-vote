@@ -4,10 +4,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from voting.decorators import ajax_required
 from .models import Aspirant, Office, Voter, User
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import datetime
+from django.utils import timezone
 
 # students paginator imports
 
@@ -76,7 +79,7 @@ def change_password(request):
 class ProfileUpdate(UpdateView):
     model = User
     template_name = 'account/User_form.html'
-    fields = ['first_name','last_name','hall_of_residence','profile_picture']
+    fields = ['first_name','last_name','hall_of_residence','profile_picture', 'is_updated']
 
 
 @login_required
@@ -104,3 +107,25 @@ def vote(request, poll_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect('/')
+
+@login_required
+@ajax_required
+def notifications(request):
+    no_of_offices = Office.objects.all().count()
+    notifications = ()
+    if len(Voter.objects.filter(student_id=request.user.id)) == no_of_offices:
+        continue_voting = '<small>finsh casting your votes <a href="/">here</a></small>'
+        notifications = (continue_voting,)
+    else:
+        notifications = ()
+    if not request.user.is_updated:
+        update = "<small><a href='/edit/" + str(request.user.id)+"'" + " title='update profile'> Please update your profile information</a></small>"
+        notifications += (update,)
+    else:
+        if timezone.now() < request.user.updated_at - datetime.timedelta(days=30):
+            need_update = "<small>its more than 30 days since you updated your profile,\
+             <a href='/edit/" + str(request.user.id)+"'"\
+             + " title='update profile'> would you like to review it ?</a></small>"
+            notifications += (need_update,)
+    return render(request, 'account/notifications.html', {'notifications': notifications})
+
