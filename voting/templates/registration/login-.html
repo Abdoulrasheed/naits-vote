@@ -1,0 +1,72 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<title> Nait | login </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'login_temp/css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
+{% if user.is_authenticated %}
+<a href="{% url 'index' %}">Home</a>
+{% else %}
+<style type="text/css">
+    body {
+  overflow-y:hidden;
+}
+</style>
+<div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-30 p-b-50">
+                <span class="login100-form-title p-b-41">
+                    Login to vote
+                </span>
+                 {% if form.non_field_errors %}
+                 {% for error in form.non_field_errors %}
+                 <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                     {{ error }}
+                </div>
+    			{% endfor %}
+                {% endif %}
+                <form action="{% url 'login' %}" method="post" class="login100-form validate-form p-b-33 p-t-5">
+                    {% csrf_token %}
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter ID Number">
+                    {{ form.username|append_attr:"class:input100"|append_attr:"placeholder:ID Number"|append_attr:"name:username" }}
+                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        {{ form.password|append_attr:"class:input100"|append_attr:"placeholder:Password"|append_attr:"name:pass" }}
+                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-32">
+                          <button type="submit" class="login100-form-btn">Login</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="dropDownSelect1"></div>
+    
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'login_temp/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'login_temp/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+    <script src="{% static 'login_temp/js/main.js' %}"></script>
+    {% endif %}

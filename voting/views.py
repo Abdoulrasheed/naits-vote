@@ -114,7 +114,7 @@ def notifications(request):
     no_of_offices = Office.objects.all().count()
     notifications = ()
     if len(Voter.objects.filter(student_id=request.user.id)) == no_of_offices:
-        continue_voting = '<small>finsh casting your votes <a href="/">here</a></small>'
+        continue_voting = '<a href="/"><small>you need to finsh casting your votes here</a></small>'
         notifications = (continue_voting,)
     else:
         notifications = ()
