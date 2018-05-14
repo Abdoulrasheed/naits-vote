@@ -1,6 +1,6 @@
 {% extends 'naits/base.html' %}
 {% load widget_tweaks %}
-{% block title %} Update Profile  {% endblock %} 
+{% block title %} Update {{ request.user }} Profile  {% endblock %} 
 {% block vote_content %}
   
 <div class="row" style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
@@ -9,8 +9,12 @@
     </div>
 	<div class="col-md-9">
 		<div class="col-auto">
-			<p class="box fa fa-user"> 
-    			Edit {{ form.first_name.value }}'s information
+			<p class="box fa fa-user">
+				{% if form.first_name.value %}
+    			Update {{ form.first_name.value }}'s information
+				{% else %}
+				Edit Your information below
+				{% endif %}
 			</p>
 			<form action="" method="post" role="form" enctype="multipart/form-data">
     	{% csrf_token %}

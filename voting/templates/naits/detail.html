@@ -1,5 +1,5 @@
 {% extends 'naits/base.html' %}
-{% block title %} office of {{ office.office }} {% endblock %}
+{% block title %} {{ office.office }} Aspirants {% endblock %}
 {% block vote_content %}
 
 <div style="margin-top: 10em" class="container">
@@ -8,7 +8,7 @@
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-line-chart"></span> {{ office.office }}</h3>
+                <h3 class="panel-title"><span class="fa fa-line-chart"></span> {{ office.office }} Aspirants</h3>
                 <br>
                 <p>Choose Your {{ office.office }} 
                 <a href="/" class="btn-sm btn btn-primary" style="float: right;"> Go back</a></p>
