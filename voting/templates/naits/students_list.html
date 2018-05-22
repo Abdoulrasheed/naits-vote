@@ -18,15 +18,17 @@
           <div class="panel panel-default simple-box">
             <div class="panel-heading">
               {% if student.profile_picture %}
-              <img src="{{ student.profile_picture.url }}" style="width:25px">
+              <a href="{% url 'profile' student.id %}">
+              <img src="{{ student.profile_picture.url }}" style="width:35px; border-radius: 10em;">
+          	  </a>
               {% else %}
-              <img src="{% static 'img/img_avatar.png' %}" style="width:20px">
+              <img src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
               {% endif %}
-              <a title="click to view {{ student.ID_Number }} profile" href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
+              <a class="pull-right" title="click to view {{ student.ID_Number }} profile" href="{% url 'profile' student.id %}">{{ student.ID_Number }}</a>
             </div>
             <div class="panel-body">
-              <p><strong>ID number</strong> {{ student.ID_Number }}</p>
-                <p><strong>Level:</strong> {{ student.level }}</p>
+              <p><strong>ID number</strong> <span class="pull-right">{{ student.ID_Number }}</span></p>
+                <p><strong>Level:</strong> <span class="pull-right">{{ student.level }}</span></p>
             </div>
           </div>
         </div>

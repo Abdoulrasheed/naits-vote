@@ -59,7 +59,7 @@ def path_and_rename(instance, filename):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    ID_Number = models.CharField(max_length=12, unique=True, null=True)
+    ID_Number = models.CharField(max_length=15, unique=True, null=True)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     level = models.PositiveIntegerField(default=0)
