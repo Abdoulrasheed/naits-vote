@@ -26,14 +26,42 @@
                 <img class="img-responsive" src="{{ student_data.profile_picture.url }}"> {% else %}
                 <img class="img-responsive" src="{% static 'img/img_avatar.png' %}"> {% endif %}
                 <div class="panel-body">
-                    <p class="fa fa-user"><strong> ID number : </strong> {{ student_data }}</p><br>
+                    <span class="badge badge-info fa fa-user">
+                        <strong> ID number : </strong>
+                    </span>
+                        <a class="pull-right">{{ student_data }}</a>
+                    <hr />
                     {% if student_data.hall_of_residence %}
-                    <p class="fa fa-map-marker"><strong> Hall of residence :</strong> {{ student_data.hall_of_residence }}</p><br>
-                    {% endif %} {% if student_data.first_name %}
-                    <p class="fa fa-address-book form-control-static"><strong> first name :</strong> {{ student_data.first_name }}</p><br> {% endif %} {% if student_data.last_name %}
-                    <p class="fa fa-address-book"><strong> last name :</strong> {{ student_data.last_name }}</p><br> {% endif %}
-                    <p class="fa fa-graduation-cap"><strong> level :</strong> {{ student_data.level }}</p><br> {% if student_data.is_active %}
-                    <p class="fa fa-sort"><strong> Authorized to vote: </strong> <span class="fa fa-check"></span> </p>
+                    <span class="badge badge-info fa fa-map-marker">
+                        <strong> Hall of residence :</strong> 
+                    </span>
+                    <a class="pull-right">{{ student_data.hall_of_residence }}</a>
+                    <hr />
+                    {% endif %}
+                    {% if student_data.first_name %}
+                    <span class="badge badge-info fa fa-address-book">
+                        <strong>first name:</strong> 
+                    </span>
+                    <a class="pull-right">{{ student_data.first_name }}</a>
+                    <hr />
+                    {% endif %}
+                    {% if student_data.last_name %}
+                    <span class="badge badge-info fa fa-address-book">
+                        <strong> last name :</strong> 
+                    </span>
+                    <a class="pull-right">{{ student_data.last_name }}</a>
+                    <hr />
+                    {% endif %}
+                    <span class="badge badge-info fa fa-graduation-cap">
+                        <strong> level :</strong> 
+                    </span>
+                     <a class="pull-right">{{ student_data.level }}</a>
+                    <hr />
+                        {% if student_data.is_active %}
+                    <span class="badge badge-info fa fa-sort">
+                        <strong> Authorized to vote: </strong> 
+                    </span>
+                    <a class="pull-right fa fa-check"></a>
                     {% endif %}
                 </div>
             </div>
