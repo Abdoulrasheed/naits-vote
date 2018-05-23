@@ -49,7 +49,7 @@ def profile(request, pk):
 def students(request):
     students_list = User.objects.filter(is_active=True).order_by('-level')
     page = request.GET.get('page', 1)
-    paginator = Paginator(students_list, 10)
+    paginator = Paginator(students_list, 12)
     try:
         students = paginator.page(page)
     except PageNotAnInteger:
