@@ -20,6 +20,8 @@
     	{% csrf_token %}
     	
 				<div class="form-group">
+					<fieldset>
+						<legend>Profile Information</legend>
 					<label class="col-sm-2 control-label" for="first_name">Fisrt Name</label>
     {{ form.first_name|append_attr:"class:form-control"|append_attr:"placeholder:First Name"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
@@ -30,12 +32,11 @@
   		
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="hall_of_residence">Hall Of Residence</label>
-    {{ form.hall_of_residence|append_attr:"class:form-control"|append_attr:"placeholder:eg Off Campus"|append_attr:"name:msg"|append_attr:"id:msg" }}
+					<label class="col-sm-2 control-label" for="last_name">Level</label>
+    {{ form.level|append_attr:"class:form-control"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
 				</div>
-				<hr />
-				<div class="form-group">
+								<div class="form-group">
   			{% if request.user.profile_picture %}
   			
 					<label for="Change">Change photo</label>
@@ -43,15 +44,55 @@
   			
 					<label for="Upload">Upload photo</label>
   			{% endif %}
-    	{{ form.profile_picture|append_attr:"class:form-control"|append_attr:"placeholder:Your name"|append_attr:"name:msg"|append_attr:"id:msg" }}
+    	{{ form.profile_picture|append_attr:"class:form-control"|append_attr:"name:msg"|append_attr:"id:msg" }}
   		
 
   		{{ form.is_updated|append_attr:"hidden"|append_attr:"checked" }}
 				</div>
-				<p class="box fa fa-info"> {{ form.profile_picture.help_text }}</p>
-				<br>
+			<hr />
+			<br>				
+			</fieldset>
+			<fieldset>
+				<legend>Contact</legend>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="hall_of_residence">
+					Hall Of Residence
+					</label>
+    {{ form.hall_of_residence|append_attr:"class:form-control"|append_attr:"placeholder:eg Off Campus"|append_attr:"name:msg"|append_attr:"id:msg" }}
+  		
+				</div>
+								<div class="form-group">
+					<label class="col-sm-2 control-label" for="hall_of_residence">
+					Mobile Number
+					</label>
+    {{ form.mobile|append_attr:"class:form-control"|append_attr:"placeholder:e.g 07033389645"|append_attr:"name:msg"|append_attr:"id:msg" }}
+  		
+				</div>
+								<div class="form-group">
+					<label class="col-sm-2 control-label" for="hall_of_residence">
+					Email
+					</label>
+    {{ form.email_address|append_attr:"class:form-control"|append_attr:"placeholder:abcd@example.com"|append_attr:"name:msg"|append_attr:"id:msg" }}
+  		
+				</div>
+								<div class="form-group">
+					<label class="col-sm-2 control-label" for="hall_of_residence">
+					State of origin
+					</label>
+    {{ form.state_of_origin|append_attr:"class:form-control"|append_attr:"name:msg"|append_attr:"id:msg" }}
+  		
+				</div>	
+				</fieldset>
+				<hr />
 				<input class="btn btn-primary pull-right" type="submit" value="Save Changes" />
+				<br>
+				<br>
+				<br>
 			</form>
 		</div>
 	</div>
+	<br>
 {% endblock vote_content %}
+
+{% block sitebar %}
+{% endblock %}

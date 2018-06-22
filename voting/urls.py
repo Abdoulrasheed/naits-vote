@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^password/$', views.change_password, name='change_password'),
     url(r'^profile/(?P<pk>\d+)/$', views.profile, name='profile'),
     url(r'^students/$', views.students, name='all_students_page'),
+    url(r'^executives/$', views.excos, name='all_excos_page'),
     url(r'^edit/(?P<pk>\d+)/$', views.ProfileUpdate.as_view(), name="edit_profile"),
     url(r'^notifications/$', views.notifications, name="last_notifications"),
 ]

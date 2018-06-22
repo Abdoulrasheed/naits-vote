@@ -1,37 +1,43 @@
 {% extends 'naits/base.html' %}
 {% load staticfiles %}
 
-{% block title %} Students | NAIT ONLINE VOTING {% endblock %}
+{% block title %} INFORMATION TECHNOLOGY STAFFS {% endblock %}
 
   <link href="{% static 'css/network.css' %}" rel="stylesheet">
 
 {% block vote_content %}
   <div style="margin-top: 5em;" class="page-header">
     <br>
-    <h6 class="panel-heading" style="width: 20em"> Students </h6>
+    <h6 class="panel-heading" style="width: 25em"> INFROMATION TECHNOLOGY STAFFS </h6>
   </div>
 
     <div class="row">
-      {% for student in students %}
+      {% for staff in staffs %}
         <div class="col-md-4">
           <div class="panel panel-default simple-box">
-          	<a href="{% url 'profile' student.id %}">
+            <a href="{% url 'profile' staff.id %}">
             <div class="panel-heading">
-              {% if student.profile_picture %}
-              <img src="{{ student.profile_picture.url }}" style="width:35px; border-radius: 100px;">
+              {% if staff.profile_picture %}
+              <img src="{{ staff.profile_picture.url }}" style="width:35px; border-radius: 100px;">
               {% else %}
               <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
               {% endif %}
-              <span class="pull-right" title="click to view {{ student.ID_Number }} profile">
-              {{ student.ID_Number }}
-          	  </span>
+              <span class="pull-right" title="click to view nait {{ staff.position }}'s profile">
+              {{ staff.first_name }} {{ staff.last_name }} ({{ staff.ID_Number }})
+              </span>
             </div>
             </a>
             <div class="panel-body">
-              <p><strong class="badge badge-primary">ID number</strong> <span class="pull-right">
-              {{ student.ID_Number }}</span></p>
-                <p><strong class="badge badge-info">Level:</strong> <span class="pull-right">
-              {{ student.level }}</span></p>
+              <p>
+                <font class="badge badge-primary" style="width: 100%; font-size: 15px ; background-color: rgba(122, 120, 120, 1); color: #ffffff; padding: 10px;">   NAIT {{ staff.position }}
+                </font>
+              </p>
+              <p>
+                <strong class="badge badge-info">
+                  Phone number:
+                </strong>
+                <span class="pull-right">
+                  {{ staff.mobile }}</span></p>
               <a href="#" class="btn btn-primary" style="width: 100%;">Send Message</a>
             </div>
           </div>

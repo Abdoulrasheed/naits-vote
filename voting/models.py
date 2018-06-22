@@ -12,6 +12,41 @@ from django.core.urlresolvers import reverse
 import os
 from uuid import uuid4
 
+STATES = (
+        ('Abia', 'Abia'),
+        ('Adamawa', 'Adamawa'),
+    )
+
+LEVEL = (
+        ('100', '100'),
+        ('200', '200'),
+        ('300', '300'),
+        ('400', '400'),
+        ('500', '500'),
+        ('Graduated', 'Graduated')
+    )
+
+EXCO_OFFICES = (
+        ('',''),
+        ('President', 'President'),
+        ('Vice President', 'Vice President'),
+        ('Secretery General', 'Secretery General'),
+        ('Ass. Secretery General', 'Ass. Secretery General'),
+        ('Auditor General', 'Auditor General'),
+        ('Welfare Director', 'Welfare Director'),
+        ('Financial Sec.', 'Financial Sec.'),
+    )
+
+HALL_OF_RESIDENCE = (
+        ('OFF CAMPUS', 'OFF CAMPUS'),
+        ('KABIRU UMAR', 'KABIRU UMAR'),
+        ('USMAN NAGOGGO', 'USMAN NAGOGGO'),
+        ('NANA ASMAU', 'NANA ASMAU'),
+        ('OBA ADETOLA', 'OBA ADETOLA'),
+        ('NEW HOSTEL - MALE', 'NEW HOSTEL - MALE'),
+        ('NEW HOSTEL - FEMALE', 'NEW HOSTEL - FEMALE'),
+    )
+
 class MyUserManager(BaseUserManager):
     """
     A custom user manager to deal with ID_Numbers as unique identifiers for auth
@@ -24,7 +59,11 @@ class MyUserManager(BaseUserManager):
         if not ID_Number:
             raise ValueError("Student ID Number can't be empty")
         ID_Number = self.normalize_email(ID_Number)
-        user = self.model(ID_Number=ID_Number, **extra_fields)
+        user = self.model(
+            ID_Number=ID_Number, 
+            **extra_fields
+            )
+
         user.set_password(password)
         user.save()
         return user
@@ -39,6 +78,13 @@ class MyUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
         return self._create_user(ID_Number, password, **extra_fields)
+
+    def get_by_natural_key(self, ID_Number):
+        case_insensitive_ID_Number_field = '{}__iexact'.format(
+            self.model.USERNAME_FIELD
+            )
+
+        return self.get(**{case_insensitive_ID_Number_field: ID_Number})
 
 # rename uploaded images
 def path_and_rename(instance, filename):
@@ -59,25 +105,77 @@ def path_and_rename(instance, filename):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    ID_Number = models.CharField(max_length=15, unique=True, null=True)
-    first_name = models.CharField(max_length=50, blank=True, null=True)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    level = models.PositiveIntegerField(default=0)
-    hall_of_residence = models.CharField(max_length=50, blank=True, null=True)
+    
+    ID_Number = models.CharField(
+        max_length=15, 
+        unique=True, 
+        null=True
+        )
+
+    first_name = models.CharField(
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
+    last_name = models.CharField(
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
+    level = models.CharField(
+        max_length=9,
+        default=100,
+        choices=LEVEL,
+        )
+
+    hall_of_residence = models.CharField(
+        choices=HALL_OF_RESIDENCE, 
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
+    state_of_origin = models.CharField(
+        choices=STATES, 
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
+    mobile = models.CharField(
+        max_length=15, 
+        blank=True, 
+        null=True
+        )
+
+    email_address = models.EmailField(
+        blank=True, 
+        null=True
+        )
+
     profile_picture = models.ImageField(upload_to=path_and_rename,
      blank=True,
      null=True,
      help_text="499 x 499 pixels recommnded",
      default = "no_image/default_user_image.png",
      )
-    updated_at = models.DateTimeField(auto_now_add=True)
-    is_updated = models.BooleanField(default=False)
+
+    updated_at = models.DateTimeField(
+        auto_now_add=True
+        )
+
+    is_updated = models.BooleanField(
+        default=False
+        )
 
     is_staff = models.BooleanField(
-        _('staff status'),
+        _('staff'),
         default=False,
-        help_text=_('Designates whether the user can log into this site.'),
+        help_text=_('Designates whether the user can login to this site.'),
     )
+
     is_active = models.BooleanField(
         _('active'),
         default=True,
@@ -86,6 +184,23 @@ class User(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
+
+    is_exco = models.BooleanField(
+        _('is exco'),
+        default = False,
+        help_text = _(
+            'Designates whether this user is a exco'
+            )
+        )
+    position = models.CharField(
+        choices=EXCO_OFFICES, 
+        max_length=50, 
+        default='Member', 
+        blank=True, 
+        null=True,
+        help_text =_('Leave blank for regular student')
+        )
+
 
     USERNAME_FIELD = 'ID_Number'
 
@@ -106,17 +221,59 @@ class User(AbstractBaseUser, PermissionsMixin):
       return reverse('profile', args=[str(self.id)])
 
 
+class Exco(models.Model):
+    name = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE
+        )
+
+    office = models.CharField(
+        choices=EXCO_OFFICES, 
+        blank=True, 
+        null=True, 
+        max_length=50
+        )
+
+    from_date = models.DateField(
+        auto_now_add=True
+        )
+
+    to_date = models.DateField(
+        auto_now_add=True
+        )
+
+
+
 class Office(models.Model):
     office = models.CharField(max_length=200)
 
     def __str__(self):  # Python 3: def __str__(self):
         return self.office
 
+
+
 class Aspirant(models.Model):
-    aspiring_for = models.ForeignKey(Office)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=50, blank=True, null=True)
-    nick_name = models.CharField(max_length=50, blank=True, null=True)
+    aspiring_for = models.ForeignKey(
+        Office, 
+        on_delete=models.CASCADE
+        )
+
+    first_name = models.CharField(
+        max_length=200
+        )
+
+    last_name = models.CharField(
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
+    nick_name = models.CharField(
+        max_length=50, 
+        blank=True, 
+        null=True
+        )
+
     level = models.IntegerField(default=0)
     votes = models.IntegerField(default=0)
 
@@ -128,8 +285,13 @@ class Aspirant(models.Model):
 class Voter(models.Model):
     student = models.ForeignKey(User)
     office = models.ForeignKey(Office)
+
+
     def __str__(self):
+    
         if self.student.first_name and self.student.last_name:
-            return str(self.student) + " (" + self.student.first_name + " " + self.student.last_name + ")"
+            return str(self.student) + \
+            " (" + self.student.first_name + " " + self.student.last_name + ")"
+    
         else:
             return str(self.student)

@@ -14,6 +14,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/notifications.css' %}" />
+    <!--  site bar link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sitebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+    <!-- site bar link ends _-->
     <link rel="icon" type="image/x-icon" href="{% static 'icon/favicon.ico' %}" />
 
     <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
@@ -43,6 +48,8 @@
                         </li>
                         <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
                         <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
+                        <li><a href="/staffs/"><span>Staff</span></a></li>
+                        <li><a href="{% url 'all_excos_page' %}"><span>Excos</span></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
@@ -171,9 +178,13 @@
     <main>
 
         <div class="container">
-            {% block vote_content %} {% endblock vote_content %}
+            {% block vote_content %}
+            {% endblock vote_content %}
+
             {% block script %}
             <script src="{% static 'js/disable_save_image_as.js' %}"></script>
             {% endblock %}
         </div>
     </main>
+</body>
+</html>

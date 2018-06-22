@@ -7,15 +7,15 @@
 
     <div class="row" style="margin-top: 2em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
         <div class="col-md-3">
+            <div class="panel panel-heading">
+            {% if student_data == request.user %}
+            <p class="fa fa-user"> My profile {{ user }}</p> {% else %} {% if students_data.first_name %}
+            <p class="fa fa-user"> {{ student_data.ID_Number }} ({{ student_data.first_name }}) Profile </p> {% else %}
+            <p class="fa fa-user"> {{ student_data.ID_Number }} Profile</p> {% endif %} {% endif %}
+            </div>
             {% include 'account/partial_settings_menu.html' with active='profile' %}
         </div>
-        <div class="col-md-4">
-          <h4>
-            {% if student_data == request.user %}
-            <p class="box fa fa-user"> My profile {{ user }}</p> {% else %} {% if students_data.first_name %}
-            <p class="box fa fa-user"> {{ student_data.ID_Number }} ({{ student_data.first_name }}) Profile </p> {% else %}
-            <p class="box fa fa-user"> {{ student_data.ID_Number }} Profile</p> {% endif %} {% endif %}
-          </h4>
+        <div class="col-md-8">
             <div class="panel panel-default simple-box">
                 <div class="panel-heading">
                     {% if student_data.first_name %}
@@ -23,14 +23,61 @@
                     <a href="">{{ student_data.ID_Number }}</a> {% endif %}
                 </div>
                 {% if student_data.profile_picture %}
-                <img class="img-responsive" src="{{ student_data.profile_picture.url }}"> {% else %}
-                <img class="img-responsive" src="{% static 'img/img_avatar.png' %}"> {% endif %}
-                <div class="panel-body">
-                    <span class="badge badge-info fa fa-user">
-                        <strong> ID number : </strong>
-                    </span>
-                        <a class="pull-right">{{ student_data }}</a>
-                    <hr />
+                <div id="div1">
+                <img width="255px" class="img-responsive" src="{{ student_data.profile_picture.url }}"> {% else %}
+                <img width="255px" class="img-responsive" src="{% static 'img/img_avatar.png' %}"> {% endif %}
+                </div>
+                <div id="div2" style="align-content: center; margin-left: 10px">
+                    <a><strong> ID number : </strong>
+                    {{ student_data }}</a>
+                    <br>
+                    {% if student_data.first_name and student_data.last_name %}
+                        <a><strong>Name:</strong> 
+                    {{ student_data.first_name }} {{ student_data.last_name }}</a>
+                    {% endif %}
+                    <br>
+                    {% if student_data.level %}
+                    <a><strong> level :</strong>{{ student_data.level }}</a>
+                    {% endif %}
+                    <br>
+                    {% if not student_data.position %}
+                    <a style="background-color: green" class="disabled btn btn-primary">Member</a>
+                    {% else %}
+                    <a style="background-color: gold; color: black" class="disabled btn btn-primary">NAIT {{ student_data.position }}</a>
+                    {% endif %}
+                    <a href="#" class="btn btn-primary">Send Message</a>
+                    <br><hr />
+                </div>
+        <button type="button" class="btn btn-primary pull-right btn-more_about" title="Press Ctrl + P to view more about {{ student_data.first_name }}">
+        More about {{ student_data.first_name }}
+        </button><br><br><br>
+        <div class="about_student panel-body">
+            {% if student_data.mobile or student_data.email_address %}
+                    <fieldset>
+                        {% if student_data.mobile %}
+                        <legend>Contact</legend>
+                        <span class="badge badge-info fa fa-mobile">
+                            <strong>Mobile:</strong>
+                        </span>
+                            <a class="pull-right">
+                                {{ student_data.mobile }}
+                            </a>
+                        <hr />
+                        {% endif %}
+                        {% if student_data.email_address %}
+                        <span class="badge badge-info fa fa-email">
+                            <strong>Email:</strong>
+                        </span>
+                        <a class="pull-right">
+                            {{ student_data.email_address }}
+                        </a>
+                        {% endif %}
+                        <hr />
+                    </fieldset>
+                    {% endif %}
+                    {% if student_data.hall_of_residence or student_data.state_of_origin %}
+                    <fieldset>
+                        <legend>Location</legend>
                     {% if student_data.hall_of_residence %}
                     <span class="badge badge-info fa fa-map-marker">
                         <strong> Hall of residence :</strong> 
@@ -38,40 +85,30 @@
                     <a class="pull-right">{{ student_data.hall_of_residence }}</a>
                     <hr />
                     {% endif %}
-                    {% if student_data.first_name %}
-                    <span class="badge badge-info fa fa-address-book">
-                        <strong>first name:</strong> 
+                    {% if student_data.state_of_origin %}
+                    <span class="badge badge-info fa fa-map-marker">
+                        <strong> State of origin:</strong> 
                     </span>
-                    <a class="pull-right">{{ student_data.first_name }}</a>
+                    <a class="pull-right">{{ student_data.state_of_origin }}</a>
                     <hr />
                     {% endif %}
-                    {% if student_data.last_name %}
-                    <span class="badge badge-info fa fa-address-book">
-                        <strong> last name :</strong> 
-                    </span>
-                    <a class="pull-right">{{ student_data.last_name }}</a>
-                    <hr />
+                    </fieldset>
                     {% endif %}
-                    <span class="badge badge-info fa fa-graduation-cap">
-                        <strong> level :</strong> 
-                    </span>
-                     <a class="pull-right">{{ student_data.level }}</a>
-                    <hr />
+                    <fieldset>
+                        <legend>Permission</legend>
                         {% if student_data.is_active %}
-                    <span class="badge badge-info fa fa-sort">
-                        <strong> Authorized to vote: </strong> 
-                    </span>
-                    <a class="pull-right fa fa-check"></a>
-                    {% endif %}
+                            <span class="badge badge-info fa fa-sort">
+                                <strong> Authorized to vote: </strong> 
+                            </span>
+                            <a class="pull-right fa fa-check"></a>
+                            <hr />
+                        {% endif %}
+                    </fieldset>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-        </div>
-    </div>
-
-</div>
 {% endblock vote_content %}
+{% block script %}
+            <script src="{% static 'js/disable_save_image_as.js' %}"></script>
+            <script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

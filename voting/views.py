@@ -60,6 +60,21 @@ def students(request):
 
 
 @login_required
+def excos(request):
+    excos_list = User.objects.filter(is_exco=True).order_by('-level')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(excos_list, 12)
+    try:
+        excos = paginator.page(page)
+    except PageNotAnInteger:
+        excos = paginator.page(1)
+    except EmptyPage:
+        excos = paginator.page(paginator.num_pages)
+    return render(request, 'naits/excos_list.html', {'excos': excos})
+
+
+
+@login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -79,7 +94,17 @@ def change_password(request):
 class ProfileUpdate(UpdateView):
     model = User
     template_name = 'account/User_form.html'
-    fields = ['first_name','last_name','hall_of_residence','profile_picture', 'is_updated']
+    fields = [
+        'first_name',
+        'last_name',
+        'level',
+        'hall_of_residence',
+        'profile_picture', 
+        'mobile', 
+        'email_address', 
+        'state_of_origin', 
+        'is_updated',
+        ]
 
 
 @login_required
@@ -98,6 +123,10 @@ def vote(request, poll_id):
             'office': p,
             'error_message': "You didn't select an aspirant.",
         })
+    elif request.user.level == 'Graduated':
+        return render(request, 'naits/detail.html', {
+            'error_message': 'Graduated students are not allow to vote',
+            })
     else:
         selected_choice.votes += 1
         selected_choice.save()

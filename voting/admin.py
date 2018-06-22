@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 from .models import Aspirant, Office, Voter, User as Student
+from staff.models import ListOfStaff
 from django.contrib.auth.models import Group
 
 
@@ -40,16 +41,58 @@ class AspirantAdmin(admin.ModelAdmin):
     def names(self, obj):
         return obj.first_name + " " + obj.last_name
 
+class StateAdmin(object):
+    """docstring for StateOfOriginAdmin"""
+    def __init__(self, arg):
+        super(StateOfOriginAdmin, self).__init__()
+        self.arg = arg
+        
+
 @admin.register(Student)
 class UserAdmin(DjangoUserAdmin):
     """Define admin model for custom User model with ID Number field."""
     fieldsets = (
         (None, {'fields': ('ID_Number', 'password')}),
-        (_('Profile Details'), {'fields': ('first_name', 'last_name', 'level', 'hall_of_residence', 'profile_picture', 'is_updated',)}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-            'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login',)}),
+        (_('Bio-Data'), {'fields': 
+            (
+                'first_name', 
+                'last_name', 
+                'level', 
+                'state_of_origin',
+                )
+            }),
+
+        (_('Profile Details'), {'fields': 
+            (
+                'profile_picture',
+                'email_address', 
+                'mobile', 
+                'hall_of_residence', 
+                'is_updated',
+                )
+            }),
+
+        (_('Membership'), {'fields': 
+            ('is_exco', 'position',)
+            }),
+
+        (_('Permissions'), {'fields': 
+            (
+                'is_active', 
+                'is_staff', 
+                'is_superuser',
+                'groups', 
+                'user_permissions'
+                )
+            }),
+
+        (_('Important dates'), {'fields':
+         (
+            'last_login',
+            )
+         }),
         )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -68,3 +111,4 @@ admin.site.index_title = "NAIT Election Commitee | Administration"
 admin.site.register(Office, OfficeAdmin)
 admin.site.register(Aspirant, AspirantAdmin)
 admin.site.register(Voter, VoterAdmin)
+admin.site.register(ListOfStaff)
