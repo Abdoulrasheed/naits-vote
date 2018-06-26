@@ -123,10 +123,6 @@ def vote(request, poll_id):
             'office': p,
             'error_message': "You didn't select an aspirant.",
         })
-    elif request.user.level == 'Graduated':
-        return render(request, 'naits/detail.html', {
-            'error_message': 'Graduated students are not allow to vote',
-            })
     else:
         selected_choice.votes += 1
         selected_choice.save()
