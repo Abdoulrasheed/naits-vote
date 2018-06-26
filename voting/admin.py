@@ -38,6 +38,7 @@ class AspirantAdmin(admin.ModelAdmin):
     list_filter = ('level', 'aspiring_for')
     list_per_page = 10
     ordering = ('-level','-votes')
+    readonly_fields = ('votes',)
     def names(self, obj):
         return obj.first_name + " " + obj.last_name
 

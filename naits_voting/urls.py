@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^staffs/', include('staff.urls')),
     url(r'^accounts/login/$', views.login, name='login'),
+    url(r'^messages/', include('messenger.urls'), name='messages'),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/accounts/login'}),
 ]
 

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'voting',
     'staff',
+    'messenger',
 ]
 
 MIDDLEWARE = [
