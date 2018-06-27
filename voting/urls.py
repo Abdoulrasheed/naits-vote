@@ -12,6 +12,5 @@ urlpatterns = [
     url(r'^students/$', views.students, name='all_students_page'),
     url(r'^executives/$', views.excos, name='all_excos_page'),
     url(r'^edit/$', views.ProfileUpdate, name='edit_profile'),
-    #url(r'^edit/(?P<pk>\d+)/$', views.ProfileUpdate.as_view(), name="edit_profile"),
-    url(r'^notifications/$', views.notifications, name="last_notifications"),
+    url(r'^notifications/$', views.check_messages, name="last_notifications"),
 ]

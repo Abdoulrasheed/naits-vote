@@ -1,25 +1,14 @@
 #-*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import BaseUserManager
-from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, User, AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
 
 from django.core.urlresolvers import reverse
 
 # rename image while upload
-import os
+import os, os.path
 from uuid import uuid4
-
-
-import hashlib
-import os.path
-import urllib
-
-from django.conf import settings
-
 
 STATES = (
         ('Abia', 'Abia'),

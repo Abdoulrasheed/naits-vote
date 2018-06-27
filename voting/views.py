@@ -149,19 +149,6 @@ def vote(request, poll_id):
 
 @login_required
 @ajax_required
-def notifications(request):
-    no_of_offices = Office.objects.all().count()
-    notifications = ()
-    if len(Voter.objects.filter(student_id=request.user.id)) == no_of_offices:
-        continue_voting = '<a href="/"><small>Complete casting your votes</a></small>'
-        notifications = (continue_voting,)
-    if not request.user.is_updated:
-        update = "<small><a href='/edit/" + str(request.user.id)+"'" + " title='update profile'> Please update your profile information</a></small>"
-        notifications += (update,)
-    else:
-        if timezone.now() < request.user.updated_at - datetime.timedelta(days=30):
-            need_update = "<small>its more than 30 days since you updated your profile,\
-             <a href='/edit/" + str(request.user.id)+"'"\
-             + " title='update profile'> would you like to review it ?</a></small>"
-            notifications += (need_update,)
-    return render(request, 'account/notifications.html', {'notifications': notifications})
+def check_messages(request):
+    count = Message.objects.filter(user=request.user, is_read=False).count()
+    return render(request, 'naits/base.html', {'unread': count})

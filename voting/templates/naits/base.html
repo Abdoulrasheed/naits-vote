@@ -41,11 +41,11 @@
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="nav navbar-nav">
                         <li>
-                          <a href="#" id="notifications" data-container="body" data-toggle="popover" data-placement="bottom" title="Notifications">
-                          <span style="color: red !important" class="glyphicon glyphicon-bell"></span>
-                          </a>
+                            <a id="notifications" href="/messages/">
+                            Message
+                            <span style="background-color: blue" class="badge pull-right">{{ unread }}</span>
+                            </a>
                         </li>
-                        <li><a href="/messages/"><span>Messages</span></a></li>
                         <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
                         <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
                         <li><a href="/staffs/"><span>Staff</span></a></li>
@@ -74,7 +74,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 {% if user.is_authenticated %}
-                                <li title="{{ user }}">
+                                <li title="{{ user.get_short_name }}">
                                     <a href="{% url 'profile' user.id %}">
                                         <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
