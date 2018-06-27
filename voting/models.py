@@ -154,7 +154,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
 
     mobile = models.CharField(
-        max_length=15, 
+        max_length=11, 
         blank=True, 
         null=True
         )
@@ -232,7 +232,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.ID_Number
 
     def get_short_name(self):
-        return self.ID_Number
+    	try:
+            if self.first_name and self.last_name:
+                return self.first_name + " " + self.last_name
+            elif self.first_name:
+                return self.first_name
+            else:
+                return self.ID_Number
+        except Exception as e:
+            return self.ID_Number
 
 
     def get_absolute_url(self):

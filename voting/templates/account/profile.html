@@ -9,32 +9,39 @@
         <div class="col-md-3">
             <div class="panel panel-heading">
             {% if student_data == request.user %}
-            <p class="fa fa-user"> My profile {{ user }}</p> {% else %} {% if students_data.first_name %}
-            <p class="fa fa-user"> {{ student_data.ID_Number }} ({{ student_data.first_name }}) Profile </p> {% else %}
-            <p class="fa fa-user"> {{ student_data.ID_Number }} Profile</p> {% endif %} {% endif %}
+            <p class="fa fa-user"> My profile ({{ user }})</p> 
+            {% else %}
+            <p class="fa fa-user"> 
+            {{ student_data.get_short_name }} Profile </p>
+            {% endif %}
             </div>
-            {% include 'account/partial_settings_menu.html' with active='profile' %}
+            {% include 'account/includes/partial_settings_menu.html' with active='profile' %}
         </div>
         <div class="col-md-8">
             <div class="panel panel-default simple-box">
                 <div class="panel-heading">
-                    {% if student_data.first_name %}
-                    <a href="">{{ student_data.ID_Number }} ( {{ student_data.first_name }} )</a> {% else %}
-                    <a href="">{{ student_data.ID_Number }}</a> {% endif %}
+
+                    <a href="">
+                    {{ student_data.ID_Number }} 
+                    ( {{ student_data.get_short_name }} )
+                    </a> 
                 </div>
                 {% if student_data.profile_picture %}
                 <div id="div1">
-                <img width="255px" class="img-responsive" src="{{ student_data.profile_picture.url }}"> {% else %}
-                <img width="255px" class="img-responsive" src="{% static 'img/img_avatar.png' %}"> {% endif %}
+                    <img width="255px" class="img-responsive" src="{{ student_data.profile_picture.url }}">
                 </div>
+                {% else %}
+                <div id="div1">
+                    <img width="255px" class="img-responsive" src="{% static 'img/img_avatar.png' %}">
+                </div>
+                {% endif %}
                 <div id="div2" style="align-content: center; margin-left: 10px">
                     <a><strong> ID number : </strong>
                     {{ student_data }}</a>
                     <br>
-                    {% if student_data.first_name and student_data.last_name %}
                         <a><strong>Name:</strong> 
-                    {{ student_data.first_name }} {{ student_data.last_name }}</a>
-                    {% endif %}
+                    {{ student_data.get_short_name }}
+                        </a>
                     <br>
                     {% if student_data.level %}
                     <a><strong> level :</strong>{{ student_data.level }}</a>
@@ -43,16 +50,22 @@
                     {% if not student_data.position %}
                     <a style="background-color: green" class="disabled btn btn-primary">Member</a>
                     {% else %}
-                    <a style="background-color: gold; color: black" class="disabled btn btn-primary">NAIT {{ student_data.position }}</a>
+                    <a style="background-color: green" class="disabled btn btn-primary">{{ student_data.position }}</a>
                     {% endif %}
-                    <a href="#" class="btn btn-primary">Send Message</a>
+                    {% if user.ID_Number !=  student_data.ID_Number %}
+                    <a href="{% url 'messages' student_data.ID_Number %}" class="btn btn-primary">Send Message</a>
+                    {% endif %}
                     <br><hr />
                 </div>
-        <button type="button" class="btn btn-primary pull-right btn-more_about" title="Press Ctrl + P to view more about {{ student_data.first_name }}">
-        More about {{ student_data.get_full_name }}
-        </button><br><br><br>
-        <div class="about_student panel-body">
-            {% if student_data.mobile or student_data.email_address %}
+                <button type="button" 
+                class="btn btn-primary pull-right btn-more_about" 
+                title="click to view more about {{ student_data.first_name }}">
+                    More about {{ student_data.get_short_name }}
+                </button>
+                <br><br><br>
+
+                <div class="about_student panel-body">
+                {% if student_data.mobile or student_data.email_address %}
                     <fieldset>
                         {% if student_data.mobile %}
                         <legend>Contact</legend>

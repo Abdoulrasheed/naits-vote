@@ -5,8 +5,8 @@
       <small class="pull-right">
         {{ message.date|date:'N d G:i' }}
       </small>
-      <a href="{% url 'profile' user.id %}">
-        {{ message.from_user.get_full_name }}
+      <a href="{% url 'profile' message.from_user.id %}">
+        {{ message.from_user.get_short_name }}
       </a>
     </h5>
     {{ message.message }}

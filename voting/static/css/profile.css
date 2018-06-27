@@ -3,7 +3,7 @@
 }
 
 .user-profile .picture {
-  width: 200px;
+  width: 200px auto;
   border-radius: 5px;
 }
 
@@ -25,11 +25,14 @@
 }
 #div1{
 	display: inline-block;
+	margin: 30px;
 
 }
 #div2{
-	float: right;
 	display: inline-block;
 	vertical-align: top;
-	padding: 0px 100px 50px 50px;
+	margin: 30px;
+	padding-left: 40px;
+	word-spacing: 5px;
+	letter-spacing: 1px;
 }

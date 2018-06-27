@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from . import views
+from messenger import views
 
 urlpatterns = [
     url(r'^$', views.inbox, name='inbox'),

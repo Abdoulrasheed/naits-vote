@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from voting.decorators import ajax_required
 from .models import Aspirant, Office, Voter, User
 
+from .forms import ProfileForm
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import datetime
@@ -21,7 +23,7 @@ from messenger.models import Message
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.contrib.auth.forms import UserChangeForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 @method_decorator([login_required], name='dispatch')
@@ -90,21 +92,33 @@ def change_password(request):
         'form': form
         })
 
-@method_decorator([login_required], name='dispatch')
-class ProfileUpdate(UpdateView):
-    model = User
-    template_name = 'account/User_form.html'
-    fields = [
-        'first_name',
-        'last_name',
-        'level',
-        'hall_of_residence',
-        'profile_picture', 
-        'mobile', 
-        'email_address', 
-        'state_of_origin', 
-        'is_updated',
-        ]
+
+@login_required
+def ProfileUpdate(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            user.level = form.cleaned_data.get('level')
+            user.email_address = form.cleaned_data.get('email_address')
+            user.hall_of_residence = form.cleaned_data.get('hall_of_residence')
+            user.state_of_origin = form.cleaned_data.get('state_of_origin')
+            user.profile_picture = form.cleaned_data.get('profile_picture')
+            user.is_updated = True
+            user.save()
+            messages.success(request, 'Your profile was successfully edited.')
+
+    else:
+        form = ProfileForm(instance=user, initial={
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'level': user.level
+            })
+
+    return render(request, 'account/profile_update.html', {'form': form})
+
 
 
 @login_required

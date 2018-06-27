@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from voting.models import User
 
 
 class ChangePasswordForm(forms.ModelForm):
@@ -36,3 +36,47 @@ class ChangePasswordForm(forms.ModelForm):
             self._errors['new_password'] = self.error_class([
                 'Passwords don\'t match'])
         return self.cleaned_data
+
+
+
+class ProfileForm(forms.ModelForm):
+
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Firstname",
+        max_length=30,
+        required=False)
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Lastname",
+        max_length=30,
+        required=False)
+    level = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Current Level",
+        max_length=9,
+        required=False)
+    email_address = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+        label="Email",
+        max_length=75,
+        required=False)
+    state_of_origin = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="State",
+        max_length=50,
+        required=False)
+    mobile = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Phone Number",
+        max_length=16,
+        required=False)
+    profile_picture = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        label="Profile Photo",
+        required=False)
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'level',
+                  'email_address', 'state_of_origin', 'mobile']
