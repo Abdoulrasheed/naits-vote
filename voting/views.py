@@ -1,30 +1,20 @@
 #-*- coding: utf-8 -*-
+from .forms import ProfileForm
+from django.views import generic
+from django.contrib import messages
+from messenger.models import Message
+from voting.decorators import ajax_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views import generic
-from django.contrib.auth.decorators import login_required
-from voting.decorators import ajax_required
 from .models import Aspirant, Office, Voter, User
-
-from .forms import ProfileForm
-
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-import datetime
-from django.utils import timezone
-
-# students paginator imports
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-# change password imports
-from messenger.models import Message
-from django.contrib import messages
+# User Update modules
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.forms import UserChangeForm
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 
 @method_decorator([login_required], name='dispatch')
 class IndexView(generic.ListView):
