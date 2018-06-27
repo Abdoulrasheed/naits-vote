@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from voting.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 
@@ -114,7 +114,7 @@ def users(request):
     dump = []
     template = '{0} ({1})'
     for user in users:
-        if user.profile.get_screen_name() != user.ID_Number:
+        if user.get_short_name() != user.ID_Number:
             dump.append(template.format(user.profile.get_screen_name(),
                                         user.ID_Number))
         else:

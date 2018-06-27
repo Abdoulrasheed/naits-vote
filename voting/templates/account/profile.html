@@ -49,7 +49,7 @@
                     <br><hr />
                 </div>
         <button type="button" class="btn btn-primary pull-right btn-more_about" title="Press Ctrl + P to view more about {{ student_data.first_name }}">
-        More about {{ student_data.first_name }}
+        More about {{ student_data.get_full_name }}
         </button><br><br><br>
         <div class="about_student panel-body">
             {% if student_data.mobile or student_data.email_address %}

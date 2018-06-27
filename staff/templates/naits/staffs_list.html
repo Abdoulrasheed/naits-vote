@@ -43,6 +43,10 @@
           </div>
         </div>
         {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+          {% empty %}
+          <div class="row">
+              <h3 style="text-align: center;">No Staff Added</h3>
+          </div>
       {% endfor %}
     </div>
 

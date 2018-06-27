@@ -5,12 +5,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from django.core.urlresolvers import reverse
 
 # rename image while upload
 import os
 from uuid import uuid4
+
+
+import hashlib
+import os.path
+import urllib
+
+from django.conf import settings
+
 
 STATES = (
         ('Abia', 'Abia'),
@@ -103,7 +112,7 @@ def path_and_rename(instance, filename):
     # return the whole path to the file
     return os.path.join(upload_to, filename)
 
-
+@python_2_unicode_compatible
 class User(AbstractBaseUser, PermissionsMixin):
     
     ID_Number = models.CharField(
@@ -212,13 +221,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         return str(self.ID_Number)
 
     def get_full_name(self):
+        try:
+            return self.first_name + "\
+             " + self.last_name + "\
+            (" + self.ID_Number + ")"
+        except Exception as e:
+            return self.ID_Number
+        else:
+            return self.first_name + "(" + self.ID_Number + ")"
         return self.ID_Number
 
     def get_short_name(self):
         return self.ID_Number
 
+
     def get_absolute_url(self):
-      return reverse('profile', args=[str(self.id)])
+        return reverse('profile', args=[str(self.id)])
 
 
 class Exco(models.Model):

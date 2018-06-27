@@ -11,13 +11,13 @@
   {% for conversation in conversations %}
     <a href="{% url 'messages' conversation.user.ID_Number %}" 
       class="list-group-item{% if active == conversation.user.ID_Number %} active{% endif %}">
-      <img src="{{ conversation.user.profile.get_picture }}" class="conversation-portrait">
-      {{ conversation.user.profile.get_screen_name }}
+      <img src="{{ conversation.user.profile_picture.url }}" class="conversation-portrait">
+      {{ conversation.user.get_full_name }}
       {% if conversation.unread > 0 %}
         <span class="badge pull-right">{{ conversation.unread }}</span>
       {% endif %}
     </a>
   {% empty %}
-    <a href="#" class="list-group-item">{% trans 'Start a conversation' %}</a>
+    <a href="/messages/new/" class="list-group-item">{% trans 'Start a conversation' %}</a>
   {% endfor %}
 </div>
