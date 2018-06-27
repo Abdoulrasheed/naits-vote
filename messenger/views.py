@@ -124,7 +124,14 @@ def users(request):
 
 
 @login_required
-@ajax_required
 def check(request):
     count = Message.objects.filter(user=request.user, is_read=False).count()
-    return HttpResponse(count)
+    user = request.user
+    notifications = Message.objects.filter(user=user)
+    unread = Message.objects.filter(user=user, is_read=False)
+    for notification in unread:
+        notification.is_read = True  # pragma: no cover
+        notification.save()  # pragma: no cover
+
+    return render(request, 'notifications/notifications.html',
+                  {'notifications': notifications, 'count': count})

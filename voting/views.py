@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # change password imports
-
+from messenger.models import Message
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -141,8 +141,6 @@ def notifications(request):
     if len(Voter.objects.filter(student_id=request.user.id)) == no_of_offices:
         continue_voting = '<a href="/"><small>Complete casting your votes</a></small>'
         notifications = (continue_voting,)
-    else:
-        notifications = ()
     if not request.user.is_updated:
         update = "<small><a href='/edit/" + str(request.user.id)+"'" + " title='update profile'> Please update your profile information</a></small>"
         notifications += (update,)
@@ -153,4 +151,3 @@ def notifications(request):
              + " title='update profile'> would you like to review it ?</a></small>"
             notifications += (need_update,)
     return render(request, 'account/notifications.html', {'notifications': notifications})
-
