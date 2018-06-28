@@ -23,7 +23,7 @@
               <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
               {% endif %}
               <span class="pull-right" title="click to view nait {{ exco.position }}'s profile">
-              {{ exco.first_name }} {{ exco.last_name }} ({{ exco.ID_Number }})
+              {{ exco.first_name }} {{ exco.last_name }} ({{ exco.ID_Number|upper }})
           	  </span>
             </div>
             </a>
