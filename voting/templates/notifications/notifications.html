@@ -1,8 +1,3 @@
-<ul>
-  {% for notification in notifications %}
-    <li style="text-align: center; color: red !important">{{ notification|safe }}</li>
-    <hr />
-  {% empty %}
-    <small style="text-align: center; color: red !important">You have no unread notification</small>
-  {% endfor %}
-</ul>
+{% if unread != 0%}
+{{ unread }}
+{% endif %}
