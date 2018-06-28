@@ -23,13 +23,13 @@
               <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
               {% endif %}
               <span class="pull-right" title="click to view {{ student.ID_Number }} profile">
-              {{ student.ID_Number }}
+              {{ student.ID_Number|upper }}
           	  </span>
             </div>
             </a>
             <div class="panel-body">
               <p><strong class="badge badge-primary">ID number</strong> <span class="pull-right">
-              {{ student.ID_Number }}</span></p>
+              {{ student.ID_Number|upper }}</span></p>
                 <p><strong class="badge badge-info">Level:</strong> <span class="pull-right">
               {{ student.level }}</span></p>
               {% if user.ID_Number !=  student.ID_Number %}
@@ -53,6 +53,3 @@
     </div>
   
 {% endblock vote_content %}
-
-{% block sitebar %}
-{% endblock %}
