@@ -141,4 +141,4 @@ def vote(request, poll_id):
 @ajax_required
 def check_messages(request):
     count = Message.objects.filter(user=request.user, is_read=False).count()
-    return render(request, 'naits/base.html', {'unread': count})
+    return render(request, 'notifications/notifications.html', {'unread': count})
