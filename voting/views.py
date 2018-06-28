@@ -93,6 +93,7 @@ def ProfileUpdate(request):
             user.last_name = form.cleaned_data.get('last_name')
             user.level = form.cleaned_data.get('level')
             user.email_address = form.cleaned_data.get('email_address')
+            user.mobile = form.cleaned_data.get('mobile')
             user.hall_of_residence = form.cleaned_data.get('hall_of_residence')
             user.state_of_origin = form.cleaned_data.get('state_of_origin')
             user.profile_picture = form.cleaned_data.get('profile_picture')
