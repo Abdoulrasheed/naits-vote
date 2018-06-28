@@ -1,19 +1,15 @@
-  function check_notifications() {
+$(function () {
+  function check_messages() {
     $.ajax({
-      url: '/messages/',
+      url: '/notifications/',
       cache: false,
       success: function (data) {
-        if (data != "0") {
-          $("#notifications").addClass("new-notifications");
-        }
-        else {
-          $("#notifications").removeClass("new-notifications");
-        }
+        $("#unread").text(data);
       },
       complete: function () {
-        window.setTimeout(check_notifications, 6000);
+        window.setTimeout(check_messages, 3000);
       }
     });
   };
-  check_notifications();
+  check_messages();
 });
