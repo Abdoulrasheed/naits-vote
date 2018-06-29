@@ -31,17 +31,23 @@
               {% endif %}
               </div>
               <div style="display: inline-block; float: right; vertical-align: top">
+                {% if exco.position %}
               <p>
-                <font class="btn disabled btn-info" style="background-color: green">{{ exco.position }}
+                <font class="btn disabled btn-info" style="width: 140px; background-color: green">{{ exco.position }}
                 </font>
               </p>
+              {% endif %}
+              {% if exco.mobile %}
               <p>
                 <a style="width: 140px" class="btn btn-default fa fa-phone" href="tel: {{ exco.mobile }}"> {{ exco.mobile }}</a>
               </p>
+              {% endif %}
+              {% if exco.email_address %}
               <p>
-                <a style="width: 140px" class="btn btn-default fa fa-briefcase" href="mail-to: {{ exco.email_address }}">
+                <a style="width: 140px" class="btn btn-default fa fa-briefcase" href="mailto: {{ exco.email_address }}">
                   <small>{{ exco.email_address }}</small></a>
               </p>
+              {% endif %}
               <a href="#" class="btn btn-primary" style="width: 140px">Send Message</a>
             </div>
             </div>

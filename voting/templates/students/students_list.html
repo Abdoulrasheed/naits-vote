@@ -18,9 +18,9 @@
           	<a href="{% url 'profile' student.id %}">
             <div class="panel-heading">
               {% if student.profile_picture %}
-              <img src="{{ student.profile_picture.url }}" style="width:35px; border-radius: 100px;">
+              <img src="{{ student.profile_picture.url }}" style="width:35px; border-radius: 10px;">
               {% else %}
-              <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
+              <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 10px;">
               {% endif %}
               <span class="pull-right" title="click to view {{ student.ID_Number }} profile">
               {{ student.ID_Number|upper }}

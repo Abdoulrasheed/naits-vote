@@ -13,9 +13,9 @@
 
     <div class="row">
       {% for staff in staffs %}
-        <div class="col-md-5">
+        <div class="col-md-4">
           <div class="panel panel-default simple-box">
-            <a href="{% url 'profile' staff.id %}">
+            <a href="{% url 'profile' staff.name.id %}">
             <div class="panel-heading">
               <span title="click to view nait {{ staff.position }}'s profile">
               {{ staff.get_full_name }}
@@ -24,25 +24,26 @@
             </a>
             <div class="panel panel-body">
               <div style="display: inline-block;">
-                <img src="{{ staff.profile_picture.url }}" style="width:100px; border-radius: 10px;">
+                <img src="{{ staff.profile_picture.url }}" style="width:110px; border-radius: 10px;">
               </div>
               <div style="display: inline-block; float: right;">
+               {% if staff.position %}
               <p>
-                <font style="padding: 10px 50px 10px" class="badge">{{ staff.position }}
+                <font class="btn disabled btn-info" style="width: 140px; background-color: green">{{ staff.position }}
                 </font>
               </p>
+              {% endif %}
+              {% if staff.mobile %}
               <p>
-                  <label>Phone number: </label>
-                  <span class="pull-right">
-                  {{ staff.mobile }}
-                  </span>
+                <a style="width: 140px" class="btn btn-default fa fa-phone" href="tel: {{ staff.mobile }}"> {{ staff.mobile }}</a>
               </p>
+              {% endif %}
+              {% if staff.email_address %}
               <p>
-                  <label>Email: </label>
-                  <span class="pull-right">
-                  {{ staff.email_address }}
-                  </span>
+                <a style="width: 140px" class="btn btn-default fa fa-briefcase" href="mailto: {{ staff.email_address }}">
+                  <small>{{ staff.email_address }}</small></a>
               </p>
+              {% endif %}
                 </div>
             </div>
           </div>

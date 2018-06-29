@@ -39,9 +39,9 @@ def profile(request, pk):
 
 @login_required
 def students(request):
-    students_list = User.objects.filter(is_active=True).order_by('-level')
+    students_list = User.objects.filter(is_active=True).order_by('-id')
     page = request.GET.get('page', 1)
-    paginator = Paginator(students_list, 12)
+    paginator = Paginator(students_list, 9)
     try:
         students = paginator.page(page)
     except PageNotAnInteger:
