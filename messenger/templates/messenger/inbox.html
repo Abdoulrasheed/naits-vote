@@ -17,8 +17,8 @@
         <form role="form" method="post" action="{% url 'send_message' %}" id="send">
           {% csrf_token %}
           <input type="hidden" name="to" value="{{ active }}">
-          <input class="form-control" type="text" name="message" placeholder="Write a message..." maxlength="1000" autocomplete="off">
-          <input class="btn btn-primary pull-right" type="submit" name="submit" value="Send" />
+          <input title="Hit Enter key to send" class="form-control" type="text" name="message" placeholder="Write a message..." maxlength="1000" autocomplete="off">
+          <input title="You can also hit Enter key to send" class="btn btn-primary pull-right" type="submit" name="submit" value="Send" />
         </form>
       </div>
     </li>

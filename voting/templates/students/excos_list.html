@@ -48,7 +48,7 @@
                   <small>{{ exco.email_address }}</small></a>
               </p>
               {% endif %}
-              <a href="#" class="btn btn-primary" style="width: 140px">Send Message</a>
+              <a href="{% url 'messages' exco.ID_Number %}" class="btn btn-primary" style="width: 140px">Send Message</a>
             </div>
             </div>
           </div>
