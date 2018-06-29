@@ -18,3 +18,16 @@ class ListOfStaff(models.Model):
     mobile = models.CharField(max_length=15, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='staffs_profile_pictures/', blank=True, null=True)
 
+    def __str__(self):
+        return self.name.first_name
+
+    def get_full_name(self):
+        try:
+            if self.first_name and self.last_name:
+                return self.name.first_name + " " + self.name.last_name
+            elif self.first_name:
+                return self.first_name
+            else:
+                return self.last_name
+        except Exception as e:
+            return self.name.ID_Number

@@ -48,7 +48,7 @@ def students(request):
         students = paginator.page(1)
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
-    return render(request, 'naits/students_list.html', {'students': students})
+    return render(request, 'students/students_list.html', {'students': students})
 
 
 @login_required
@@ -62,7 +62,7 @@ def excos(request):
         excos = paginator.page(1)
     except EmptyPage:
         excos = paginator.page(paginator.num_pages)
-    return render(request, 'naits/excos_list.html', {'excos': excos})
+    return render(request, 'students/excos_list.html', {'excos': excos})
 
 
 

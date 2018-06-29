@@ -1,0 +1,67 @@
+{% extends 'naits/base.html' %}
+{% load staticfiles %}
+
+{% block title %} CURRENT NAIT EXECUTIVES {% endblock %}
+
+  <link href="{% static 'css/network.css' %}" rel="stylesheet">
+
+{% block vote_content %}
+  <div style="margin-top: 5em;" class="page-header">
+    <br>
+    <h6 class="panel-heading" style="width: 25em"> CURRENT NAIT EXECUTIVES </h6>
+  </div>
+
+    <div class="row">
+      {% for exco in excos %}
+        <div class="col-md-4">
+          <div class="panel panel-default simple-box">
+          	<a href="{% url 'profile' exco.id %}">
+            <div class="panel-heading">
+              <span title="click to view nait {{ exco.position }}'s profile">
+              {{ exco.get_short_name|upper }}
+          	  </span>
+            </div>
+            </a>
+            <div class="panel-body">
+              <div style="display: inline-block;">
+              {% if exco.profile_picture %}
+                <img src="{{ exco.profile_picture.url }}" style="width:150px; border-radius: 10px;">
+              {% else %}
+                <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:150px; border-radius: 10px;">
+              {% endif %}
+              </div>
+              <div style="display: inline-block; float: right; vertical-align: top">
+              <p>
+                <font class="btn disabled btn-info" style="background-color: green">{{ exco.position }}
+                </font>
+              </p>
+              <p>
+                <a style="width: 140px" class="btn btn-default fa fa-phone" href="tel: {{ exco.mobile }}"> {{ exco.mobile }}</a>
+              </p>
+              <p>
+                <a style="width: 140px" class="btn btn-default fa fa-briefcase" href="mail-to: {{ exco.email_address }}">
+                  <small>{{ exco.email_address }}</small></a>
+              </p>
+              <a href="#" class="btn btn-primary" style="width: 140px">Send Message</a>
+            </div>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+          {% empty %}
+          <div class="row">
+              <h3 style="text-align: center;">No executive added</h3>
+          </div>
+      {% endfor %}
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        {% include 'pagination/paginator.html' with paginator=users %}
+      </div>
+    </div>
+  
+{% endblock vote_content %}
+
+{% block sitebar %}
+{% endblock %}

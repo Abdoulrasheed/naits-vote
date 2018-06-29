@@ -13,32 +13,37 @@
 
     <div class="row">
       {% for staff in staffs %}
-        <div class="col-md-4">
+        <div class="col-md-5">
           <div class="panel panel-default simple-box">
             <a href="{% url 'profile' staff.id %}">
             <div class="panel-heading">
-              {% if staff.profile_picture %}
-              <img src="{{ staff.profile_picture.url }}" style="width:35px; border-radius: 100px;">
-              {% else %}
-              <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:35px; border-radius: 100px;">
-              {% endif %}
-              <span class="pull-right" title="click to view nait {{ staff.position }}'s profile">
-              {{ staff.first_name }} {{ staff.last_name }} ({{ staff.ID_Number }})
+              <span title="click to view nait {{ staff.position }}'s profile">
+              {{ staff.get_full_name }}
               </span>
             </div>
             </a>
-            <div class="panel-body">
+            <div class="panel panel-body">
+              <div style="display: inline-block;">
+                <img src="{{ staff.profile_picture.url }}" style="width:100px; border-radius: 10px;">
+              </div>
+              <div style="display: inline-block; float: right;">
               <p>
-                <font class="badge badge-primary" style="width: 100%; font-size: 15px ; background-color: rgba(122, 120, 120, 1); color: #ffffff; padding: 10px;">   NAIT {{ staff.position }}
+                <font style="padding: 10px 50px 10px" class="badge">{{ staff.position }}
                 </font>
               </p>
               <p>
-                <strong class="badge badge-info">
-                  Phone number:
-                </strong>
-                <span class="pull-right">
-                  {{ staff.mobile }}</span></p>
-              <a href="#" class="btn btn-primary" style="width: 100%;">Send Message</a>
+                  <label>Phone number: </label>
+                  <span class="pull-right">
+                  {{ staff.mobile }}
+                  </span>
+              </p>
+              <p>
+                  <label>Email: </label>
+                  <span class="pull-right">
+                  {{ staff.email_address }}
+                  </span>
+              </p>
+                </div>
             </div>
           </div>
         </div>
