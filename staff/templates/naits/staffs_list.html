@@ -24,7 +24,11 @@
             </a>
             <div class="panel panel-body">
               <div style="display: inline-block;">
-                <img src="{{ staff.profile_picture.url }}" style="width:110px; border-radius: 10px;">
+                {% if staff.name.profile_picture %}
+                <img src="{{ staff.name.profile_picture.url }}" style="width:110px; border-radius: 10px;">
+                {% else %}
+                <img src="{% static 'img/img_avatar.png' %}" style="width:110px; border-radius: 10px;">
+              {% endif %}
               </div>
               <div style="display: inline-block; float: right;">
                {% if staff.position %}

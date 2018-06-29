@@ -16,7 +16,6 @@ class ListOfStaff(models.Model):
     state = models.CharField(max_length=50, choices=STATES, blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     mobile = models.CharField(max_length=15, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='staffs_profile_pictures/', blank=True, null=True)
 
     def __str__(self):
         return self.name.first_name
