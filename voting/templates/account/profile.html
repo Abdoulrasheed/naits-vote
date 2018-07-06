@@ -43,40 +43,46 @@
       <!--Bar graphic chart-->
       <div class="col-md-9">
           <ul class="nav nav-pills">
+            {% if page_user.mobile or page_user.email or page_user.hall_of_residence %}
             <li class="active"><a  href="#1b" data-toggle="tab">Contact</a></li>
+            {% elif page_user.ID_Number == request.user.ID_Number %}
+            <li class=""><a  href="{% url 'edit_profile' %}">Update Profile</a></li>
+            {% endif %}
             <li><a href="#2b" data-toggle="tab">Last Login</a></li>
-            <li><a href="#3b" data-toggle="tab">Permission</a></li>
+            <li><a href="#3b" data-toggle="tab">Membership</a></li>
+            {% if page_user.facbook_id or page_user.twitter_handler or page_user.instagram or page_user.pinterest %}
             <li><a href="#4b" data-toggle="tab">Connect</a></li>
+            {% endif %}
           </ul>
           <div class="tab-content">
-            <div style="background-color: #354052 !important" class="tab-pane active" id="1b">
+            <div class="tab-pane active" id="1b">
               <ul class="stream">
                 {% if page_user.email %}
-            	<li class="btn btn-info">
-            		<span class="glyphicon glyphicon-link"></span>
+            	<li class="btn btn-info" style="width: 300px">
+            		<span class="glyphicon glyphicon-send"></span>
             		<a href="mailto:{{ page_user.email }}">{{ page_user.email }}</a>
             	</li><br>
           		{% endif %}
           		</ul>
           		<ul>
           		{% if page_user.mobile %}
-            	<li class="btn btn-info">
+            	<li class="btn btn-info" style="width: 200px">
             		<span class="glyphicon glyphicon-phone"></span>
             		<a href="tel:{{ page_user.mobile }}">{{ page_user.mobile }}</a>
             	</li>
           		{% endif %}
           		</ul>
           		<ul>
-				{% if page_user.hall_of_residence %}
-            	<li class="btn btn-info disabled">
+				      {% if page_user.hall_of_residence %}
+            	<li class="btn btn-info disabled" style="width: 200px">
             		<span class="glyphicon glyphicon-map"></span>
             		<a>{{ page_user.hall_of_residence }}</a>
             	</li>
           		{% endif %}
               </ul>
-				<ul>
-				{% if page_user.state_of_origin %}
-            	<li class="btn btn-info disabled">
+				      <ul>
+				      {% if page_user.state_of_origin %}
+            	<li class="btn btn-info disabled" style="width: 200px">
             		<span class="glyphicon glyphicon-map"></span>
             		<a>{{ page_user.state_of_origin }}</a>
             	</li>
@@ -84,35 +90,44 @@
               </ul>
             </div>
             <div class="tab-pane" id="2b">
-              <!--Bar graphic chart-->
-              <p width="400" height="160">
+              <p>
               	{{ page_user.last_login }}
               </p>
               <p class="btn btn-danger">
               	currently online
               </p>
             </div>
+            {% if page_user.is_active %}
             <div class="tab-pane" id="3b">
-              <span>is allow to vote : {% if user.is_active %} Yes {% endif %}</span>
+              <span class="badge badge-info">IS ALLOW TO VOTE : {% if user.is_active %} Yes {% endif %}</span>
             </div>
+            {% endif %}
             <div class="tab-pane" id="4b">
               <li>
+                {% if page_user.facebook_id %}
               <ul>
-                <a class="btn btn-info fa fa-facebook" href="{{ page_user.facebook_id }}">
+                <a class="btn btn-info fa fa-facebook" href="https://facebook.com/{{ page_user.facebook_id }}">
                  Connect with {{ page_user.get_short_name }} on facebook</a>
               </ul>
+              {% endif %}
+              {% if page_user.instagram %}
               <ul>
-                <a class="btn btn-info fa fa-instagram" href="{{ page_user.instagram }}">
+                <a class="btn btn-info fa fa-instagram" href="https://instagram.com/{{ page_user.instagram }}">
                  Connect with {{ page_user.get_short_name }} on Instagram</a>
               </ul>
+              {% endif %}
+              {% if page_user.twitter_handler %}
               <ul>
-                <a class="btn btn-info fa fa-twitter" href="{{ page_user.twitter }}">
+                <a class="btn btn-info fa fa-twitter" href="https://twitter.com/{{ page_user.twitter }}">
                  Connect with {{ page_user.get_short_name }} on Twitter</a>
               </ul>
+              {% endif %}
+              {% if page_user.pinterest %}
               <ul>
-                <a class="btn btn-info fa fa-pinterest" href="{{ page_user.pinterest }}">
+                <a class="btn btn-info fa fa-pinterest" href="https://pinterest.com/{{ page_user.pinterest }}">
                  Connect with {{ page_user.get_short_name }} on pinterest</a>
               </ul>
+              {% endif %}
             </li>
             </div>
           </div>

@@ -6,7 +6,7 @@ from .forms import ProfileForm
 from django.views import generic
 from django.contrib import messages
 from messenger.models import Message
-from voting.decorators import ajax_required
+from decorators import ajax_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .models import Aspirant, Office, Voter, User

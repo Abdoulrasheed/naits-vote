@@ -12,6 +12,7 @@ from local.constants import (STATES,
                                 EXCO_OFFICES, 
                                 HALL_OF_RESIDENCE)
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -181,7 +182,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.ID_Number
 
     def get_absolute_url(self):
-        return reverse('profile', args=[str(self.id)])
+        return reverse('profile', args=[str(self.ID_Number)])
 
 
     def get_picture(self):

@@ -3,7 +3,7 @@ from authentication.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 
-from voting.decorators import ajax_required
+from decorators import ajax_required
 from messenger.models import Message
 
 
