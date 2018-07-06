@@ -1,4 +1,7 @@
 #-*- coding: utf-8 -*-
+import os
+from django.db.models import Q
+from PIL import Image
 from .forms import ProfileForm
 from django.views import generic
 from django.contrib import messages
@@ -7,16 +10,16 @@ from voting.decorators import ajax_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .models import Aspirant, Office, Voter, User
-from django.utils.decorators import method_decorator
+from django.conf import settings as django_settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # User Update modules
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 
-@method_decorator([login_required], name='dispatch')
+
 class IndexView(generic.ListView):
     template_name = 'naits/index.html'
     context_object_name = 'latest_poll_list'
@@ -25,17 +28,22 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Office.objects.all()[:5]
 
-@method_decorator([login_required], name='dispatch')
+
 class DetailView(generic.DetailView):
     model = Office
     template_name = 'naits/detail.html'
 
 @login_required
-def profile(request, pk):
-    student_page = get_object_or_404(User, id=pk)
-    return render(request, 'account/profile.html', {
-    'student_data': student_page
-    })
+def profile(request, ID_Number):
+    page_user = get_object_or_404(User, ID_Number=ID_Number)
+    messages_count = Message.objects.filter(
+        Q(from_user=page_user) | Q(user=page_user)).count()
+
+    data = {
+        'page_user': page_user,
+        'msg': messages_count,
+        }
+    return render(request, 'account/profile.html', data)
 
 @login_required
 def students(request):
@@ -49,21 +57,6 @@ def students(request):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
     return render(request, 'students/students_list.html', {'students': students})
-
-
-@login_required
-def excos(request):
-    excos_list = User.objects.filter(is_exco=True).order_by('-level')
-    page = request.GET.get('page', 1)
-    paginator = Paginator(excos_list, 12)
-    try:
-        excos = paginator.page(page)
-    except PageNotAnInteger:
-        excos = paginator.page(1)
-    except EmptyPage:
-        excos = paginator.page(paginator.num_pages)
-    return render(request, 'students/excos_list.html', {'excos': excos})
-
 
 
 @login_required
@@ -92,12 +85,10 @@ def ProfileUpdate(request):
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             user.level = form.cleaned_data.get('level')
-            user.email_address = form.cleaned_data.get('email_address')
+            user.email = form.cleaned_data.get('email')
             user.mobile = form.cleaned_data.get('mobile')
             user.hall_of_residence = form.cleaned_data.get('hall_of_residence')
             user.state_of_origin = form.cleaned_data.get('state_of_origin')
-            user.profile_picture = form.cleaned_data.get('profile_picture')
-            user.is_updated = True
             user.save()
             messages.success(request, 'Your profile was successfully edited.')
 
@@ -110,6 +101,69 @@ def ProfileUpdate(request):
 
     return render(request, 'account/profile_update.html', {'form': form})
 
+
+@login_required
+def picture(request):
+    uploaded_picture = False
+    try:
+        if request.GET.get('upload_picture') == 'uploaded':
+            uploaded_picture = True
+            
+    except Exception:  # pragma: no cover
+        pass
+
+    return render(request, 'account/picture.html',
+                  {'uploaded_picture': uploaded_picture})
+
+
+@login_required
+def upload_picture(request):
+    try:
+        profile_pictures = django_settings.MEDIA_ROOT + '/profile_pictures/'
+        if not os.path.exists(profile_pictures):
+            os.makedirs(profile_pictures)
+
+        f = request.FILES['picture']
+        filename = profile_pictures + request.user.ID_Number + '_tmp.jpg'
+        with open(filename, 'wb+') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
+
+        im = Image.open(filename)
+        width, height = im.size
+        if width > 350:
+            new_width = 350
+            new_height = (height * 350) / width
+            new_size = new_width, new_height
+            im.thumbnail(new_size, Image.ANTIALIAS)
+            im.save(filename)
+
+        return redirect('/settings/picture/?upload_picture=uploaded')
+
+    except Exception:
+        return redirect('/settings/picture/')
+
+@login_required
+def save_uploaded_picture(request):
+    try:
+        x = int(request.POST.get('x'))
+        y = int(request.POST.get('y'))
+        w = int(request.POST.get('w'))
+        h = int(request.POST.get('h'))
+        tmp_filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
+            request.user.ID_Number + '_tmp.jpg'
+        filename = django_settings.MEDIA_ROOT + '/profile_pictures/' +\
+            request.user.ID_Number + '.jpg'
+        im = Image.open(tmp_filename)
+        cropped_im = im.crop((x, y, w+x, h+y))
+        cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
+        cropped_im.save(filename)
+        os.remove(tmp_filename)
+
+    except Exception:
+        pass
+
+    return redirect('/settings/picture/')
 
 
 @login_required

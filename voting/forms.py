@@ -56,27 +56,32 @@ class ProfileForm(forms.ModelForm):
         label="Current Level",
         max_length=9,
         required=False)
-    email_address = forms.EmailField(
+    
+    email = forms.EmailField(
         widget=forms.EmailInput(attrs={'class': 'form-control'}),
         label="Email",
         max_length=75,
         required=False)
+
     state_of_origin = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         label="State",
         max_length=50,
         required=False)
+
+    hall_of_residence = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Hall",
+        max_length=50,
+        required=False)
+
     mobile = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         label="Phone Number",
         max_length=16,
         required=False)
-    profile_picture = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={'class': 'form-control'}),
-        label="Profile Photo",
-        required=False)
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'level',
-                  'email_address', 'state_of_origin', 'mobile']
+                  'email', 'state_of_origin', 'hall_of_residence', 'mobile']

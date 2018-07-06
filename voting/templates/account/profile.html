@@ -1,127 +1,122 @@
 {% extends 'naits/base.html' %}
-{% load staticfiles %} 
-{% block title %} {{ request.user }} | Profile {% endblock %} 
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{{ page_user.get_screen_name }}{% endblock %}
+
+{% block head %}
+  <link href="{% static 'css/profile.css' %}" rel="stylesheet">
+  <link href="{% static 'css/feeds.css' %}" rel="stylesheet">
+  <link href="{% static 'css/top_tiles.css' %}" rel="stylesheet">
+  <script src="{% static 'js/feeds.js' %}"></script>
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+{% endblock head %}
 
 {% block vote_content %}
-<div style="margin-top: 6em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em" class="users">
-
-    <div class="row" style="margin-top: 2em; margin-left: 0.10em; margin-right: 0.10em; margin-bottom: 0.10em">
-        <div class="col-md-3">
-            <div class="panel panel-heading">
-            {% if student_data == request.user %}
-            <p class="fa fa-user"> My profile ({{ user }})</p> 
-            {% else %}
-            <p class="fa fa-user"> 
-            {{ student_data.get_short_name }} Profile </p>
-            {% endif %}
+<br>
+<br>
+  <div class="page-header">
+    <h1>{{ page_user.get_screen_name }} {% if page_user.get_full_name %}<small>({{ page_user.ID_Number }})</small>{% endif %}</h1>
+  </div>
+  <div class="profile">
+    <div class="row tile_count">
+      <!-- Data tiles -->
+      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
+        <span class="count_top"><i class="glyphicon glyphicon-envelope"></i> Messages</span>
+        <div class="count">{{ msg }}</div>
+      </div>
+      <!-- /data tiles -->
+    </div>
+    <div class="row">
+      <!--Profile tile-->
+      <div class="col-md-3 user-profile">
+        <img src="{{ page_user.get_picture }}" class="picture">
+        <ul>
+            <li><span class="glyphicon glyphicon-briefcase"></span> {{ page_user.level }}</li>
+          {% if page_user.state_of_origin %}
+            <li><span class="glyphicon glyphicon-map-marker"></span> {{ page_user.state_of_origin }}</li>
+          {% endif %}
+        </ul>
+      </div>
+      <!--Profile tile-->
+      <!--Bar graphic chart-->
+      <div class="col-md-9">
+          <ul class="nav nav-pills">
+            <li class="active"><a  href="#1b" data-toggle="tab">Contact</a></li>
+            <li><a href="#2b" data-toggle="tab">Last Login</a></li>
+            <li><a href="#3b" data-toggle="tab">Permission</a></li>
+            <li><a href="#4b" data-toggle="tab">Connect</a></li>
+          </ul>
+          <div class="tab-content">
+            <div style="background-color: #354052 !important" class="tab-pane active" id="1b">
+              <ul class="stream">
+                {% if page_user.email %}
+            	<li class="btn btn-info">
+            		<span class="glyphicon glyphicon-link"></span>
+            		<a href="mailto:{{ page_user.email }}">{{ page_user.email }}</a>
+            	</li><br>
+          		{% endif %}
+          		</ul>
+          		<ul>
+          		{% if page_user.mobile %}
+            	<li class="btn btn-info">
+            		<span class="glyphicon glyphicon-phone"></span>
+            		<a href="tel:{{ page_user.mobile }}">{{ page_user.mobile }}</a>
+            	</li>
+          		{% endif %}
+          		</ul>
+          		<ul>
+				{% if page_user.hall_of_residence %}
+            	<li class="btn btn-info disabled">
+            		<span class="glyphicon glyphicon-map"></span>
+            		<a>{{ page_user.hall_of_residence }}</a>
+            	</li>
+          		{% endif %}
+              </ul>
+				<ul>
+				{% if page_user.state_of_origin %}
+            	<li class="btn btn-info disabled">
+            		<span class="glyphicon glyphicon-map"></span>
+            		<a>{{ page_user.state_of_origin }}</a>
+            	</li>
+          		{% endif %}
+              </ul>
             </div>
-            {% include 'account/includes/partial_settings_menu.html' with active='profile' %}
-        </div>
-        <div class="col-md-8">
-            <div class="panel panel-default simple-box">
-                <div class="panel-heading">
-
-                    <a href="">
-                    {{ student_data.ID_Number }} 
-                    ( {{ student_data.get_short_name }} )
-                    </a> 
-                </div>
-                {% if student_data.profile_picture %}
-                <div id="div1">
-                    <img width="255px" class="img-responsive" src="{{ student_data.profile_picture.url }}">
-                </div>
-                {% else %}
-                <div id="div1">
-                    <img width="255px" class="img-responsive" src="{% static 'img/img_avatar.png' %}">
-                </div>
-                {% endif %}
-                <div id="div2" style="align-content: center; margin-left: 10px">
-                    <a><strong> ID number : </strong>
-                    {{ student_data }}</a>
-                    <br>
-                        <a><strong>Name:</strong> 
-                    {{ student_data.get_short_name }}
-                        </a>
-                    <br>
-                    {% if student_data.level %}
-                    <a><strong> level :</strong>{{ student_data.level }}</a>
-                    {% endif %}
-                    <br>
-                    {% if not student_data.position %}
-                    <a style="background-color: green" class="disabled btn btn-primary">Member</a>
-                    {% else %}
-                    <a style="background-color: green" class="disabled btn btn-primary">{{ student_data.position }}</a>
-                    {% endif %}
-                    {% if user.ID_Number !=  student_data.ID_Number %}
-                    <a href="{% url 'messages' student_data.ID_Number %}" class="btn btn-primary">Send Message</a>
-                    {% endif %}
-                    <br><hr />
-                </div>
-                <button type="button" 
-                class="btn btn-primary pull-right btn-more_about" 
-                title="click to view more about {{ student_data.first_name }}">
-                    More about {{ student_data.get_short_name }}
-                </button>
-                <br><br><br>
-
-                <div class="about_student panel-body">
-                {% if student_data.mobile or student_data.email_address %}
-                    <fieldset>
-                        {% if student_data.mobile %}
-                        <legend>Contact</legend>
-                        <span class="badge badge-info fa fa-mobile">
-                            <strong>Mobile:</strong>
-                        </span>
-                            <a class="pull-right">
-                                {{ student_data.mobile }}
-                            </a>
-                        <hr />
-                        {% endif %}
-                        {% if student_data.email_address %}
-                        <span class="badge badge-info fa fa-email">
-                            <strong>Email:</strong>
-                        </span>
-                        <a class="pull-right">
-                            {{ student_data.email_address }}
-                        </a>
-                        {% endif %}
-                        <hr />
-                    </fieldset>
-                    {% endif %}
-                    {% if student_data.hall_of_residence or student_data.state_of_origin %}
-                    <fieldset>
-                        <legend>Location</legend>
-                    {% if student_data.hall_of_residence %}
-                    <span class="badge badge-info fa fa-map-marker">
-                        <strong> Hall of residence :</strong> 
-                    </span>
-                    <a class="pull-right">{{ student_data.hall_of_residence }}</a>
-                    <hr />
-                    {% endif %}
-                    {% if student_data.state_of_origin %}
-                    <span class="badge badge-info fa fa-map-marker">
-                        <strong> State of origin:</strong> 
-                    </span>
-                    <a class="pull-right">{{ student_data.state_of_origin }}</a>
-                    <hr />
-                    {% endif %}
-                    </fieldset>
-                    {% endif %}
-                    <fieldset>
-                        <legend>Permission</legend>
-                        {% if student_data.is_active %}
-                            <span class="badge badge-info fa fa-sort">
-                                <strong> Authorized to vote: </strong> 
-                            </span>
-                            <a class="pull-right fa fa-check"></a>
-                            <hr />
-                        {% endif %}
-                    </fieldset>
-                </div>
+            <div class="tab-pane" id="2b">
+              <!--Bar graphic chart-->
+              <p width="400" height="160">
+              	{{ page_user.last_login }}
+              </p>
+              <p class="btn btn-danger">
+              	currently online
+              </p>
             </div>
-        </div>
+            <div class="tab-pane" id="3b">
+              <span>is allow to vote : {% if user.is_active %} Yes {% endif %}</span>
+            </div>
+            <div class="tab-pane" id="4b">
+              <li>
+              <ul>
+                <a class="btn btn-info fa fa-facebook" href="{{ page_user.facebook_id }}">
+                 Connect with {{ page_user.get_short_name }} on facebook</a>
+              </ul>
+              <ul>
+                <a class="btn btn-info fa fa-instagram" href="{{ page_user.instagram }}">
+                 Connect with {{ page_user.get_short_name }} on Instagram</a>
+              </ul>
+              <ul>
+                <a class="btn btn-info fa fa-twitter" href="{{ page_user.twitter }}">
+                 Connect with {{ page_user.get_short_name }} on Twitter</a>
+              </ul>
+              <ul>
+                <a class="btn btn-info fa fa-pinterest" href="{{ page_user.pinterest }}">
+                 Connect with {{ page_user.get_short_name }} on pinterest</a>
+              </ul>
+            </li>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 {% endblock vote_content %}
-{% block script %}
-            <script src="{% static 'js/disable_save_image_as.js' %}"></script>
-            <script src="{% static 'js/profile.js' %}"></script>
-{% endblock %}

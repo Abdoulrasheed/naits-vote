@@ -2,8 +2,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
-from .models import Aspirant, Office, Voter, User as Student
-from staff.models import ListOfStaff
+from .models import Aspirant, Office, Voter
+from authentication.models import User as Student
 from django.contrib.auth.models import Group
 
 
@@ -47,7 +47,7 @@ class StateAdmin(object):
     def __init__(self, arg):
         super(StateOfOriginAdmin, self).__init__()
         self.arg = arg
-        
+
 
 @admin.register(Student)
 class UserAdmin(DjangoUserAdmin):
@@ -57,24 +57,8 @@ class UserAdmin(DjangoUserAdmin):
         (_('Bio-Data'), {'fields': 
             (
                 'first_name', 
-                'last_name', 
-                'level', 
-                'state_of_origin',
+                'last_name',
                 )
-            }),
-
-        (_('Profile Details'), {'fields': 
-            (
-                'profile_picture',
-                'email_address', 
-                'mobile', 
-                'hall_of_residence', 
-                'is_updated',
-                )
-            }),
-
-        (_('Membership'), {'fields': 
-            ('is_exco', 'position',)
             }),
 
         (_('Permissions'), {'fields': 
@@ -97,11 +81,11 @@ class UserAdmin(DjangoUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('ID_Number', 'password1', 'password2'),
+            'fields': ('ID_Number', 'password1', 'password2', 'level'),
             }),
         )
 
-    list_display = ('ID_Number', 'first_name', 'last_name', 'level', 'hall_of_residence' ,'is_staff',)
+    list_display = ('ID_Number', 'first_name', 'last_name','is_staff',)
     search_fields = ('ID_Number', 'first_name', 'last_name')
     ordering = ('ID_Number',)
 
@@ -112,4 +96,3 @@ admin.site.index_title = "NAIT Election Commitee | Administration"
 admin.site.register(Office, OfficeAdmin)
 admin.site.register(Aspirant, AspirantAdmin)
 admin.site.register(Voter, VoterAdmin)
-admin.site.register(ListOfStaff)

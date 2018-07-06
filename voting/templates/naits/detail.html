@@ -23,15 +23,15 @@
                   {% endif %}
                 	<form action="{% url 'vote' office.id %}" method="post">
 					{% csrf_token %}
-						{% for aspirants in office.aspirant_set.all %}
+						{% for aspirant in office.aspirant_set.all %}
 						<li class="list-group-item">
 						<div class="checkbox">
-						<label for="aspirants{{ forloop.counter }}">
-    					<input type="radio" name="aspirants" id="aspirants{{ forloop.counter }}" value="{{ aspirants.id }}" />
-    					{{ aspirants.first_name }} {{ aspirants.last_name }}
-    					{% if aspirants.nick_name %} 
-    					<b style="color: lightblue">A-K-A</b> 
-    					{{ aspirants.nick_name}} 
+						<label for="aspirant{{ forloop.counter }}">
+    					<input type="radio" name="aspirants" id="aspirants{{ forloop.counter }}" value="{{ aspirant.id }}" />
+    					{{ aspirant.first_name }} {{ aspirant.last_name }},
+    					{% if aspirant.nick_name %} 
+    					<small class="btn-sm btn-success disabled">A-K-A</small> 
+    					{{ aspirant.nick_name}} 
     				{% endif %}</label>
     				</div>
     			</li>

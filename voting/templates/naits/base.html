@@ -23,6 +23,8 @@
     <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/notifications.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block head %}
+{% endblock head %}
 </head>
 
 <body style="background-color: #ECF2F6">
@@ -40,21 +42,18 @@
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/messages/">
-                            Message    
-                            <span style="background-color: green; margin-left: 5px" id="unread" class="badge pull-right"></span>
-                            </a>
-                        </li>
+                        <li><a href="/messages/"><span>Message</span>
+                        <span style=" color: black !important; background-color: lightgreen; margin-left: 5px" id="unread" class="badge pull-right"></span>
+                        </a></li>
                         <li><a data-toggle="modal" data-target="#myModal" href=""><span>Discussion</span></a></li>
                         <li><a href="{% url 'all_students_page' %}"><span>Students</span></a></li>
-                        <li><a href="/staffs/"><span>Staff</span></a></li>
-                        <li><a href="{% url 'all_excos_page' %}"><span>Excos</span></a></li>
+                        <li><a href="#"><span>Staff</span></a></li>
+                        <li><a href="#"><span>Excos</span></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <li title="{{ user }}">
-                            <a href="{% url 'profile' user.id %}">
+                            <a href="{% url 'profile' user.ID_Number %}">
                                 <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-1x"></i>
                       <i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
@@ -73,23 +72,23 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/settings/edit/">
+                                        <small class="fa-stack fa-lg small">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                      </small>
+                                        <span>Account Setting</span>
+                                    </a>
+                                </li>
                                 {% if user.is_authenticated %}
                                 <li title="{{ user.get_short_name }}">
-                                    <a href="{% url 'profile' user.id %}">
+                                    <a href="{% url 'profile' user.ID_Number %}">
                                         <small class="fa-stack fa-lg small">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-user fa-stack-1x fa-inverse"></i>
                       </small>
                                         <span>Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'logout' %}">
-                                        <small class="fa-stack fa-lg small">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
-                      </small>
-                                        <span>Log out</span>
                                     </a>
                                 </li>
                                 {% if user.is_staff %}
@@ -138,6 +137,15 @@
                       <i class="fa fa-bullseye fa-stack-1x fa-inverse"></i>
                       </small>
                                         <span>About me</span>
+                                    </a>
+                                </li>
+                                                                <li>
+                                    <a href="{% url 'logout' %}">
+                                        <small class="fa-stack fa-lg small">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-unlock fa-stack-1x fa-inverse"></i>
+                      </small>
+                                        <span>Log out</span>
                                     </a>
                                 </li>
                             </ul>

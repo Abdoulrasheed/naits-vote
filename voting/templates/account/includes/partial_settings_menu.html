@@ -1,6 +1,15 @@
 {% load i18n %}
 <div class="list-group simple-box">
-  <a href="{% url 'profile' user.id %}" class="list-group-item{% if active == 'profile' %} active{% endif %}">{% trans 'Profile' %}</a>
-  <a href="{% url 'change_password' %}" class="list-group-item{% if active == 'password' %} active{% endif %}">{% trans 'Change My Password' %}</a>
-  <a href="{% url 'edit_profile' %}" class="list-group-item{% if active == 'updateprofile' %} active{% endif %}">{% trans 'Edit My Profile' %}</a>
+  <a href="{% url 'profile' user.ID_Number %}" class="list-group-item{% if active == 'profile' %} active{% endif %}">
+  	{% trans 'View Profile' %}
+  </a>
+  <a href="{% url 'change_password' %}" class="list-group-item{% if active == 'password' %} active{% endif %}">
+  	{% trans 'Change Password' %}
+  </a>
+  <a href="{% url 'edit_profile' %}" class="list-group-item{% if active == 'updateprofile' %} active{% endif %}">
+  	{% trans 'Update Profile' %}
+  </a>
+  <a href="{% url 'picture' %}" class="list-group-item{% if active == 'picture' %} active{% endif %}">
+  	{% trans 'Upload Picture' %}
+  </a>
 </div>

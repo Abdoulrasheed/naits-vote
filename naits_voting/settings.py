@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'authentication',
     'voting',
-    'staff',
     'messenger',
 ]
 
@@ -114,7 +114,7 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'voting.User'
+AUTH_USER_MODEL = 'authentication.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
