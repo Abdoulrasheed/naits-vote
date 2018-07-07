@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'authentication',
     'voting',
     'messenger',
-    'articles',
 ]
 
 MIDDLEWARE = [
