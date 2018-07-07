@@ -1,55 +1,30 @@
- .navbar span {
-                color: #9DA8B6 !important;
-            }
-            
-            .navbar {
-                background-color: #354052;
-            }
-            
-            .dropdown-menu {
-                background-color: #354052;
-            }
-            
-            .panel-heading {
-                background-color: #354052 !important;
-                color: #9DA8B6 !important;
-            }
-            
-            .panel-footer input {
-                background-color: #354052 !important;
-                color: #9DA8B6 !important;
-            }
-            
-            .active {
-                background-color: #354052 !important;
-            }
-            
-            .panel-heading a {
-                color: #ffffff;
-            }
-            
-            .box {
-                -webkit-box-shadow: -1px 1px 62px 0px rgba(194,159,194,0.49);
-                -moz-box-shadow: -1px 1px 62px 0px rgba(194,159,194,0.49);
-                box-shadow: -1px 1px 62px 0px rgba(194,159,194,0.49);
-                border-radius: 5px;
-                padding: 10px;
-                margin-top: 20px !important;
-                margin-right: 5px !important;
-                margin-bottom: 5px !important;
-                color: #ffffff;
-                background-color: #c7ba9f;
-            }
-            
-            .simple-box {
-                -webkit-box-shadow: 0px 2px 119px -13px rgba(122, 120, 120, 1);
-                -moz-box-shadow: 0px 2px 119px -13px rgba(122, 120, 120, 1);
-                box-shadow: 0px 2px 119px -13px rgba(122, 120, 120, 1);
-            }
-            .badge-notify{
-                background:red !important;
-                position:relative !important;
-                -moz-transform: translate(-100%, -100%) !important; /* For Firefox */
-                -ms-transform: translate(-100%, -100%) !important; /* for IE */
-                -webkit-transform: translate(-100%, -100%) !important; /* For Safari, Chrome, iOS */
-                -o-transform: translate(-100%, -100%) !important; /* For Opera */
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-danger {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.text-center {
+    text-align: center !important;
+}

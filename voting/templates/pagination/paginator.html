@@ -1,44 +1,44 @@
 {% if is_paginated %}
-  <ul class="pagination">
+  <div class="pagination">
     {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">Previous offices</a></li>
+      <p style="float: left;"><a href="?page={{ page_obj.previous_page_number }}">Previous offices</a></p>
     {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+      <p class="paginator disabled"  style="float: left;"><span>&laquo;</span></p>
     {% endif %}
     {% for i in paginator.page_range %}
       {% if page_obj.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        <p class="paginator active" style="float: right;"><span>{{ i }} <span class="sr-only">(current)</span></span></p>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <p style="float: right;"><a href="?page={{ i }}">{{ i }}</a></p>
       {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">Next offices</a></li>
+      <p style="float: right;"><a href="?page={{ page_obj.next_page_number }}">Next offices</a></p>
     {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
+      <p class="paginator disabled" style="float: right;"><span>&raquo;</span></p>
     {% endif %}
-  </ul>
+  </div>
 {% endif %}
 
 <!-- student pagination -->
 {% if students.has_other_pages %}
-  <ul class="pagination">
+  <div class="pagination">
     {% if students.has_previous %}
-      <li><a href="?page={{ students.previous_page_number }}">&laquo;</a></li>
+      <p style="float: left;"><a href="?page={{ students.previous_page_number }}">&laquo;</a></p>
     {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
+      <p class="paginator disabled"  style="float: right;"><span>&laquo;</span></p>
     {% endif %}
     {% for i in students.paginator.page_range %}
       {% if students.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        <p class="active"  style="float: right;"><span>{{ i }} <span class="sr-only">(current)</span></span></p>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <p style="float: right;"><a href="?page={{ i }}">{{ i }}</a></p>
       {% endif %}
     {% endfor %}
     {% if students.has_next %}
-      <li><a href="?page={{ students.next_page_number }}">&raquo;</a></li>
+      <p  style="float: right;"><a href="?page={{ students.next_page_number }}">&raquo;</a></p>
     {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
+      <p class="disabled"  style="float: left;"><span>&raquo;</span></p>
     {% endif %}
-  </ul>
+  </div>
 {% endif %}

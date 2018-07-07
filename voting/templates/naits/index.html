@@ -1,93 +1,30 @@
 {% extends 'naits/base.html' %}
+{% load i18n %}
 
-{% block title %} Home | NAIT ONLINE VOTING {% endblock %}
-
+{% block title %} NAIT Online Voting {% endblock %}
+    
 {% block vote_content %}
-<style>
-    body {
-        margin-top: 20px;
-    }
-
-    .panel-body:not(.two-col) {
-        padding: 0px;
-    }
-
-    .glyphicon {
-        margin-right: 5px;
-    }
-
-    .glyphicon-new-window {
-        margin-left: 5px;
-    }
-
-    .panel-body .radio, .panel-body .checkbox {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    .panel-body .list-group {
-        margin-bottom: 0;
-    }
-
-    .margin-bottom-none {
-        margin-bottom: 0;
-    }
-
-    .panel-body .radio label, .panel-body .checkbox label {
-        display: block;
-    }
-</style>
-<div style="margin-top: 10em" class="container">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-line-chart"></span> OFFICES</h3><br>
-                {% if user.is_authenticated %}
-                <p>Click on office below and vote</p>
-                {% else %}
-                <p>You must be logged in to vote!</p>
-                {% endif %}
-            </div>
-            <div class="panel-body">
-                {% if user.is_authenticated %}
-                <ul class="list-group">
-                	{% if latest_poll_list %}
-                	{% for office in latest_poll_list %}
-                    <li class="list-group-item">
-                        <div class="checkbox">
-                            <label>
-                               <a href="{% url 'detail' office.id %}">{{ office.office }}</a>
-                            </label>
-                        </div>
-                    </li>
-                    {% endfor %}
-                    {% else %}
-                    <li class="list-group-item">
-                        <div class="checkbox">
-                            <label>
-                                <p>No offices are available.</p>
-                            </label>
-                        </div>
-                    </li>
-                    {% endif %}
-                    {% else %}
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div class="checkbox">
-                            <label>
-                <a href="{% url 'login' %}" title="You must be logged in to view offices">Login to view offices</a>
-                 </label>
-                        </div>
-                    </li>
-                </ul>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row">
+    <!-- Content -->
+    <div id="content-main">
+        <caption>
+            <a href="">{% if user.is_anonymous %}You must be logged in to vote! {% else %} Select office below {% endif %}
+        </caption>
+        {% if user.is_authenticated %}
+        <div class="app-voting module">
+            <table>
+            {% for office in latest_poll_list %}
+            <tr class="model-office">
+                <th scope="col" ><a href="{% url 'detail' office.id %}">&rsaquo; {{ office.office }}</a></th>
+            </tr>
+            {% empty %}
+            <th scope="row">{% trans 'No office Added' %}</th>
+            {% endfor %}
+        </table>
         <div class="col-md-12">
             {% include 'pagination/paginator.html' with paginator=users %}
         </div>
         </div>
+        {% endif %}
     </div>
-{% endblock %}
+<!-- END Container -->
+{% endblock vote_content %}

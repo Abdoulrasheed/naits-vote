@@ -1,83 +1,51 @@
 {% extends 'naits/base.html' %}
+{% load i18n static %}
+
+
 {% block title %} {{ office.office }} Aspirants {% endblock %}
 {% block vote_content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<div id="container">
+    <h1>Choose Your {{ office.office }}</h1>
 
-<div style="margin-top: 10em" class="container">
-    <div class="col-md-4"></div>
+    <div id="content-main">
+        {% if error_message %}
+            <li class="btn btn-danger">{{ error_message }} {% trans 'for' %} {{ office }}</li>
+        {% endif %}
+        <div class="module filtered" id="changelist">
 
-    <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="fa fa-line-chart"></span> {{ office.office }} Aspirants</h3>
-                <br>
-                <p>Choose Your {{ office.office }} 
-                <a href="/" class="btn-sm btn btn-primary" style="float: right;"> Go back</a></p>
-            </div>
-            <div class="panel-body">
-                <ul class="list-group">
-                  {% if error_message %}
-                        <div class="alert alert-danger alert-dismissable">
-                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <b class="fa fa-info"></b><small> {{ error_message }} for {{ office }}</small>
+            <form id="changelist-form" action="{% url 'vote' office.id %}" method="post">
+                {% csrf_token %}
+                {% for aspirant in office.aspirant_set.all %}
+                <table>
+                <div class="checkbox">
+                    <thead>
+                        <label for="aspirant{{ forloop.counter }}">
+                            <td class="text-center">
+                            <input class="action-checkbox" type="radio" size="40" name="aspirants" 
+                            id="aspirant{{ forloop.counter }}" value="{{ aspirant.id }}" />
+                            {{ aspirant.first_name }} {{ aspirant.last_name }},
+
+                            {% if aspirant.nick_name %} 
+
+                           <small class="">{% trans 'A-K-A' %}</small> 
+
+                            {{ aspirant.nick_name}} 
+                           </td>
+                        {% endif %}
+                    </label>
+                </thead>
                 </div>
-                  {% endif %}
-                	<form action="{% url 'vote' office.id %}" method="post">
-					{% csrf_token %}
-						{% for aspirant in office.aspirant_set.all %}
-						<li class="list-group-item">
-						<div class="checkbox">
-						<label for="aspirant{{ forloop.counter }}">
-    					<input type="radio" name="aspirants" id="aspirants{{ forloop.counter }}" value="{{ aspirant.id }}" />
-    					{{ aspirant.first_name }} {{ aspirant.last_name }},
-    					{% if aspirant.nick_name %} 
-    					<small class="btn-sm btn-success disabled">A-K-A</small> 
-    					{{ aspirant.nick_name}} 
-    				{% endif %}</label>
-    				</div>
-    			</li>
-					{% endfor %}
-					<div class="panel-footer text-center">
-						<input type="submit" value="Vote" class="btn btn-primary btn-block btn-sm"/>
-					</div>
-					</form>
-                </ul>
-            </div>
-        </div>
+            </table>
+                {% empty %}
+                {% trans 'No Aspirant Added' %}
+                {% endfor %}
+                <div class="actions text-center">
+                    <button type="submit" class="button" title="Run the selected action" name="index" value="0">Vote</button>
+                </div>
+                <p class="paginator"></p>
+            </form>
     </div>
+  </div>
 </div>
-
-<style>
-    body {
-        margin-top: 20px;
-    }
-
-    .panel-body:not(.two-col) {
-        padding: 0px;
-    }
-
-    .glyphicon {
-        margin-right: 5px;
-    }
-
-    .glyphicon-new-window {
-        margin-left: 5px;
-    }
-
-    .panel-body .radio, .panel-body .checkbox {
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-
-    .panel-body .list-group {
-        margin-bottom: 0;
-    }
-
-    .margin-bottom-none {
-        margin-bottom: 0;
-    }
-
-    .panel-body .radio label, .panel-body .checkbox label {
-        display: block;
-    }
-</style>
 {% endblock %}
