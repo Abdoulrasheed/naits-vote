@@ -20,9 +20,10 @@
                 <table>
                 <div class="checkbox">
                     <thead>
+                        <td class="text-center">
                         <label for="aspirant{{ forloop.counter }}">
-                            <td class="text-center">
-                            <input class="action-checkbox" type="radio" size="40" name="aspirants" 
+                            
+                            <input style="float: left;" class="action-checkbox" type="radio" size="60" name="aspirants" 
                             id="aspirant{{ forloop.counter }}" value="{{ aspirant.id }}" />
                             {{ aspirant.first_name }} {{ aspirant.last_name }},
 
@@ -31,9 +32,10 @@
                            <small class="">{% trans 'A-K-A' %}</small> 
 
                             {{ aspirant.nick_name}} 
-                           </td>
+
                         {% endif %}
                     </label>
+                    </td>
                 </thead>
                 </div>
             </table>

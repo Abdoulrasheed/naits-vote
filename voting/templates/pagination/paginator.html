@@ -1,7 +1,7 @@
 {% if is_paginated %}
   <div class="pagination">
     {% if page_obj.has_previous %}
-      <p style="float: left;"><a href="?page={{ page_obj.previous_page_number }}">Previous offices</a></p>
+      <p class="paginator" style="float: left;"><a href="?page={{ page_obj.previous_page_number }}">Previous offices</a></p>
     {% else %}
       <p class="paginator disabled"  style="float: left;"><span>&laquo;</span></p>
     {% endif %}
@@ -13,7 +13,7 @@
       {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-      <p style="float: right;"><a href="?page={{ page_obj.next_page_number }}">Next offices</a></p>
+      <p class="paginator" style="float: right;"><a href="?page={{ page_obj.next_page_number }}">Next offices</a></p>
     {% else %}
       <p class="paginator disabled" style="float: right;"><span>&raquo;</span></p>
     {% endif %}

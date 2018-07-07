@@ -24,6 +24,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	url(r'^', include('voting.urls')),
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
 	url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', views.login, name='login'),

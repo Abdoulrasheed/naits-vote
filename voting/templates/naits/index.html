@@ -1,13 +1,14 @@
 {% extends 'naits/base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %} NAIT Online Voting {% endblock %}
     
 {% block vote_content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
     <!-- Content -->
     <div id="content-main">
-        <caption>
-            <a href="">{% if user.is_anonymous %}You must be logged in to vote! {% else %} Select office below {% endif %}
+        <caption class="btn btn-danger">
+            <p>{% if user.is_anonymous %}You must be logged in to vote! {% else %} Select office below {% endif %}</p>
         </caption>
         {% if user.is_authenticated %}
         <div class="app-voting module">
@@ -20,6 +21,7 @@
             <th scope="row">{% trans 'No office Added' %}</th>
             {% endfor %}
         </table>
+        <br>
         <div class="col-md-12">
             {% include 'pagination/paginator.html' with paginator=users %}
         </div>
