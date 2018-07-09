@@ -1,0 +1,60 @@
+{% load staticfiles %}
+{% load widget_tweaks i18n %}
+<html lang="en-us" >
+<head>
+	<title>Log in | IT Innovators Group - Mautech</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+
+	<link rel="stylesheet" type="text/css" href="{% static 'jet/css/vendor.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'jet/css/icons/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'jet/css/themes/default/base.css' %}" class="base-stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{% static 'jet/css/themes/default/select2.theme.css' %}" class="select2-stylesheet" />
+
+	<link rel="stylesheet" type="text/css" href="{% static 'jet/css/themes/default/jquery-ui.theme.css' %}" class="jquery-ui-stylesheet" />
+
+	<link rel="stylesheet" type="text/css" href="{% static 'admin/css/login.css' %}" />
+</head>
+<body class="menu-pinned  login" data-admin-utc-offset="0">
+
+	<div id="container">
+    	{% if form.non_field_errors %}
+    		{% for error in form.non_field_errors %}
+
+    		<p class="errornote">
+    		
+    		{{ error }}
+
+    		</p>
+    	
+    	{% endfor %}
+        {% endif %}
+   <div id="content" class="colM">
+   	<div id="content-main">
+		<form action="{% url 'login' %}" method="post" id="login-form">
+			{% csrf_token %}
+
+  			<div class="form-row">
+    			
+    			<label class="required" for="id_username">{% trans 'ID Number' %}:</label> 
+    			{{ form.username|append_attr:"id:id_username" }}
+    		</div>
+    
+    		<div class="form-row">
+
+    			<label class="required" for="id_username">{% trans 'Password' %}:</label> 
+    			{{ form.password|append_attr:"id:id_password" }}
+    		</div>
+
+    		<div class="submit-row">
+
+    			<label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+    		</div>
+    	</form>
+    	</div>
+        <br class="clear" />
+    </div>
+    </div>
+</body>
+</html>

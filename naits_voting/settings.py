@@ -1,8 +1,13 @@
 import os
 
+import environ
+
+env = environ.Env()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+APPS_DIR = os.path.join(BASE_DIR, 'bitpoint')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -19,18 +24,27 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+	# third party apps: for admin UI
     'jet.dashboard',
 	'jet',
+    'taggit',
+
+	# django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third party app: used in login page for appending html attributes to input fields
     'widget_tweaks',
-    'authentication',
-    'voting',
-    'messenger',
+
+    # Local Apps
+    'bitpoint.authentication',
+    'bitpoint.voting',
+    'bitpoint.messenger',
+    'bitpoint.articles',
 ]
 
 MIDDLEWARE = [
@@ -48,7 +62,7 @@ ROOT_URLCONF = 'naits_voting.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,10 +83,15 @@ WSGI_APPLICATION = 'naits_voting.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'naits',
+        'USER': 'abdul',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
 
 
 # Password validation
@@ -121,3 +140,24 @@ AUTH_USER_MODEL = 'authentication.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+TAGGIT_CASE_INSENSITIVE = True
+
+# REDIS setup
+REDIS_URL = env.str('REDIS_URL', default=('localhost', 6379))
+# Channels configuration
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [REDIS_URL, ],
+        },
+        'ROUTING': 'config.routing.channel_routing',
+    }
+}
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')

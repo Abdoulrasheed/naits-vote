@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %} {{ office.office }}'s results | NAITS ELECTION COMMITEE {% endblock %}
+{% block vote_content %}
+
+<div style="margin-top: 10em" class="container">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class=""></span>{{ office.office }}'s Results</h3>
+            </div>
+            {% if request.user.is_staff %}
+            <div class="panel-body">
+                <ul class="list-group">
+                	{% for aspirants in office.aspirant_set.all %}
+					<div class="panel-footer text-center">
+						<b style="float: left;">{{ aspirants.first_name }} {{ aspirants.last_name }}</b> 
+						<i style="text-align: center;">&raquo</i> 
+						<b style="float: right;">{{ aspirants.votes }} vote{{ aspirants.votes|pluralize }}</b>
+					</div>
+					{% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <div class="panel-body">
+                <ul class="list-group">
+                    <div class="panel-footer text-center">
+                        <p>You are not authorized to view results</p>
+                    </div>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        margin-top: 20px;
+    }
+
+    .panel-body:not(.two-col) {
+        padding: 0px;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .glyphicon-new-window {
+        margin-left: 5px;
+    }
+
+    .panel-body .radio, .panel-body .checkbox {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .panel-body .list-group {
+        margin-bottom: 0;
+    }
+
+    .margin-bottom-none {
+        margin-bottom: 0;
+    }
+
+    .panel-body .radio label, .panel-body .checkbox label {
+        display: block;
+    }
+</style>
+{% endblock %}

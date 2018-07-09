@@ -23,12 +23,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-	url(r'^', include('voting.urls')),
+	url(r'^', include('bitpoint.voting.urls')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
 	url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^admin/', admin.site.urls),
+    url(r'^articles/', include('bitpoint.articles.urls')),
     url(r'^accounts/login/$', views.login, name='login'),
-    url(r'^messages/', include('messenger.urls')),
+    url(r'^messages/', include('bitpoint.messenger.urls')),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/accounts/login'}),
 ]
 

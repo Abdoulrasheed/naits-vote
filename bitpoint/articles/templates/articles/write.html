@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+
+
+
+<html lang="en-us" >
+<head>
+<title>Add Tag | IT Innovators Group - Mautech</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/jet/css/vendor.css?v=1.0.7" />
+<link rel="stylesheet" type="text/css" href="/static/jet/css/icons/style.css?v=1.0.7" />
+<link rel="stylesheet" type="text/css" href="/static/jet/css/themes/default/base.css?v=1.0.7" class="base-stylesheet" />
+<link rel="stylesheet" type="text/css" href="/static/jet/css/themes/default/select2.theme.css?v=1.0.7" class="select2-stylesheet" />
+<link rel="stylesheet" type="text/css" href="/static/jet/css/themes/default/jquery-ui.theme.css?v=1.0.7" class="jquery-ui-stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+    var DATE_FORMAT = "%Y-%m-%d";
+    var TIME_FORMAT = "%H:%M:%S";
+    var DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S";
+</script>
+<script type="text/javascript" src="/jet/jsi18n/"></script>
+<script src="/static/jet/js/build/bundle.min.js?v=1.0.7"></script>
+
+
+
+    <script src="/static/jet/js/i18n/select2/en.js?v=1.0.7"></script>
+
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+<script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+<script type="text/javascript" src="/static/admin/js/inlines.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" app-taggit model-tag change-form"
+  data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+            <span id="branding-menu" class="sidebar-header-menu-icon icon-menu sidebar-toggle"></span>
+            <span id="branding-pin" class="sidebar-link-icon icon-pin sidebar-pin"></span>
+            
+<h1 id="site-name"><a href="/admin/">NAITS - Online Voting</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>Draft</strong>.
+            
+            
+                
+                    <a href="/">View Draft</a> /
+                
+                
+                    
+                    
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <!-- END Heade !-->
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Add Tag</h1>
+        <div id="content-main">
+
+
+
+<form enctype="multipart/form-data" action="" method="post" id="tag_form" novalidate><input type='hidden' name='csrfmiddlewaretoken' value='kGyHzpDREiFDs28qZvewwXA4Zd2rBrjmqjip8SxyMy6kxaWqCrX59nyNa6pWS41U' />
+<div>
+
+
+
+
+
+
+
+  
+<fieldset class="module aligned ">
+    
+    
+    
+        <div class="form-row field-name">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_name">Name:</label>
+                        
+                            <input type="text" name="name" id="id_name" required class="vTextField" maxlength="100" />
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-slug">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_slug">Slug:</label>
+                        
+                            <input type="text" name="slug" id="id_slug" required class="vTextField" maxlength="100" />
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+
+
+
+
+
+
+
+    
+<div class="js-inline-admin-formset inline-group"
+     id="taggit_taggeditem_items-group"
+     data-inline-type="stacked"
+     data-inline-formset="{&quot;name&quot;: &quot;#taggit_taggeditem_items&quot;, &quot;options&quot;: {&quot;prefix&quot;: &quot;taggit_taggeditem_items&quot;, &quot;addText&quot;: &quot;Add another Tagged Item&quot;, &quot;deleteText&quot;: &quot;Remove&quot;}}">
+<fieldset class="module ">
+  <h2>Tagged Items</h2>
+<input type="hidden" name="taggit_taggeditem_items-TOTAL_FORMS" value="3" id="id_taggit_taggeditem_items-TOTAL_FORMS" /><input type="hidden" name="taggit_taggeditem_items-INITIAL_FORMS" value="0" id="id_taggit_taggeditem_items-INITIAL_FORMS" /><input type="hidden" name="taggit_taggeditem_items-MIN_NUM_FORMS" value="0" id="id_taggit_taggeditem_items-MIN_NUM_FORMS" /><input type="hidden" name="taggit_taggeditem_items-MAX_NUM_FORMS" value="1000" id="id_taggit_taggeditem_items-MAX_NUM_FORMS" />
+
+
+<div class="inline-related" id="taggit_taggeditem_items-0">
+  <h3><b>Tagged Item:</b>&nbsp;<span class="inline_label">#1</span>
+      
+    
+  </h3>
+  
+  
+    
+<fieldset class="module aligned ">
+    
+    
+    
+        <div class="form-row field-content_type">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_taggit_taggeditem_items-0-content_type">Content type:</label>
+                        
+                            <div class="related-widget-wrapper">
+    <select name="taggit_taggeditem_items-0-content_type" id="id_taggit_taggeditem_items-0-content_type">
+  <option value="" selected>---------</option>
+
+  <option value="1">user dashboard module</option>
+
+  <option value="2">bookmark</option>
+
+  <option value="3">pinned application</option>
+
+  <option value="4">log entry</option>
+
+  <option value="5">group</option>
+
+  <option value="6">permission</option>
+
+  <option value="7">content type</option>
+
+  <option value="8">session</option>
+
+  <option value="9">user</option>
+
+  <option value="10">exco</option>
+
+  <option value="11">office</option>
+
+  <option value="12">aspirant</option>
+
+  <option value="13">voter</option>
+
+  <option value="14">Message</option>
+
+  <option value="15">Article Comment</option>
+
+  <option value="16">Article</option>
+
+  <option value="17">Tagged Item</option>
+
+  <option value="18">Tag</option>
+
+</select>
+    
+        
+    
+</div>
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-object_id">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_taggit_taggeditem_items-0-object_id">Object id:</label>
+                        
+                            <input type="number" name="taggit_taggeditem_items-0-object_id" class="vIntegerField" id="id_taggit_taggeditem_items-0-object_id" />
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+  
+  <input type="hidden" name="taggit_taggeditem_items-0-id" id="id_taggit_taggeditem_items-0-id" />
+  <input type="hidden" name="taggit_taggeditem_items-0-tag" id="id_taggit_taggeditem_items-0-tag" />
+</div>
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-object_id">
+            
+            
+                <div>
+                    
+                    
+                        <label class="required" for="id_taggit_taggeditem_items-__prefix__-object_id">Object id:</label>
+                        
+                            <input type="number" name="taggit_taggeditem_items-__prefix__-object_id" class="vIntegerField" id="id_taggit_taggeditem_items-__prefix__-object_id" />
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+  
+  <input type="hidden" name="taggit_taggeditem_items-__prefix__-id" id="id_taggit_taggeditem_items-__prefix__-id" />
+  <input type="hidden" name="taggit_taggeditem_items-__prefix__-tag" id="id_taggit_taggeditem_items-__prefix__-tag" />
+</div>
+</fieldset>
+</div>
+
+
+
+
+
+
+
+<div class="submit-row">
+<input type="submit" value="Save" class="default" name="_save" />
+
+
+<input type="submit" value="Save and add another" name="_addanother" />
+<input type="submit" value="Save and continue editing" name="_continue" />
+</div>
+
+
+
+    <script type="text/javascript"
+            id="django-admin-form-add-constants"
+            src="/static/admin/js/change_form.js"
+            
+                data-model-name="tag"
+            >
+    </script>
+
+
+
+
+<script type="text/javascript"
+        id="django-admin-prepopulated-fields-constants"
+        src="/static/admin/js/prepopulate_init.js"
+        data-prepopulated-fields="[{&quot;name&quot;: &quot;slug&quot;, &quot;dependency_list&quot;: [&quot;name&quot;], &quot;allowUnicode&quot;: false, &quot;maxLength&quot;: 100, &quot;dependency_ids&quot;: [&quot;#id_name&quot;], &quot;id&quot;: &quot;#id_slug&quot;}]">
+</script>
+
+
+</div>
+</form></div>
+
+        
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+</body>
+</html>

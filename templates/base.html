@@ -1,0 +1,315 @@
+{% load i18n static jet_tags %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% jet_get_current_theme as THEME %}
+{% jet_get_current_version as JET_VERSION %}
+{% block html %}<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %} Bitpoint {% endblock %}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static "jet/css/vendor.css" as url %}{{ url|jet_append_version }}" />
+<link rel="stylesheet" type="text/css" href="{% static "jet/css/icons/style.css" as url %}{{ url|jet_append_version }}" />
+<link rel="stylesheet" type="text/css" href="{% static "jet/css/themes/"|add:THEME|add:"/base.css" as url %}{{ url|jet_append_version }}" class="base-stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static "jet/css/themes/"|add:THEME|add:"/select2.theme.css" as url %}{{ url|jet_append_version }}" class="select2-stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static "jet/css/themes/"|add:THEME|add:"/jquery-ui.theme.css" as url %}{{ url|jet_append_version }}" class="jquery-ui-stylesheet" />
+{% block head %}
+{% endblock head %}
+
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
+{% jet_get_date_format as date_format %}
+{% jet_get_time_format as time_format %}
+{% jet_get_datetime_format as datetime_format %}
+
+<script type="text/javascript" charset="utf-8">
+    var DATE_FORMAT = "{{ date_format }}";
+    var TIME_FORMAT = "{{ time_format }}";
+    var DATETIME_FORMAT = "{{ datetime_format }}";
+</script>
+<script type="text/javascript" src="{% url 'jet:jsi18n' %}"></script>
+<script src="{% static "jet/js/build/bundle.min.js" as url %}{{ url|jet_append_version }}"></script>
+
+{% jet_static_translation_urls as translation_urls %}
+{% for url in translation_urls %}
+    <script src="{% static url as url %}{{ url|jet_append_version }}"></script>
+{% endfor %}
+
+{% block extrahead %}{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if request.COOKIES.sidebar_pinned != 'false' %}menu-pinned {% endif %}{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now 'Z' %}">
+
+<!-- Container -->
+<div id="container">
+
+    {% if not is_popup %}
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+            <span id="branding-menu" class="sidebar-header-menu-icon icon-menu sidebar-toggle"></span>
+            <span id="branding-pin" class="sidebar-link-icon icon-pin sidebar-pin"></span>
+            {% block branding %}{% endblock %}
+        </div>
+        {% block usertools %}
+        {% if user.is_active and user.is_staff or has_permission %}
+        <div id="user-tools">
+            {% block welcome-msg %}
+                {% trans 'Welcome,' %}
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+            {% endblock %}
+            {% block userlinks %}
+                {% if site_url %}
+                    <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+                {% endif %}
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                    {% endif %}
+                {% endif %}
+                {% if user.has_usable_password %}
+                <a href="{% url 'edit_profile' %}">{% trans 'Account Setting' %}</a> /
+                {% endif %}
+                <a href="{% url 'logout' %}">{% trans 'Log out' %}</a>
+            {% endblock %}
+        </div>
+        {% endif %}
+        {% endblock %}
+    </div>
+    <!-- END Header -->
+
+    {% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'index' %}">{% trans 'NAITS Online Voting &rsaquo; MAUTECH' %}</a>
+    </div>
+    {% endblock %}
+    {% endif %}
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}<div id="footer"></div>{% endblock %}
+
+    {% jet_delete_confirmation_context as delete_confirmation_context %}
+    {{ delete_confirmation_context }}
+
+    {% jet_change_form_sibling_links_enabled as show_siblings %}
+    {% if change and show_siblings %}
+        <div class="changeform-navigation">
+            {% spaceless %}
+                {% jet_previous_object as sibling %}
+                <a{% if sibling.url %} href="{{ sibling.url }}"{% endif %} class="changeform-navigation-button segmented-button left{% if not sibling %} disabled{% endif %}" title="{{ sibling.label }}">
+                    <span class="changeform-navigation-button-icon left icon-arrow-left"></span>
+                    <span class="changeform-navigation-button-label">
+                        {% if sibling %}
+                            {{ sibling.label }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </span>
+                </a>
+
+                {% jet_next_object as sibling %}
+                <a{% if sibling.url %} href="{{ sibling.url }}"{% endif %} class="changeform-navigation-button segmented-button right{% if not sibling %} disabled{% endif %}" title="{{ sibling.label }}">
+                    <span class="changeform-navigation-button-icon right icon-arrow-right"></span>
+                    <span class="changeform-navigation-button-label">
+                        {% if sibling %}
+                            {{ sibling.label }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </span>
+                </a>
+            {% endspaceless %}
+        </div>
+    {% endif %}
+
+    {% jet_get_side_menu_compact as SIDE_MENU_COMPACT %}
+    {% if not is_popup %}
+        <div class="related-popup-container scrollable">
+            <a href="#" class="related-popup-back">
+                <span class="related-popup-back-icon icon-arrow-left"></span>
+                <span class="related-popup-back-label">{% trans "back" %}</span>
+            </a>
+            <span class="icon-refresh loading-indicator"></span>
+        </div>
+
+        <div class="sidebar-header-wrapper sidebar-dependent">
+            <div class="sidebar-header sidebar-dependent">
+                <a href="#" class="sidebar-header-menu sidebar-toggle">
+                    <span class="sidebar-header-menu-icon icon-menu"></span>
+                    <span class="sidebar-header-menu-icon icon-cross"></span>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar sidebar-dependent">
+            <div class="sidebar-wrapper scrollable">
+                <div class="sidebar-section">
+                        <a href="{% url 'index' %}" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-data"></span>
+                                {% trans 'Home' %}
+                            </span>
+                        </a>
+                        <a href="/articles/" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-open-external"></span>
+                                {% trans 'Articles' %}
+                            </span>
+                        </a>
+                        <a href="/messages/" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-open-external"></span>
+                                {% trans 'Message' %}
+                            </span>
+                        </a>
+                        <a href="#" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-open-external"></span>
+                                {% trans 'Discussion' %}
+                            </span>
+                        </a>
+                        <a href="#" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-key"></span>
+                                {% trans 'Staffs' %}
+                            </span>
+                        </a>
+                        <a href="#" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-open-external"></span>
+                                {% trans 'Excos' %}
+                            </span>
+                        </a>
+                        <a href="{% url 'all_students_page' %}" class="sidebar-link icon">
+                            <span class="sidebar-link-label">
+                                <span class="sidebar-link-icon icon-user"></span>
+                                {% trans 'Students' %}
+                            </span>
+                        </a>
+                    {% block nav-global %}{% endblock %}
+                </div>
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">
+                                <span class="sidebar-right">
+                                    <a href="#" class="sidebar-right-edit edit-apps-list"><span class="icon-settings"></span></a>
+                                </span>
+                                {% trans 'User Area' %}
+                            </div>
+
+                            <div class="apps-list-pinned">
+                                        <a href="{% url 'profile' request.user.ID_Number %}" class="sidebar-link app-item" data-app-label="facebook" sdata-order="3">
+                                            <span class="sidebar-link-label">
+                                                View profile
+                                            </span>
+                                        </a>
+                            </div>
+                            {% if user.is_active and user.is_staff %}
+                            <div class="apps-list-pinned">
+                                <a href="/admin/voting/" class="sidebar-link app-item" data-app-label="admin" data-order="3">
+                                            <span class="sidebar-link-label">
+                                                Elcom Area
+                                            </span>
+                                        </a>
+                            </div>
+                            {% endif %}
+                            <div class="apps-list-pinned">
+                                        <a href="{% url 'edit_profile' %}" class="sidebar-link app-item" data-app-label="admin" data-order="3">
+                                            <span class="sidebar-link-label">
+                                                Account settings
+                                            </span>
+                                        </a>
+                            </div>
+                            <a href="#" class="sidebar-center-link apps-hide">
+                                <span class="apps-hide-label apps-visible">{% trans "Developer Profile" %}</span>
+                                <span class="apps-hide-label apps-hidden">{% trans "Show hidden" %}</span>
+                            </a>
+                            <div class="apps-list">
+                                        <a href="https://www.facebook.com/abdulrasheed.ibrahim.756" target="_blank" class="sidebar-link popup-section-link app-item" data-app-label="facebook" data-order="1">
+                                            <span class="sidebar-left collapsible">
+                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
+                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
+                                            </span>
+
+                                            <span class="sidebar-right">
+                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
+                                            </span>
+
+                                            <span class="sidebar-link-label">
+                                                Facebook
+                                            </span>
+                                        </a>
+                            </div>
+                            <div class="apps-list">
+                                        <a href="https://twitter.com/abdulrasheed1" class="sidebar-link popup-section-link app-item" data-app-label="twitter" data-order="1">
+                                            <span class="sidebar-left collapsible">
+                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
+                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
+                                            </span>
+
+                                            <span class="sidebar-right">
+                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
+                                            </span>
+
+                                            <span class="sidebar-link-label">
+                                                Twitter
+                                            </span>
+                                        </a>
+                            </div>
+                            <div class="apps-list">
+                                        <a href="https://github.com/abdoulrasheed" class="sidebar-link popup-section-link app-item" data-app-label="github" data-popup-section-class="sidebar-popup-section-github" data-order="1">
+                                            <span class="sidebar-left collapsible">
+                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
+                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
+                                            </span>
+
+                                            <span class="sidebar-right">
+                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
+                                            </span>
+
+                                            <span class="sidebar-link-label">
+                                                Github
+                                            </span>
+                                        </a>
+                            </div>
+                        </div>
+                {% endif %}
+            </div>
+</div>
+<!-- END Container -->
+<center>
+    {% block vote_content %}
+    {% endblock vote_content %}
+
+    {% block script %}
+    {% endblock %}
+</center>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5b40ed5b6d961556373d801f/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+</html>{% endblock %}
