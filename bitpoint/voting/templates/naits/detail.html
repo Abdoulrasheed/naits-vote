@@ -14,7 +14,9 @@
 
     <div id="content-main">
         {% if error_message %}
-            <li class="btn btn-danger">{{ error_message }} {% trans 'for' %} {{ office }}</li>
+        <center>
+            <span class="btn btn-danger text-center">{{ error_message }} {% trans 'for' %} {{ office }}</span>
+        </center>
         {% endif %}
         <div class="module filtered" id="changelist">
 
