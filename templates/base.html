@@ -167,19 +167,19 @@
                         </a>
                         <a href="/articles/" class="sidebar-link icon">
                             <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-open-external"></span>
+                                <span class="sidebar-link-icon icon-question"></span>
                                 {% trans 'Articles' %}
                             </span>
                         </a>
                         <a href="/messages/" class="sidebar-link icon">
                             <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-open-external"></span>
+                                <span class="sidebar-link-icon icon-jet"></span>
                                 {% trans 'Message' %}
                             </span>
                         </a>
                         <a href="#" class="sidebar-link icon">
                             <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-open-external"></span>
+                                <span class="sidebar-link-icon icon-book"></span>
                                 {% trans 'Discussion' %}
                             </span>
                         </a>
@@ -191,7 +191,7 @@
                         </a>
                         <a href="#" class="sidebar-link icon">
                             <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-open-external"></span>
+                                <span class="sidebar-link-icon icon-star"></span>
                                 {% trans 'Excos' %}
                             </span>
                         </a>
@@ -213,7 +213,7 @@
 
                             <div class="apps-list-pinned">
                                         <a href="{% url 'profile' request.user.ID_Number %}" class="sidebar-link app-item" data-app-label="facebook" sdata-order="3">
-                                            <span class="sidebar-link-label">
+                                            <span class="icon-user sidebar-link-label">
                                                 View profile
                                             </span>
                                         </a>
@@ -221,7 +221,7 @@
                             {% if user.is_active and user.is_staff %}
                             <div class="apps-list-pinned">
                                 <a href="/admin/voting/" class="sidebar-link app-item" data-app-label="admin" data-order="3">
-                                            <span class="sidebar-link-label">
+                                            <span class="icon-key sidebar-link-label">
                                                 Elcom Area
                                             </span>
                                         </a>
@@ -229,7 +229,7 @@
                             {% endif %}
                             <div class="apps-list-pinned">
                                         <a href="{% url 'edit_profile' %}" class="sidebar-link app-item" data-app-label="admin" data-order="3">
-                                            <span class="sidebar-link-label">
+                                            <span class="icon-settings sidebar-link-label">
                                                 Account settings
                                             </span>
                                         </a>
@@ -239,15 +239,7 @@
                                 <span class="apps-hide-label apps-hidden">{% trans "Show hidden" %}</span>
                             </a>
                             <div class="apps-list">
-                                        <a href="https://www.facebook.com/abdulrasheed.ibrahim.756" target="_blank" class="sidebar-link popup-section-link app-item" data-app-label="facebook" data-order="1">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
+                                        <a href="https://www.facebook.com/abdulrasheed.ibrahim.756" target="_blank" class="sidebar-link app-item" data-app-label="facebook" data-order="1">
 
                                             <span class="sidebar-link-label">
                                                 Facebook
@@ -255,31 +247,14 @@
                                         </a>
                             </div>
                             <div class="apps-list">
-                                        <a href="https://twitter.com/abdulrasheed1" class="sidebar-link popup-section-link app-item" data-app-label="twitter" data-order="1">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
-
+                                        <a href="https://twitter.com/abdulrasheed1" target="_blank" class="sidebar-link app-item" data-app-label="twitter" data-order="1">
                                             <span class="sidebar-link-label">
                                                 Twitter
                                             </span>
                                         </a>
                             </div>
                             <div class="apps-list">
-                                        <a href="https://github.com/abdoulrasheed" class="sidebar-link popup-section-link app-item" data-app-label="github" data-popup-section-class="sidebar-popup-section-github" data-order="1">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
+                                        <a href="https://github.com/abdoulrasheed" target="_blank" class="sidebar-link app-item" data-app-label="github" data-popup-section-class="sidebar-popup-section-github" data-order="1">
 
                                             <span class="sidebar-link-label">
                                                 Github
