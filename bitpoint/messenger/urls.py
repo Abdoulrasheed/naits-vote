@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^check/$', views.check, name='check_message'),
     url(r'^delete/$', views.delete, name='delete_message'),
     url(r'^receive/$', views.receive, name='receive_message'),
-    url(r'^(.*)/$', views.messages, name='messages'),
+    url(r'^(?P<ID_Number>[^/]+)/$', views.messages, name='messages'),
 ]

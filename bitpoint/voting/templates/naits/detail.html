@@ -3,10 +3,14 @@
 
 {% block title %} {{ office.office }} Aspirants {% endblock %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+{% endblock head %}
+
 {% block vote_content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 <div id="container">
-    <h1>Choose Your {{ office.office }}</h1>
+    <h1 class="text-center">Choose Your {{ office.office }}</h1>
 
     <div id="content-main">
         {% if error_message %}

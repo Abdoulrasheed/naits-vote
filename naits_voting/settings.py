@@ -24,18 +24,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	# third party apps: for admin UI
-    'jet.dashboard',
-	'jet',
+	# third party apps: for tagging and ayncronous messeging
     'taggit',
+    'channels',
 
-	# django apps
+    # third party apps: for admin UI
+    'jet.dashboard',
+    'jet',
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # third party app: used in login page for appending html attributes to input fields
     'widget_tweaks',

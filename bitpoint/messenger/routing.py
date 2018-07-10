@@ -1,6 +1,6 @@
 from channels import route
 
-from messenger.consumers import ws_connect, ws_disconnect, ws_receive
+from bitpoint.messenger.consumers import ws_connect, ws_disconnect, ws_receive
 
 
 websocket_routing = [

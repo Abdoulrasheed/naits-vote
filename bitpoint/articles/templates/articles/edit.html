@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'artbase.html' %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -6,8 +6,9 @@
   <script src="{% static 'js/articles.js' %}"></script>
 {% endblock head %}
 
-{% block vote_content %}
+{% block main %}
   <ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">{% trans 'Home' %}</a></li>
     <li><a href="{% url 'articles' %}">{% trans 'Articles' %}</a></li>
     <li><a href="{% url 'drafts' %}">{% trans 'Drafts' %}</a></li>
     <li class="active">{% trans 'Edit' %}</li>
@@ -36,4 +37,4 @@
       <a href="{% url 'drafts' %}" class="btn btn-default">{% trans 'Cancel' %}</a>
     </div>
   </form>
-{% endblock vote_content %}
+{% endblock main %}

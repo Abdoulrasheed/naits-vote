@@ -2,9 +2,14 @@
 {% load i18n static %}
 
 {% block title %} NAIT Online Voting {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+{% endblock head %}
+
     
 {% block vote_content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<center>
     <!-- Content -->
     <div id="content-main">
         <caption class="btn btn-danger">
@@ -28,5 +33,5 @@
         </div>
         {% endif %}
     </div>
-<!-- END Container -->
+</center>
 {% endblock vote_content %}

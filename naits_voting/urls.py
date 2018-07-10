@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib.auth import views
 from django.contrib import admin
+from bitpoint.authentication.views import profile as profile_view
 
 from .import settings
 from django.contrib.staticfiles.urls import static
@@ -24,6 +25,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	url(r'^', include('bitpoint.voting.urls')),
+    url(r'^settings/', include('bitpoint.authentication.urls')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
 	url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^admin/', admin.site.urls),
@@ -31,6 +33,7 @@ urlpatterns = [
     url(r'^accounts/login/$', views.login, name='login'),
     url(r'^messages/', include('bitpoint.messenger.urls')),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/accounts/login'}),
+    url(r'^p/(.*)$', profile_view, name='profile'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
