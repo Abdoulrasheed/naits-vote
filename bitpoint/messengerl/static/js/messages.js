@@ -6,11 +6,11 @@ $(function () {
     var webSocket = new channels.WebSocketBridge();
     webSocket.connect(ws_path);
 
-    function setUserOnlineOffline(ID_Number, status) {
+    function setUserOnlineOffline(username, status) {
         /* This function enables the client to switch the user connection
         status, allowing to show if an user is connected or not.
         */
-        var elem = $("online-stat-" + ID_Number);
+        var elem = $("online-stat-" + username);
         if (elem) {
             if (status === 'online') {
                 elem.attr("class", "btn btn-success btn-circle");

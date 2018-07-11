@@ -39,7 +39,7 @@ def messages(request, ID_Number):
         is_active=True).exclude(ID_Number=request.user).order_by('ID_Number')
     active_conversation = ID_Number
     messages = Message.objects.filter(user=request.user,
-                                      conversation__ID_Number=ID_Number)
+                                      conversation__username=ID_Number)
     messages.update(is_read=True)
     for conversation in conversations:
         if conversation['user'].ID_Number == ID_Number:
@@ -64,8 +64,8 @@ def delete(request):
 def send(request):
     if request.method == 'POST':
         from_user = request.user
-        to_user_username = request.POST.get('to')
-        to_user = User.objects.get(ID_Number=to_user_username)
+        to_user_id_number = request.POST.get('to')
+        to_user = User.objects.get(ID_Number=to_user_id_number)
         message = request.POST.get('message')
         if len(message.strip()) == 0:
             return HttpResponse()

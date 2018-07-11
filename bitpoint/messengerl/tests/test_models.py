@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from bitpoint.messenger.models import Message
+from bootcamp.messenger.models import Message
 
 
 class TestModels(TestCase):
@@ -9,12 +9,12 @@ class TestModels(TestCase):
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            ID_Number='test_user',
+            username='test_user',
             email='test@gmail.com',
             password='top_secret'
         )
         self.other_user = get_user_model().objects.create_user(
-            ID_Number='other_test_user',
+            username='other_test_user',
             email='other_test@gmail.com',
             password='top_secret'
         )

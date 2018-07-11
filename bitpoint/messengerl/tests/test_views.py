@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import Client, TestCase
 
-from bitpoint.messenger.models import Message
+from bootcamp.messenger.models import Message
 
 
 class TestViews(TestCase):
@@ -14,18 +14,18 @@ class TestViews(TestCase):
         self.client = Client()
         self.other_client = Client()
         self.user = get_user_model().objects.create_user(
-            ID_Number='test_user',
+            username='test_user',
             email='test@gmail.com',
             password='top_secret'
         )
         self.other_user = get_user_model().objects.create_user(
-            ID_Number='other_test_user',
+            username='other_test_user',
             email='other_test@gmail.com',
             password='top_secret'
         )
-        self.client.login(ID_Number='test_user', password='top_secret')
+        self.client.login(username='test_user', password='top_secret')
         self.other_client.login(
-            ID_Number='other_test_user', password='top_secret')
+            username='other_test_user', password='top_secret')
         self.message_one = Message.objects.create(
             user=self.user,
             message="A not that long message",
@@ -47,7 +47,7 @@ class TestViews(TestCase):
 
     def test_user_messages(self):
         response = self.client.get(
-            reverse('messages', kwargs={'ID_Number': self.user.ID_Number}))
+            reverse('messages', kwargs={'username': self.user.username}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(str(response.context['message']),
                          "A not that long message")

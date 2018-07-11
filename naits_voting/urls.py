@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib.auth import views
 from django.contrib import admin
 from bitpoint.authentication.views import profile as profile_view
+from bitpoint.activities import views as activities_views
 
 from .import settings
 from django.contrib.staticfiles.urls import static
@@ -34,6 +35,13 @@ urlpatterns = [
     url(r'^messages/', include('bitpoint.messenger.urls')),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/accounts/login'}),
     url(r'^p/(.*)$', profile_view, name='profile'),
+
+    url(r'^notifications/$', activities_views.notifications,
+        name='notifications'),
+    url(r'^notifications/last/$', activities_views.last_notifications,
+        name='last_notifications'),
+    url(r'^notifications/check/$', activities_views.check_notifications,
+        name='check_notifications'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
