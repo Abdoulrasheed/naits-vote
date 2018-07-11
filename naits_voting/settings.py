@@ -162,17 +162,17 @@ redis_host = os.environ.get('REDIS_HOST', 'localhost')
 #     }
 # }
 
-CHANNEL_LAYERS = {
-    "default": {
-        # This example app uses the Redis channel layer implementation channels_redis
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [(redis_host, 6379)],
-        },
-    },
-}
+#CHANNEL_LAYERS = {
+#   "default": {
+#        # This example app uses the Redis channel layer implementation channels_redis
+#        "BACKEND": "channels_redis.core.RedisChannelLayer",
+#        "CONFIG": {
+#            "hosts": [(redis_host, 6379)],
+#        },
+#    },
+#}
 
-ASGI_APPLICATION = 'naits_voting.routing.application'
+# ASGI_APPLICATION = 'naits_voting.routing.application'
 
 # EMAIL
 # ------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ class OfficeAdmin(admin.ModelAdmin):
     ]
     inlines = [AspirantInline]
     list_display = ('office',)
-    search_fields = ['office']
+    search_fields = ('office',)
 
 class VoterAdmin(admin.ModelAdmin):
     fieldsets = [
