@@ -26,18 +26,20 @@
                 <table>
                 <div class="checkbox">
                     <thead>
-                        <td class="text-center">
-                        <label for="aspirant{{ forloop.counter }}">
+                        <td class="text-center" style="cursor: pointer;">
+                        <label for="aspirant{{ forloop.counter }}" style="cursor: pointer;">
+                        	
+                        	<input style="float: left;" class="action-checkbox" type="radio" size="60" name="aspirants" id="aspirant{{ forloop.counter }}" value="{{ aspirant.id }}" />
                             
-                            <input style="float: left;" class="action-checkbox" type="radio" size="60" name="aspirants" 
-                            id="aspirant{{ forloop.counter }}" value="{{ aspirant.id }}" />
-                            {{ aspirant.first_name }} {{ aspirant.last_name }},
+                            <p style="font-size: 20px">
+                            {{ aspirant.first_name|upper }} {{ aspirant.last_name|upper }},
 
                             {% if aspirant.nick_name %} 
+                        	</p>
+                        	
+                           <small class="">{% trans 'Also known as' %}</small> 
 
-                           <small class="">{% trans 'A-K-A' %}</small> 
-
-                            {{ aspirant.nick_name}} 
+                            {{ aspirant.nick_name|upper }} 
 
                         {% endif %}
                     </label>
