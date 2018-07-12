@@ -3,6 +3,11 @@ STATES = (
         ('Adamawa', 'Adamawa'),
     )
 
+TOWNS = (
+        ('Yola', 'Yola'),
+        ('Jimeta', 'Jimeta'),
+    )
+
 LEVEL = (
         ('100', '100'),
         ('200', '200'),
@@ -31,4 +36,9 @@ HALL_OF_RESIDENCE = (
         ('OBA ADETOLA', 'OBA ADETOLA'),
         ('NEW HOSTEL - MALE', 'NEW HOSTEL - MALE'),
         ('NEW HOSTEL - FEMALE', 'NEW HOSTEL - FEMALE'),
+    )
+
+GENDER = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
     )

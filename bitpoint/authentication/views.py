@@ -10,9 +10,7 @@ from .forms import ProfileForm
 from django.conf import settings as django_settings
 from django.contrib import messages
 
-
-
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from bitpoint.messenger.models import Message
 from django.db.models import Q
 from .models import User

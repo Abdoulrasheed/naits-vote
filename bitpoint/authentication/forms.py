@@ -1,10 +1,7 @@
 from django import forms
 from bitpoint.voting.models import User
 
-from local.constants import (STATES, 
-                                LEVEL, 
-                                EXCO_OFFICES, 
-                                HALL_OF_RESIDENCE)
+from local.constants import *
 
 class ChangePasswordForm(forms.ModelForm):
     id = forms.CharField(widget=forms.HiddenInput())
@@ -59,57 +56,69 @@ class ProfileForm(forms.ModelForm):
     level = forms.ChoiceField(
         choices=LEVEL,
         widget=forms.Select(attrs={'class': 'form-control'}),
-        label="Current Level",
+        label="Current level",
         required=True)
     
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control'}),
-        label="Email",
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'e.g abc@example.com'}),
+        label="Email address",
         max_length=75,
         required=False)
 
     state_of_origin = forms.ChoiceField(
         choices=STATES,
         widget=forms.Select(attrs={'class': 'form-control'}),
-        label="State",
+        label="State of origin",
+        required=True)
+
+    town = forms.ChoiceField(
+        choices=TOWNS,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Town",
+        required=True)
+
+    gender = forms.ChoiceField(
+        choices=GENDER,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Gender",
         required=True)
 
     hall_of_residence = forms.ChoiceField(
         choices=HALL_OF_RESIDENCE,
         widget=forms.Select(attrs={'class': 'form-control'}),
-        label="Hall",
+        label="Hall of residence",
         required=True)
 
     mobile = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g 07033389645'}),
         label="Phone Number",
         max_length=16,
         required=False)
 
     facebook_id = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g abdulrasheed.ibrahim.756'}),
         label="Facebook",
         max_length=50,
         required=False,
         )
     twitter_handler = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g @abdulrasheeed1'}),
         max_length=50,
         required=False,
         )
     instagram_id = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g abdoul_rashid'}),
         max_length=50,
         required=False,
         )
     pinterest = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g somepinterestid'}),
         max_length=50,
         required=False,
         )
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'level',
-                  'email', 'state_of_origin', 'hall_of_residence', 'mobile',
+        fields = ['first_name', 'last_name', 'gender', 'level', 'mobile',
+                  'email', 'state_of_origin', 'town', 'hall_of_residence', 
                   'facebook_id', 'twitter_handler', 'instagram_id', 'pinterest']

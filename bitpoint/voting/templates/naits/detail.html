@@ -8,7 +8,6 @@
 {% endblock head %}
 
 {% block main %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 <div id="container">
     <h1 class="text-center">Choose Your {{ office.office }}</h1>
 
@@ -27,7 +26,7 @@
                 <div class="checkbox">
                     <thead>
                         <td class="text-center" style="cursor: pointer;">
-                        <label for="aspirant{{ forloop.counter }}" style="cursor: pointer;">
+                        <label for="aspirant{{ forloop.counter }}" style="cursor: pointer; width: 100px">
                         	
                         	<input style="float: left;" class="action-checkbox" type="radio" size="60" name="aspirants" id="aspirant{{ forloop.counter }}" value="{{ aspirant.id }}" />
                             
@@ -37,7 +36,7 @@
                             {% if aspirant.nick_name %} 
                         	</p>
                         	
-                           <small class="btn">{% trans 'Also known as' %}</small> 
+                           <small class="btn" style="color: #34d">{% trans 'Also known as' %}</small> 
 
                             {{ aspirant.nick_name|upper }} 
 

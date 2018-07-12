@@ -24,20 +24,6 @@ class DetailView(generic.DetailView):
 
 
 @login_required
-def students(request):
-    students_list = User.objects.filter(is_active=True).order_by('-id')
-    page = request.GET.get('page', 1)
-    paginator = Paginator(students_list, 9)
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        students = paginator.page(1)
-    except EmptyPage:
-        students = paginator.page(paginator.num_pages)
-    return render(request, 'students/students_list.html', {'students': students})
-
-
-@login_required
 def vote(request, poll_id):
     p = get_object_or_404(Office, pk=poll_id)
     if Voter.objects.filter(office_id=poll_id, student_id=request.user.id).exists():
@@ -62,3 +48,44 @@ def vote(request, poll_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect('/')
+
+
+@login_required
+def students(request):
+    students_list = User.objects.filter(is_active=True, is_student=True).order_by('-id')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(students_list, 9)
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    return render(request, 'students/students_list.html', {'students': students})
+
+
+@login_required
+def staffs(request):
+    staffs_list = User.objects.filter(is_active=True, is_d_staff=True).order_by('-id')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(staffs_list, 9)
+    try:
+        staffs = paginator.page(page)
+    except PageNotAnInteger:
+        staffs = paginator.page(1)
+    except EmptyPage:
+        staffs = paginator.page(paginator.num_pages)
+    return render(request, 'staffs/staffs_list.html', {'staffs': staffs})
+
+@login_required
+def excos(request):
+    excos_list = User.objects.filter(is_active=True, is_exco=True).order_by('-id')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(excos_list, 9)
+    try:
+        excos = paginator.page(page)
+    except PageNotAnInteger:
+        excos = paginator.page(1)
+    except EmptyPage:
+        excos = paginator.page(paginator.num_pages)
+    return render(request, 'excos/excos_list.html', {'excos': excos})

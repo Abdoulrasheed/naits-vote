@@ -183,19 +183,19 @@
                                 {% trans 'Discussion' %}
                             </span>
                         </a>
-                        <a href="#" class="sidebar-link icon">
+                        <a href="{% url 'staffs' %}" class="sidebar-link icon">
                             <span class="sidebar-link-label">
                                 <span class="sidebar-link-icon icon-key"></span>
                                 {% trans 'Staffs' %}
                             </span>
                         </a>
-                        <a href="#" class="sidebar-link icon">
+                        <a href="{% url 'excos' %}" class="sidebar-link icon">
                             <span class="sidebar-link-label">
                                 <span class="sidebar-link-icon icon-star"></span>
                                 {% trans 'Excos' %}
                             </span>
                         </a>
-                        <a href="{% url 'all_students_page' %}" class="sidebar-link icon">
+                        <a href="{% url 'students' %}" class="sidebar-link icon">
                             <span class="sidebar-link-label">
                                 <span class="sidebar-link-icon icon-user"></span>
                                 {% trans 'Students' %}

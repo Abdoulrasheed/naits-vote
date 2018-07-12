@@ -7,10 +7,7 @@ from django.contrib.auth.models import (User,
 										 AbstractBaseUser, 
 										 PermissionsMixin)
 from django.utils.translation import ugettext_lazy as _
-from local.constants import (STATES, 
-                                LEVEL, 
-                                EXCO_OFFICES, 
-                                HALL_OF_RESIDENCE)
+from local.constants import *
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
@@ -57,7 +54,6 @@ class MyUserManager(BaseUserManager):
 
 @python_2_unicode_compatible
 class User(AbstractBaseUser, PermissionsMixin):
-    
     ID_Number = models.CharField(
         max_length=15, 
         unique=True, 
@@ -65,8 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
 
     level = models.CharField(
-        max_length=9, 
-        default="----",
+        max_length=9,
         choices=LEVEL,
         )
 
@@ -82,11 +77,81 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True
         )
 
-    is_staff = models.BooleanField(
-		_('staff'),
-        default=False,
-        help_text=_('Designates whether the user can login to this site.'),
-    )
+    gender = models.CharField(
+        _('Gender'),
+        max_length=50, 
+        blank=True,
+        null=True,
+        choices=GENDER,
+        )
+
+    hall_of_residence = models.CharField(
+        _('Hall'),
+        max_length=50, 
+        choices=HALL_OF_RESIDENCE,
+        blank=True, 
+        null=True
+        )
+
+    state_of_origin = models.CharField(
+        _('State'),
+        max_length=50, 
+        choices=STATES, 
+        blank=True, 
+        null=True
+        )
+
+    town = models.CharField(
+        _('Local Government'),
+        max_length=50, 
+        choices=TOWNS,
+        blank=True,
+        null=True,
+        )
+
+    mobile = models.CharField(
+        _('Phone'),
+        max_length=11, 
+        blank=True, 
+        null=True
+        )
+
+    email = models.EmailField(
+        _('Email'),
+        help_text="e.g abcd@example.com",
+        null=True,
+        blank=True, 
+        )
+
+    facebook_id = models.CharField(
+        _('Facebook'),
+        help_text="Your facebook id e.g abdulrasheed.ibrahim.756",
+    	max_length=50,
+    	null=True,
+    	blank=True
+    	)
+    twitter_handler = models.CharField(
+        _('Twitter handler'),
+        help_text="Your twitter handler e.g @abdulrasheed1",
+    	max_length=50,
+    	null=True,
+    	blank=True
+    	)
+    instagram_id = models.CharField(
+        _('Instagram'),
+        help_text="Your instagram ID e.g abdoul_rasheed",
+    	max_length=50,
+    	null=True,
+    	blank=True
+    	)
+    pinterest = models.CharField(
+        _('Pinterest'),
+        help_text = "Your pin ID e.g example",
+    	max_length=50,
+    	null=True,
+    	blank=True
+    	)
+
 
     is_active = models.BooleanField(
         _('active'),
@@ -97,51 +162,34 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
 
-    hall_of_residence = models.CharField(
-        choices=HALL_OF_RESIDENCE, 
-        max_length=50, 
-        blank=True, 
-        null=True
+
+    is_staff = models.BooleanField(
+		_('Site staff'),
+        default=False,
+        help_text=_('Designates whether the user can login to this site as admin.'),
+    )
+
+
+    is_d_staff = models.BooleanField(_('Department staff'),
+        default=False,
+        help_text=_('Designates whether the user is a Department staff.'),
         )
 
-    state_of_origin = models.CharField(
-        choices=STATES, 
-        max_length=50, 
-        blank=True, 
-        null=True
-        )
+    is_student = models.BooleanField(
+        _('is student'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active student. '
+        ),
+    )
 
-    mobile = models.CharField(
-        max_length=11, 
-        blank=True, 
-        null=True
-        )
-
-    email = models.EmailField(
-        null=True,
-        blank=True, 
-        )
-
-    facebook_id = models.CharField(
-    	max_length=50,
-    	null=True,
-    	blank=True
-    	)
-    twitter_handler = models.CharField(
-    	max_length=50,
-    	null=True,
-    	blank=True
-    	)
-    instagram_id = models.CharField(
-    	max_length=50,
-    	null=True,
-    	blank=True
-    	)
-    pinterest = models.CharField(
-    	max_length=50,
-    	null=True,
-    	blank=True
-    	)
+    is_exco = models.BooleanField(
+        _('Department exco'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be displayed in the excos page. '
+        ),
+    )
     
     def __str__(self):
         return "%s" % self.user.ID_Number
@@ -215,3 +263,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         except Exception:  # pragma: no cover
             return self.ID_Number
+
+    def get_html_badge(self):
+        ID_Number = escape(self.name)
+        html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % ('lightblue', name)
+        if self.is_d_staff:
+        	html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % ('#007bff', name)
+        elif self.is_exco:
+        	html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % ('green', name)
+        return mark_safe(html)

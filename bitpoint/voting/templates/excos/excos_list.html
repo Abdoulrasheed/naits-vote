@@ -1,15 +1,18 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends 'artbase.html' %}
+{% load staticfiles i18n %}
 
-{% block title %} CURRENT NAIT EXECUTIVES {% endblock %}
+{% block title %} Excos {% endblock %}
 
+{% block head %}
   <link href="{% static 'css/network.css' %}" rel="stylesheet">
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block main %}
-  <div style="margin-top: 5em;" class="page-header">
-    <br>
-    <h6 class="panel-heading" style="width: 25em"> CURRENT NAIT EXECUTIVES </h6>
-  </div>
+    <ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">{% trans 'Home' %}</a></li>
+    <li class="active">{% trans 'Excos' %}</li>
+  </ol>
 
     <div class="row">
       {% for exco in excos %}
@@ -24,11 +27,7 @@
             </a>
             <div class="panel-body">
               <div style="display: inline-block;">
-              {% if exco.profile_picture %}
-                <img src="{{ exco.profile_picture.url }}" style="width:155px; border-radius: 10px;">
-              {% else %}
-                <img alt="image" src="{% static 'img/img_avatar.png' %}" style="width:155px; border-radius: 10px;">
-              {% endif %}
+                <img src="{{ exco.get_picture }}" style="width:155px; border-radius: 10px;">
               </div>
               <div style="display: inline-block; float: right; vertical-align: top">
                 {% if exco.position %}

@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', login_required(views.DetailView.as_view()), name='detail'),
     url(r'^(?P<poll_id>\d+)/vote/$', views.vote, name='vote'),
     
-    url(r'^students/$', views.students, name='all_students_page'),
+    url(r'^students/$', views.students, name='students'),
+    url(r'^staffs/$', views.staffs, name='staffs'),
+    url(r'^excos/$', views.excos, name='excos'),
 ]
