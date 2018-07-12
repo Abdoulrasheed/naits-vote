@@ -37,7 +37,7 @@
                             {% if aspirant.nick_name %} 
                         	</p>
                         	
-                           <small class="">{% trans 'Also known as' %}</small> 
+                           <small class="btn">{% trans 'Also known as' %}</small> 
 
                             {{ aspirant.nick_name|upper }} 
 
@@ -48,7 +48,7 @@
                 </div>
             </table>
                 {% empty %}
-                {% trans 'No Aspirant Added' %}
+                	<p class="text-center">{% trans 'No Aspirant Added' %}</p>
                 {% endfor %}
                 <div class="actions wio">
                 <button type="submit" class="button" title="Click to vote your selection" name="index" value="0">
