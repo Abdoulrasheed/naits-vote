@@ -69,7 +69,7 @@ class UserAdmin(DjangoUserAdmin):
     list_filter = ('hall_of_residence', 'state_of_origin', 'is_d_staff', 'is_exco', 'is_active')
     list_per_page = 50
     ordering = ('first_name',)
-    readonly_fields = ('ID_Number',)
+    readonly_fields = ('last_login',)
 
 admin.site.site_header = "NAITS - Online Voting"
 admin.site.site_title = "NAITS - Mautech"

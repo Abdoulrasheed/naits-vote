@@ -1,16 +1,17 @@
-import json
-
 from django.contrib.auth.decorators import login_required
 from bitpoint.authentication.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from decorators import ajax_required
 from bitpoint.messenger.models import Message
 
+
 @login_required
 def inbox(request):
     conversations = Message.get_conversations(user=request.user)
+    users_list = User.objects.filter(
+        is_active=True).exclude(ID_Number=request.user).order_by('ID_Number')
     active_conversation = None
     messages = None
     if conversations:
@@ -26,6 +27,7 @@ def inbox(request):
     return render(request, 'messenger/inbox.html', {
         'messages': messages,
         'conversations': conversations,
+        'users_list': users_list,
         'active': active_conversation
         })
 
@@ -33,6 +35,8 @@ def inbox(request):
 @login_required
 def messages(request, ID_Number):
     conversations = Message.get_conversations(user=request.user)
+    users_list = User.objects.filter(
+        is_active=True).exclude(ID_Number=request.user).order_by('ID_Number')
     active_conversation = ID_Number
     messages = Message.objects.filter(user=request.user,
                                       conversation__ID_Number=ID_Number)
@@ -44,40 +48,9 @@ def messages(request, ID_Number):
     return render(request, 'messenger/inbox.html', {
         'messages': messages,
         'conversations': conversations,
+        'users_list': users_list,
         'active': active_conversation
         })
-
-
-@login_required
-def new(request):
-    if request.method == 'POST':
-        from_user = request.user
-        to_user_ID_Number = request.POST.get('to')
-        try:
-            to_user = User.objects.get(ID_Number=to_user_ID_Number)
-
-        except Exception:
-            try:
-                to_user_ID_Number = to_user_ID_Number[
-                    to_user_ID_Number.rfind('(')+1:len(to_user_ID_Number)-1]
-                to_user = User.objects.get(ID_Number=to_user_ID_Number)
-
-            except Exception:
-                return redirect('/messages/new/')
-
-        message = request.POST.get('message')
-        if len(message.strip()) == 0:
-            return redirect('/messages/new/')
-
-        if from_user != to_user:
-            Message.send_message(from_user, to_user, message)
-
-        return redirect('/messages/{0}/'.format(to_user_ID_Number))
-
-    else:
-        conversations = Message.get_conversations(user=request.user)
-        return render(request, 'messenger/new.html',
-                      {'conversations': conversations})
 
 
 @login_required
@@ -91,37 +64,39 @@ def delete(request):
 def send(request):
     if request.method == 'POST':
         from_user = request.user
-        to_user_ID_Number = request.POST.get('to')
-        to_user = User.objects.get(ID_Number=to_user_ID_Number)
+        to_user_username = request.POST.get('to')
+        to_user = User.objects.get(ID_Number=to_user_username)
         message = request.POST.get('message')
         if len(message.strip()) == 0:
             return HttpResponse()
+
         if from_user != to_user:
             msg = Message.send_message(from_user, to_user, message)
             return render(request, 'messenger/includes/partial_message.html',
                           {'message': msg})
 
         return HttpResponse()
+
     else:
         return HttpResponseBadRequest()
 
 
 @login_required
 @ajax_required
-def users(request):
-    users = User.objects.filter(is_active=True)
-    dump = []
-    template = '{0} ({1})'
-    for user in users:
-        if user.get_short_name() != user.ID_Number:
-            dump.append(template.format(user.get_short_name(),
-                                        user.ID_Number))
-        else:
-            dump.append(user.ID_Number)
-    data = json.dumps(dump)
-    return HttpResponse(data, content_type='application/json')
+def receive(request):
+    if request.method == 'GET':
+        message_id = request.GET.get('message_id')
+        message = Message.objects.get(pk=message_id)
+        return render(
+            request,
+            'messenger/includes/partial_message.html', {'message': message})
+
+    else:
+        return HttpResponseBadRequest()
 
 
+# TO DO
+# Deprecated
 @login_required
 @ajax_required
 def check(request):

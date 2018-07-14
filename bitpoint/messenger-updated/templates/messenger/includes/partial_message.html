@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <li>
   <img src="{{ message.from_user.get_picture }}" class="picture">
   <div>
@@ -6,9 +5,11 @@
       <small class="pull-right">
         {{ message.date|date:'N d G:i' }}
       </small>
-      <a href="{% url 'profile' message.from_user.id %}">
-        {{ message.from_user.get_short_name }}
-      </a>
+      <b>
+        <a href="{% url 'profile' message.from_user.get_short_name %}">
+          {{ message.from_user.get_short_name }}
+        </a>
+      </b>
     </h5>
     {{ message.message }}
   </div>

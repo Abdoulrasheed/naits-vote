@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="list-group users-list">
+  {% for user in users_list %}
+    <a href="{% url 'messages' user.get_short_name %}"
+      class="list-group-item{% if active == user.get_short_name %} active{% endif %}">
+      <!-- Commenting this line to be implemented later
+      <span class="btn btn-danger btn-circle" id="online-stat-{{ user.ID_Number }}"></span>
+      -->
+      <img src="{{ user.get_picture }}" class="conversation-portrait">
+      {{ user.get_short_name }}
+      {% for conversation in conversations %}
+        {% if conversation.user.ID_Number == user.ID_Number %}
+          <span class="pull-right{% if active == user.ID_Number %} text-white{% else %} text-primary{% endif %} glyphicon glyphicon-envelope" style="display: none" id="new-message-{{ conversation.user.get_short_name }}"></span>
+        {% endif %}
+      {% endfor %}
+    </a>
+  {% endfor %}
+</div>

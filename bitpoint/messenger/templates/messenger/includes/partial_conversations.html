@@ -1,19 +1,23 @@
 {% load i18n %}
+{% load staticfiles %}
+<div class="list-group">
+  {% comment %}
+  <a href="{% url 'inbox' %}" class="list-group-item{% if active == 'inbox' %} active{% endif %}">
+    <span>{% trans 'Inbox' %}</span>
+    <span class="badge">0</span>
+  </a>
+  {% endcomment %}
 
-<div class="list-group users-list">
-  {% for user in users_list %}
-    <a href="{% url 'messages' user.get_short_name %}"
-      class="list-group-item{% if active == user.get_short_name %} active{% endif %}">
-      <!-- Commenting this line to be implemented later
-      <span class="btn btn-danger btn-circle" id="online-stat-{{ user.ID_Number }}"></span>
-      -->
-      <img src="{{ user.get_picture }}" class="conversation-portrait">
-      {{ user.get_short_name }}
-      {% for conversation in conversations %}
-        {% if conversation.user.ID_Number == user.ID_Number %}
-          <span class="pull-right{% if active == user.ID_Number %} text-white{% else %} text-primary{% endif %} glyphicon glyphicon-envelope" style="display: none" id="new-message-{{ conversation.user.get_short_name }}"></span>
-        {% endif %}
-      {% endfor %}
+  {% for conversation in conversations %}
+    <a href="{% url 'messages' conversation.user.ID_Number %}" 
+      class="list-group-item{% if active == conversation.user.ID_Number %} active{% endif %}">
+      <img src="{{ conversation.user.get_picture }}" class="conversation-portrait">
+      {{ conversation.user.get_short_name }}
+      {% if conversation.unread > 0 %}
+        <span class="badge pull-right">{{ conversation.unread }}</span>
+      {% endif %}
     </a>
+  {% empty %}
+    <a href="#" class="list-group-item">{% trans 'Start a conversation' %}</a>
   {% endfor %}
 </div>
