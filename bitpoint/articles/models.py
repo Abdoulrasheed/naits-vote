@@ -42,7 +42,7 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title, to_lower=True, max_length=80)
+            self.slug = slugify(self.title, max_length=80)
 
         super(Article, self).save(*args, **kwargs)
 
