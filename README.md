@@ -1,4 +1,8 @@
-# naits-vote
-An online voting website for National Association of Information Technology Students - (Mautech Chapter)
+#An Advance django Poll App 
 
-Live at https://nait.pythonanywhere.com/
+#FEARURES
+>Voting Capabilities
+>Messenger
+>Group Discussion
+>Articles Update (with upvote and downvote)
+
