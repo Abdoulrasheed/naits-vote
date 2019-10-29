@@ -2,7 +2,7 @@
 
 <div class="list-group users-list">
   {% for user in users_list %}
-    <a href="{% url 'messages' user.get_short_name %}"
+    <a href="{% url 'messages' user.id %}"
       class="list-group-item{% if active == user.get_short_name %} active{% endif %}">
       <!-- Commenting this line to be implemented later
       <span class="btn btn-danger btn-circle" id="online-stat-{{ user.ID_Number }}"></span>

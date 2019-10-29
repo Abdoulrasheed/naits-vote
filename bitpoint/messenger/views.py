@@ -31,14 +31,14 @@ def inbox(request):
 
 
 @login_required
-def messages(request, ID_Number):
+def messages(request, user_id):
     conversations = Message.get_conversations(user=request.user)
-    active_conversation = ID_Number
+    active_conversation = user_id
     messages = Message.objects.filter(user=request.user,
-                                      conversation__ID_Number=ID_Number)
+                                      conversation__ID_Number=user_id)
     messages.update(is_read=True)
     for conversation in conversations:
-        if conversation['user'].ID_Number == ID_Number:
+        if conversation['user'].ID_Number == user_id:
             conversation['unread'] = 0
 
     return render(request, 'messenger/inbox.html', {

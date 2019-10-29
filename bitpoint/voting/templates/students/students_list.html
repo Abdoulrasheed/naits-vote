@@ -48,7 +48,7 @@
                   {{ student.email|truncatechars:23 }}</a>
               </p>
               {% endif %}
-              <a style="width: 220px" href="{% url 'messages' student.ID_Number %}" class="pull-right btn btn-default glyphicon glyphicon-envelope"> {% trans 'Message' %}</a>
+              <a style="width: 220px" href="{% url 'messages' student.id %}" class="pull-right btn btn-default glyphicon glyphicon-envelope"> {% trans 'Message' %}</a>
             </div>
             </div>
           </div>

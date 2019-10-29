@@ -9,7 +9,7 @@
   {% endcomment %}
 
   {% for conversation in conversations %}
-    <a href="{% url 'messages' conversation.user.ID_Number %}" 
+    <a href="{% url 'messages' conversation.user.id %}" 
       class="list-group-item{% if active == conversation.user.ID_Number %} active{% endif %}">
       <img src="{{ conversation.user.get_picture }}" class="conversation-portrait">
       {{ conversation.user.get_short_name }}

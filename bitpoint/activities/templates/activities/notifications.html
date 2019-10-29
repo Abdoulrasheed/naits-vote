@@ -17,7 +17,7 @@
   <ul class="all-notifications">
     {% for notification in notifications %}
       <li class="clearfix">
-        <a href="{% url 'profile' notification.from_user.ID_Number %}"><img src="{{ notification.from_user.profile.get_picture }}" class="user-picture"></a>
+        <a href="{% url 'profile' student_id=notification.from_user.id %}"><img src="{{ notification.from_user.profile.get_picture }}" class="user-picture"></a>
         <div>
           <small>{{ notification.date|naturaltime }}</small>
           <p>{{ notification|safe }}</p>

@@ -47,7 +47,7 @@
                   <small>{{ staff.email_address|truncatechars:35 }}</small></a>
               </p>
               {% endif %}
-              <a href="{% url 'messages' staff.ID_Number %}" class="btn btn-primary" style="width: 220px">
+              <a href="{% url 'messages' staff.id %}" class="btn btn-primary" style="width: 220px">
               {% trans 'Send Message' %}</a>
             </div>
             </div>

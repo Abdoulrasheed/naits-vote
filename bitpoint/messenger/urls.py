@@ -9,5 +9,5 @@ urlpatterns = [
     path('check/', views.check, name='check_message'),
     path('users/', views.users, name='users_message'),
     path('delete/', views.delete, name='delete_message'),
-    path('<str:ID_Number>/', views.messages, name='messages'),
+    path('<str:user_id>/', views.messages, name='messages'),
 ]
