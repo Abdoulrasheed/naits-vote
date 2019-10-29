@@ -18,8 +18,8 @@ from .models import User
 
 
 @login_required
-def profile(request, ID_Number):
-    page_user = get_object_or_404(User, ID_Number=ID_Number)
+def profile(request, student_id):
+    page_user = get_object_or_404(User, id=student_id)
     messages_count = Message.objects.filter(
         Q(from_user=page_user) | Q(user=page_user)).count()
 

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import Count
 
 import markdown
-from slugify import slugify
+from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
 

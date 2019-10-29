@@ -1,11 +1,5 @@
 import os
 
-import dj_database_url
-
-import environ
-
-env = environ.Env()
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +14,7 @@ SECRET_KEY = 'i@bqy_zn5p#xeoi0l@1zv=56g32--=i2lw-#h@py#bt6mi5fxn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -33,6 +27,7 @@ INSTALLED_APPS = [
     # third party apps: for admin UI
     'jet.dashboard',
     'jet',
+
     # django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,20 +85,10 @@ WSGI_APPLICATION = 'naits_voting.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'naits',
-        'USER': 'abdul',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-db_from_env = dj_database_url.config()
-
-DATABASES['default'].update(db_from_env)
-
-DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -154,40 +139,6 @@ MEDIA_URL = '/media/'
 
 TAGGIT_CASE_INSENSITIVE = True
 
-# REDIS setup
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
-
-# Channels configuration
-
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'asgi_redis.RedisChannelLayer',
-#         'CONFIG': {
-#             'hosts': [REDIS_URL, ],
-#         },
-#         'ROUTING': 'config.routing.channel_routing',
-#     }
-# }
-
-#CHANNEL_LAYERS = {
-#   "default": {
-#        # This example app uses the Redis channel layer implementation channels_redis
-#        "BACKEND": "channels_redis.core.RedisChannelLayer",
-#        "CONFIG": {
-#            "hosts": [(redis_host, 6379)],
-#        },
-#    },
-#}
-
-# ASGI_APPLICATION = 'naits_voting.routing.application'
-
-# EMAIL
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
-
-
 ##### Project-specific settings
 
 NOTIFY_USERS_ON_ENTER_OR_LEAVE_ROOMS = True
@@ -216,3 +167,5 @@ MESSAGE_TYPES_LIST = [
     MSG_TYPE_ENTER,
     MSG_TYPE_LEAVE,
 ]
+
+ASGI_APPLICATION = 'naits_voting.routing.application'

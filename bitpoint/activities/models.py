@@ -98,7 +98,7 @@ class Notification(models.Model):
         (ALSO_COMMENTED, 'Also Commented'),
         (LOGGED_IN, 'Logged In'),
         (LOGGED_OUT, 'Logged Out'),
-        )
+    )
 
     _COMMENTED_TEMPLATE = '<a href="/{0}/">{1}</a> commented on your post: <a href="/feeds/{2}/">{3}</a>'  # noqa: E501
     _FAVORITED_TEMPLATE = '<a href="/{0}/">{1}</a> favorited your question: <a href="/questions/{2}/">{3}</a>'  # noqa: E501
@@ -127,9 +127,9 @@ class Notification(models.Model):
         verbose_name = 'Notification'
         verbose_name_plural = 'Notifications'
         ordering = ('-date',)
-
+    
     def __str__(self):
-    	if self.notification_type == self.COMMENTED:
+        if self.notification_type == self.COMMENTED:
             return self._COMMENTED_TEMPLATE.format(
                 escape(self.from_user.ID_Number),
                 escape(self.from_user.profile.get_screen_name()),

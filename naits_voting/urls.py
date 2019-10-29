@@ -1,48 +1,27 @@
-"""naits_voting URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib.auth import views
 from django.contrib import admin
 from bitpoint.authentication.views import profile as profile_view
 from bitpoint.activities import views as activities_views
 
 from .import settings
-from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 
 
 urlpatterns = [
-	url(r'^', include('bitpoint.voting.urls')),
-    url(r'^settings/', include('bitpoint.authentication.urls')),
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-	url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^admin/', admin.site.urls),
-    url(r'^articles/', include('bitpoint.articles.urls')),
-    url(r'^accounts/login/$', views.login, name='login'),
-    url(r'^messages/', include('bitpoint.messenger.urls')),
-    url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/accounts/login'}),
-    url(r'^p/(.*)$', profile_view, name='profile'),
+	path('', include('bitpoint.voting.urls')),
+    path('settings/', include('bitpoint.authentication.urls')),
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+	path('jet/', include('jet.urls', 'jet')),
+    path('admin/', admin.site.urls),
+    path('articles/', include('bitpoint.articles.urls')),
 
-    url(r'^notifications/$', activities_views.notifications,
-        name='notifications'),
-    url(r'^notifications/last/$', activities_views.last_notifications,
-        name='last_notifications'),
-    url(r'^notifications/check/$', activities_views.check_notifications,
+    path('accounts/login/', views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('accounts/logout/', views.LoginView.as_view(template_name='registration/login.html'), name='logout', kwargs={'next_page': '/accounts/login'}),
+    path('messages/', include('bitpoint.messenger.urls')),
+    path('user/<int:student_id>/', profile_view, name='profile'),
+    path('notifications/', activities_views.notifications, name='notifications'),
+    path('notifications/last/', activities_views.last_notifications, name='last_notifications'),
+    path('notifications/check/', activities_views.check_notifications,
         name='check_notifications'),
-]
-
-urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
