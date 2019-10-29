@@ -43,7 +43,7 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.get_screen_name }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{% url 'profile' user.ID_Number %}">{% trans 'My Profile' %}</a></li>
+                    <li><a href="{% url 'profile' student_id=user.id %}">{% trans 'My Profile' %}</a></li>
                     <li><a href="/admin/voting">{% trans 'Elecom Area' %}</a></li>
                     <li><a href="{% url 'edit_profile' %}">{% trans 'Account Settings' %}</a></li>
                     <li class="divider"></li>
