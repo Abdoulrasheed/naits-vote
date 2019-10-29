@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from taggit.models import Tag
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from bitpoint.authentication.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
@@ -74,3 +74,5 @@ class UserAdmin(DjangoUserAdmin):
 admin.site.site_header = "NAITS - Online Voting"
 admin.site.site_title = "NAITS - Mautech"
 admin.site.index_title = "NAIT Election Commitee | Administration"
+admin.site.unregister(Group)
+admin.site.unregister(Tag)
