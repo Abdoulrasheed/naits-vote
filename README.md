@@ -1,11 +1,11 @@
-#An Advance django Poll App 
+# An Advance django Poll App 
 
-#FEARURES
->Voting Capabilities
+# FEARURES
+> Voting Capabilities
 
->Messenger
+> Messenger
 
->Group Discussion
+> Group Discussion
 
->Articles Update (with upvote and downvote)
+> Articles Update (with upvote and downvote)
 
